@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "340263201184",
+    "firebase_url": "https://daancorona-9bb5f.firebaseio.com",
+    "project_id": "daancorona-9bb5f",
+    "storage_bucket": "daancorona-9bb5f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:340263201184:android:17b61d0a086518a741dcc5",
+        "android_client_info": {
+          "package_name": "com.lendeasy.daancorona"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "340263201184-1eub2en1m1aacof312j1n74k7klh0sf6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lendeasy.daancorona",
+            "certificate_hash": "3ec13ce94dc184815d2d0ae99fb86ce542a52c2e"
+          }
+        },
+        {
+          "client_id": "340263201184-onevvjrpp2gfrsd6jgsu5abv2i9e5r7g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCE6MzOZGh2HwsRIX7d9hoUHbcjK5bfJns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "340263201184-onevvjrpp2gfrsd6jgsu5abv2i9e5r7g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
