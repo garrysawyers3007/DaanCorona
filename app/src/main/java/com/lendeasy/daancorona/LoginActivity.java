@@ -117,8 +117,6 @@ public class LoginActivity extends AppCompatActivity {
             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
             finish();
-
-
         }
 
         @Override
