@@ -10,12 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
-
     private View view;
     public ItemAdapter(){
 
     }
-
 
     @NonNull
     @Override

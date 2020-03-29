@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -31,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="R"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#fff"
             android:textSize="17sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -50,7 +51,7 @@
             android:scrollHorizontally="true"
             android:marqueeRepeatLimit="marquee_forever"
             android:text="Name"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#fff"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -67,7 +68,7 @@
             android:layout_gravity="center_vertical"
             android:maxLines="3"
             android:text="Description"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#fff"
             android:textSize="15sp"
             android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -84,7 +85,7 @@
             android:layout_gravity="center_vertical"
             android:gravity="center"
             android:text="Money"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#fff"
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
