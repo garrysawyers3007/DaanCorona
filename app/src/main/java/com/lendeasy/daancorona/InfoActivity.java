@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.icu.text.IDNA;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -54,25 +55,16 @@ public class InfoActivity extends AppCompatActivity {
         address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4194");
-                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                mapIntent.setPackage("com.google.android.apps.maps");
-                if (mapIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(mapIntent);
-                }
+                Intent intent = new Intent(InfoActivity.this,MapActivity.class);
+                startActivity(intent);
             }
         });
 
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-//                if (username.isEmpty() || emailId.isEmpty() || shopAddress.isEmpty()){
-//                    Toast.makeText(InfoActivity.this, "Please enter all fields", Toast.LENGTH_SHORT).show();
-//                }else{
                     Intent intent = new Intent(InfoActivity.this,MainActivity.class);
                     startActivity(intent);
-              //  }
             }
         });
     }
