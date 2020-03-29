@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/app_bg2"
     tools:context=".MainActivity">
 
     <RelativeLayout
@@ -17,12 +18,13 @@
         android:id="@+id/holder"
         android:elevation="5dp"
         android:background="@drawable/bg">
+
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#fff"
             android:textSize="24sp"
             android:layout_centerHorizontal="true"/>
         <TextView
@@ -31,7 +33,7 @@
             android:layout_height="wrap_content"
             android:text="Target"
             android:layout_below="@+id/name"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#fff"
             android:textSize="20sp"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="17dp"
@@ -42,7 +44,7 @@
             android:layout_height="wrap_content"
             android:text="Balance"
             android:layout_below="@+id/name"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#fff"
             android:textSize="20sp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="17dp"
@@ -53,7 +55,7 @@
             android:layout_height="wrap_content"
             android:text="0"
             android:layout_below="@+id/tgttext"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#fff"
             android:textSize="20sp"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="17dp"
@@ -64,7 +66,7 @@
             android:layout_height="wrap_content"
             android:text="0"
             android:layout_below="@+id/blctext"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#fff"
             android:textSize="20sp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="17dp"
@@ -75,7 +77,7 @@
             android:layout_height="wrap_content"
             android:text="Score"
             android:layout_below="@+id/name"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#fff"
             android:textSize="20sp"
             android:layout_centerHorizontal="true"
             android:layout_marginRight="17dp"
@@ -86,7 +88,7 @@
             android:layout_height="wrap_content"
             android:text="0"
             android:layout_below="@+id/timetxt"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#fff"
             android:textSize="20sp"
             android:layout_centerHorizontal="true"
             android:layout_marginRight="40dp"
@@ -98,10 +100,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Donations"
-        android:textColor="@color/colorPrimary"
+        android:textColor="#fff"
         android:textSize="30sp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/holder"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -11,17 +11,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class InfoActivity extends AppCompatActivity {
 
-    private EditText email,address,name;
-    private Button proceed;
+    private EditText email,name,shopName,shopDesc;
+    private Button proceed,address;
     private CircleImageView userImageView,shopImage;
     private static final int USER_IMAGE = 100;
     private static final int SHOP_IMAGE = 101;
-    private boolean userImageSelected = false;
+    String username,emailId,shopAddress;
     Uri userImageURI,shopImageURI;
 
     @Override
@@ -30,6 +31,7 @@ public class InfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_info);
 
         initializeItems();
+        declaration();
 
         userImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +41,7 @@ public class InfoActivity extends AppCompatActivity {
                 startActivityForResult(gallery,USER_IMAGE);
             }
         });
+
         shopImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,15 +50,48 @@ public class InfoActivity extends AppCompatActivity {
                 startActivityForResult(gallery,SHOP_IMAGE);
             }
         });
+
+        address.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4194");
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                if (mapIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(mapIntent);
+                }
+            }
+        });
+
+        proceed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+//                if (username.isEmpty() || emailId.isEmpty() || shopAddress.isEmpty()){
+//                    Toast.makeText(InfoActivity.this, "Please enter all fields", Toast.LENGTH_SHORT).show();
+//                }else{
+                    Intent intent = new Intent(InfoActivity.this,MainActivity.class);
+                    startActivity(intent);
+              //  }
+            }
+        });
+    }
+
+    private void declaration() {
+        username = name.getText().toString();
+        emailId = email.getText().toString();
+        shopAddress = address.getText().toString();
     }
 
     private void initializeItems() {
         email = findViewById(R.id.email);
-        address = findViewById(R.id.address);
+        address = findViewById(R.id.shopLocation);
         name = findViewById(R.id.name);
         proceed = findViewById(R.id.signin);
         userImageView = findViewById(R.id.user_image);
         shopImage = findViewById(R.id.shop_image);
+        shopName = findViewById(R.id.shopName);
+        shopDesc = findViewById(R.id.shopDesc);
 
         userImageView.setImageResource(R.drawable.ic_launcher_background);
         shopImage.setImageResource(R.drawable.ic_launcher_background);

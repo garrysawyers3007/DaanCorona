@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/app_bg2"
     tools:context=".InfoActivity">
 
     <LinearLayout
@@ -22,16 +23,22 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/user_image"
-            android:layout_width="170dp"
-            android:layout_height="170dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:civ_border_color="#000"
+            app:civ_border_width="2dp"
+            android:elevation="10dp"
             android:src="@drawable/ic_launcher_background"
             android:layout_gravity="center_horizontal"/>
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/shop_image"
-                android:layout_width="170dp"
-                android:layout_height="170dp"
-                android:layout_marginStart="20dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                app:civ_border_color="#000"
+                app:civ_border_width="2dp"
+                android:elevation="10dp"
+                android:layout_marginStart="60dp"
                 android:src="@drawable/ic_launcher_background"
                 android:layout_gravity="center_horizontal"/>
 
@@ -42,6 +49,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/name"
             android:inputType="text"
+            android:padding="15dp"
+            android:textColor="#fff"
+            android:textColorHint="#fff"
+            android:background="@drawable/edit_text"
             android:layout_marginTop="50dp"
             android:hint="Your Full Name" />
 
@@ -50,27 +61,57 @@
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:id="@+id/email"
-            android:layout_marginTop="10dp"
+            android:padding="15dp"
+            android:textColor="#fff"
+            android:textColorHint="#fff"
+            android:background="@drawable/edit_text"
+            android:layout_marginTop="20dp"
             android:hint="Email" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPostalAddress"
-            android:id="@+id/address"
-            android:layout_marginTop="10dp"
-            android:hint="Full Shop Address"
-            android:maxLines="5"/>
+            android:id="@+id/shopName"
+            android:background="@drawable/edit_text"
+            android:padding="15dp"
+            android:textColor="#fff"
+            android:textColorHint="#fff"
+            android:layout_marginTop="20dp"
+            android:hint="Shop Name" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/shopDesc"
+            android:background="@drawable/edit_text"
+            android:padding="15dp"
+            android:textColor="#fff"
+            android:textColorHint="#fff"
+            android:layout_marginTop="20dp"
+            android:hint="Shop Description" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Shop Location"
+            android:id="@+id/shopLocation"
+            android:background="@drawable/button"
+            android:elevation="10dp"
+            android:padding="18dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Proceed"
             android:id="@+id/signin"
+            android:background="@drawable/button"
+            android:elevation="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"/>
 
     </LinearLayout>
 
-</RelativeLayout>
+</androidx.core.widget.NestedScrollView>
