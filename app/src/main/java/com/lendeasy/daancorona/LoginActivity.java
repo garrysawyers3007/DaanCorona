@@ -1,12 +1,14 @@
 package com.lendeasy.daancorona;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,15 +27,35 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
     EditText phone,otp;
     Button sendotp,verifyotp;
-    String codeSent,phoneNumber,url="127.08.01.20";
+    String codeSent,code,phoneNumber,url="localhost:3000";
     FirebaseAuth mAuth=FirebaseAuth.getInstance();
 
     @Override
@@ -47,99 +69,136 @@ public class LoginActivity extends AppCompatActivity {
         sendotp=findViewById(R.id.sendotp);
         verifyotp=findViewById(R.id.verifyotp);
 
+        otp.setVisibility(View.GONE);
+        verifyotp.setVisibility(View.GONE);
+
         sendotp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //sendVerificationCode();
+
+                phoneNumber=phone.getText().toString();
+                if(phoneNumber.length()==13)
+                    new GetOtpTask().execute(phoneNumber);
+                else
+                    Toast.makeText(getApplicationContext(),"Invalid phone number",Toast.LENGTH_SHORT).show();
             }
         });
 
         verifyotp.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                if(otp.getText().toString().equals("123456") && phone.getText().toString().length()==10){
-                    Intent i = new Intent(LoginActivity.this, InfoActivity.class);
-                            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(i);
-                            finish();
-                }
+
+                code=otp.getText().toString();
+                    new VerifyOtpTask().execute(phoneNumber,code);
+
                 //verifySignIn();
             }
         });
     }
 
-//    private void verifySignIn(){
-//        String code=otp.getText().toString();
-//        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(codeSent, code);
-//        signInWithPhoneAuthCredential(credential);
-//    }
-//
-//    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-//        mAuth.signInWithCredential(credential)
-//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//                            // Sign in success, update UI with the signed-in user's information
-//                            Log.d("TAG", "signInWithCredential:success");
-//
-//                            FirebaseUser user = task.getResult().getUser();
-//                            Intent i = new Intent(LoginActivity.this, MainActivity.class);
-//                            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                            startActivity(i);
-//                            finish();
-//                            // ...
-//                        } else {
-//                            // Sign in failed, display a message and update the UI
-//                            Log.w("TAG", "signInWithCredential:failure", task.getException());
-//                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-//                                // The verification code entered was invalid
-//                            }
-//                        }
-//                    }
-//                });
-//    }
-//
-//    private void sendVerificationCode(){
-//        phoneNumber=phone.getText().toString();
-//        //phoneNumber="+91"+phoneNumber;
-//
-//        if(phoneNumber.isEmpty()){
-//            Toast.makeText(this,"Invalid",Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-//                phoneNumber,        // Phone number to verify
-//                60,                 // Timeout duration
-//                TimeUnit.SECONDS,   // Unit of timeout
-//                this,               // Activity (for callback binding)
-//                mCallbacks);        // OnVerificationStateChangedCallbacks
-//    }
-//
-//    PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks=new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-//        @Override
-//        public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-//            Intent i = new Intent(LoginActivity.this, MainActivity.class);
-//            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            startActivity(i);
-//            finish();
-//        }
-//
-//        @Override
-//        public void onVerificationFailed(@NonNull FirebaseException e) {
-//            Log.d("TAG","Nahi");
-//
-//        }
-//
-//        @Override
-//        public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-//            super.onCodeSent(s, forceResendingToken);
-//
-//            Log.d("TAG","Gaya");
-//            codeSent=s;
-//        }
-//    };
+    class GetOtpTask extends AsyncTask<String,Void,String>{
 
+        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+        @Override
+        protected String doInBackground(String... strings) {
+
+             final OkHttpClient httpClient = new OkHttpClient();
+             Log.d("Ph No.",strings[0]);
+                RequestBody formbody=new FormBody.Builder()
+                        .addEncoded("mobile",strings[0])
+                        .build();
+
+                Request request = new Request.Builder()
+                        .url("https://daancorona.pythonanywhere.com/api/mobile/")
+                        .post(formbody)
+                        .build();
+
+            try (Response response = httpClient.newCall(request).execute()) {
+
+                if (!response.isSuccessful())
+                    throw new IOException("Unexpected code " + response);
+
+                Log.d("Tag",response.body()+"");
+
+                JSONObject jsonObject=new JSONObject(response.body().string());
+                codeSent= jsonObject.getString("otp");
+
+                return codeSent;
+
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+            }
+
+            //return Integer.valueOf(content);
+                //Toast.makeText(getApplicationContext(),content,Toast.LENGTH_SHORT).show();
+
+
+            return null;
+
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+
+            Toast.makeText(getApplicationContext(),"code:"+s,Toast.LENGTH_SHORT).show();
+            super.onPostExecute(s);
+
+
+            otp.setVisibility(View.VISIBLE);
+            otp.setText(s);
+            verifyotp.setVisibility(View.VISIBLE);
+
+            phone.setVisibility(View.GONE);
+            sendotp.setVisibility(View.GONE);
+        }
+    }
+
+
+    class VerifyOtpTask extends AsyncTask<String,Void,String>{
+
+        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+        @Override
+        protected String doInBackground(String... strings) {
+
+            final OkHttpClient httpClient = new OkHttpClient();
+
+            RequestBody formbody=new FormBody.Builder()
+                    .addEncoded("mobile",strings[0])
+                    .addEncoded("token",strings[1])
+                    .build();
+
+            Request request = new Request.Builder()
+                    .url("https://daancorona.pythonanywhere.com/api/otp/")
+                    .post(formbody)
+                    .build();
+
+            try (Response response = httpClient.newCall(request).execute()) {
+
+                if (!response.isSuccessful())
+                    throw new IOException("Unexpected code " + response);
+
+                Log.d("Tag",response.body()+"");
+
+                JSONObject jsonObject=new JSONObject(response.body().string());
+                codeSent= jsonObject.getString("token");
+
+                return codeSent;
+
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+
+
+            super.onPostExecute(s);
+
+        }
+    }
 
 }

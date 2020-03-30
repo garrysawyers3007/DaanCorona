@@ -71,28 +71,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="17dp"
             android:layout_marginTop="3dp"/>
-        <TextView
-            android:id="@+id/timetxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Score"
-            android:layout_below="@+id/name"
-            android:textColor="#fff"
-            android:textSize="20sp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginRight="17dp"
-            android:layout_marginTop="10dp"/>
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:layout_below="@+id/timetxt"
-            android:textColor="#fff"
-            android:textSize="20sp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="3dp"/>
+
     </RelativeLayout>
 
     <TextView
