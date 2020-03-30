@@ -16,34 +16,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseException;
-import com.google.firebase.auth.AuthResult;
+
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthProvider;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -57,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     Button sendotp,verifyotp;
     String codeSent,code,phoneNumber,url="localhost:3000";
     FirebaseAuth mAuth=FirebaseAuth.getInstance();
+    boolean user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 phoneNumber=phone.getText().toString();
-                if(phoneNumber.length()==13)
+                if(phoneNumber.length()==10)
                     new GetOtpTask().execute(phoneNumber);
                 else
                     Toast.makeText(getApplicationContext(),"Invalid phone number",Toast.LENGTH_SHORT).show();
@@ -141,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
 
-            Toast.makeText(getApplicationContext(),"code:"+s,Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"code:"+s,Toast.LENGTH_LONG).show();
             super.onPostExecute(s);
 
 
@@ -160,6 +140,8 @@ public class LoginActivity extends AppCompatActivity {
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override
         protected String doInBackground(String... strings) {
+
+            String access,refresh;
 
             final OkHttpClient httpClient = new OkHttpClient();
 
@@ -181,9 +163,14 @@ public class LoginActivity extends AppCompatActivity {
                 Log.d("Tag",response.body()+"");
 
                 JSONObject jsonObject=new JSONObject(response.body().string());
-                codeSent= jsonObject.getString("token");
+                JSONObject jsonObject1=jsonObject.getJSONObject("token");
 
-                return codeSent;
+                access=jsonObject1.getString("access");
+                refresh=jsonObject1.getString("refresh");
+
+                user=jsonObject.getBoolean("newUser");
+
+                return access;
 
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
@@ -195,8 +182,28 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
 
-
             super.onPostExecute(s);
+
+            if(s==null)
+                Toast.makeText(LoginActivity.this,"Unsuccessful",Toast.LENGTH_SHORT).show();
+
+            SharedPreferences sharedPref=getSharedPreferences("User",MODE_PRIVATE);
+            SharedPreferences.Editor editor=sharedPref.edit();
+            editor.putString("Token",s);
+            editor.commit();
+
+            if(user) {
+                Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+                finish();
+            }
+            else{
+                Intent i = new Intent(LoginActivity.this, InfoActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+                finish();
+            }
 
         }
     }
