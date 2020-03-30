@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText phone,otp;
     Button sendotp,verifyotp;
-    String codeSent,phoneNumber;
+    String codeSent,phoneNumber,url="127.08.01.20";
     FirebaseAuth mAuth=FirebaseAuth.getInstance();
 
     @Override
@@ -49,16 +50,22 @@ public class LoginActivity extends AppCompatActivity {
         sendotp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendVerificationCode();
+                //sendVerificationCode();
             }
         });
 
-//        verifyotp.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                verifySignIn();
-//            }
-//        });
+        verifyotp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(otp.getText().toString().equals("123456") && phone.getText().toString().length()==10){
+                    Intent i = new Intent(LoginActivity.this, InfoActivity.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(i);
+                            finish();
+                }
+                //verifySignIn();
+            }
+        });
     }
 
 //    private void verifySignIn(){
@@ -66,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
 //        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(codeSent, code);
 //        signInWithPhoneAuthCredential(credential);
 //    }
-
+//
 //    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
 //        mAuth.signInWithCredential(credential)
 //                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -92,12 +99,8 @@ public class LoginActivity extends AppCompatActivity {
 //                    }
 //                });
 //    }
-
-    private void sendVerificationCode(){
-
-        Intent intent = new Intent(LoginActivity.this,InfoActivity.class);
-        startActivity(intent);
-
+//
+//    private void sendVerificationCode(){
 //        phoneNumber=phone.getText().toString();
 //        //phoneNumber="+91"+phoneNumber;
 //
@@ -112,8 +115,8 @@ public class LoginActivity extends AppCompatActivity {
 //                TimeUnit.SECONDS,   // Unit of timeout
 //                this,               // Activity (for callback binding)
 //                mCallbacks);        // OnVerificationStateChangedCallbacks
-    }
-
+//    }
+//
 //    PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks=new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 //        @Override
 //        public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
@@ -137,4 +140,6 @@ public class LoginActivity extends AppCompatActivity {
 //            codeSent=s;
 //        }
 //    };
+
+
 }
