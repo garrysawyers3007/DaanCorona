@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -42,6 +43,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private Location currentLocation;
     private MarkerOptions markerOptions1;
     private Marker m;
+    private Button ok;
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE =1234;
     private static final float DEFAULT_ZOOM = 17.5f;
@@ -52,6 +54,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+        ok = findViewById(R.id.ok);
         getLocationPermission();
     }
 
@@ -150,6 +154,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 map.clear();
                 m = map.addMarker(markerOptions1);
                 m.setVisible(true);
+                ok.setVisibility(View.VISIBLE);
+
+                ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(MapActivity.this,InfoActivity.class);
+                        intent.putExtra("lat",latLng.latitude);
+                        intent.putExtra("lng",latLng.longitude);
+                        startActivity(intent);
+                    }
+                });
             }
         });
     }

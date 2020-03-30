@@ -27,7 +27,6 @@ public class GetTask extends AsyncTask {
             while ((line = rd.readLine()) != null) {
                 content += line + "\n";
             }
-
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (ProtocolException e) {
@@ -35,7 +34,6 @@ public class GetTask extends AsyncTask {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 

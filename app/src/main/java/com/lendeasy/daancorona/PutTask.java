@@ -24,7 +24,6 @@ public class PutTask extends AsyncTask<String,Void,String> {
 
             out.write(strings[0]);
             out.close();
-
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (ProtocolException e) {
@@ -32,7 +31,6 @@ public class PutTask extends AsyncTask<String,Void,String> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 

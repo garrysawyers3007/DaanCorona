@@ -71,12 +71,10 @@ public class LoginActivity extends AppCompatActivity {
 
                 code=otp.getText().toString();
                     new VerifyOtpTask().execute(phoneNumber,code);
-
                 //verifySignIn();
             }
         });
     }
-
     class GetOtpTask extends AsyncTask<String,Void,String>{
 
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -109,13 +107,7 @@ public class LoginActivity extends AppCompatActivity {
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
-
-            //return Integer.valueOf(content);
-                //Toast.makeText(getApplicationContext(),content,Toast.LENGTH_SHORT).show();
-
-
             return null;
-
         }
 
         @Override
@@ -123,7 +115,6 @@ public class LoginActivity extends AppCompatActivity {
 
             Toast.makeText(getApplicationContext(),"code:"+s,Toast.LENGTH_LONG).show();
             super.onPostExecute(s);
-
 
             otp.setVisibility(View.VISIBLE);
             otp.setText(s);
