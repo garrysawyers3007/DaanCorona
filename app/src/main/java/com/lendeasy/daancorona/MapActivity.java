@@ -41,18 +41,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private GoogleMap map;
     private Location currentLocation;
     private MarkerOptions markerOptions1;
+    private Marker m;
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE =1234;
     private static final float DEFAULT_ZOOM = 17.5f;
     private Boolean mLocationPermissionsGranted = false;
     private static final String TAG = "MapFragment";
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-
         getLocationPermission();
     }
 
@@ -60,12 +59,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         // Obtain the SupportMapFragment and get notified when map is ready to be used
         assert getFragmentManager() != null;
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync((OnMapReadyCallback) this);
+        mapFragment.getMapAsync(this);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void getDeviceLocation(){
-        FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(Objects.requireNonNull(this));
+        FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         try{
             if (mLocationPermissionsGranted){
                 final Task location = fusedLocationProviderClient.getLastLocation();
@@ -109,7 +107,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     private void getLocationPermission(){
         Log.d("isnull","Null");
 
@@ -123,7 +120,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
@@ -151,14 +147,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             public void onMapClick(final LatLng latLng) {
                 markerOptions1 = new MarkerOptions();
                 markerOptions1.position(latLng);
+                map.clear();
+                m = map.addMarker(markerOptions1);
+                m.setVisible(true);
             }
         });
     }
 
     // gps dialog box
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void showGPSDisabledAlertToUser() {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Objects.requireNonNull(this));
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage("GPS is disabled in your device. Would you like to enable it?")
                 .setCancelable(false)
                 .setPositiveButton("Goto Settings Page To Enable GPS",
