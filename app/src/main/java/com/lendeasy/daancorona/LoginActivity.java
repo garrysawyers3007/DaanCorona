@@ -161,8 +161,6 @@ public class LoginActivity extends AppCompatActivity {
                 newuser=jsonObject.getBoolean("newUser");
                 Log.d("NewUser",newuser+"");
 
-
-
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
@@ -184,10 +182,10 @@ public class LoginActivity extends AppCompatActivity {
             SharedPreferences.Editor editor=sharedPref.edit();
             editor.putString("Token",s);
             editor.apply();
-            Toast.makeText(LoginActivity.this, "Token: "+s, Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "Token: "+ s, Toast.LENGTH_SHORT).show();
 
             if(!newuser) {
-                Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                Intent i = new Intent(LoginActivity.this, InfoActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
                 finish();

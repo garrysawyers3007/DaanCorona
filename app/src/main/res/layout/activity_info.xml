@@ -122,7 +122,6 @@
             android:id="@+id/signin"
             android:background="@drawable/button"
             android:elevation="10dp"
-            android:enabled="false"
             android:layout_marginTop="15dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"/>

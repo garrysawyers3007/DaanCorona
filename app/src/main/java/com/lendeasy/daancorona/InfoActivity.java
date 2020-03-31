@@ -45,25 +45,12 @@ public class InfoActivity extends AppCompatActivity {
     Uri userImageURI, shopImageURI;
 
     @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString("firstName",firstName);
-        outState.putString("lastName",lastName);
-        outState.putString("shopName",shopName);
-        outState.putString("shopType",shopType);
-        outState.putString("shopAddress",shopAddress);
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
 
         initializeItems();
-        declaration(savedInstanceState);
-
-        latitude = Float.toString(lat);
-        longitude = Float.toString(lng);
+        declaration();
 
         userImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,46 +70,27 @@ public class InfoActivity extends AppCompatActivity {
             }
         });
 
-        sharedPreference();
         location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(InfoActivity.this, MapActivity.class);
                 startActivity(intent);
-
-                Intent intent1 = getIntent();
-                intent1.getFloatExtra("lat",lat);
-                intent1.getFloatExtra("lng",lng);
-                setEditTextData();
             }
         });
 
-        new sendDataTask().execute(firstName,lastName,shopName,shopType,latitude,longitude,shopAddress);
-    }
+        Intent intent1 = getIntent();
+        intent1.getFloatExtra("lat",lat);
+        intent1.getFloatExtra("lng",lng);
+        latitude = Float.toString(lat);
+        longitude = Float.toString(lng);
 
-    void sharedPreference(){
-        SharedPreferences sharedPref=getSharedPreferences("User",MODE_PRIVATE);
-        SharedPreferences.Editor editor=sharedPref.edit();
+        proceed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new sendDataTask().execute(firstName,lastName,shopName,shopType,latitude,longitude,shopAddress);
+            }
+        });
 
-        editor.commit();
-    }
-
-    void setEditTextData(){
-        first_name.setText(getSharedPreferences("User",MODE_PRIVATE).getString("firstName",null));
-        last_name.setText(getSharedPreferences("User",MODE_PRIVATE).getString("lastName",null));
-        shop_name.setText(getSharedPreferences("User",MODE_PRIVATE).getString("shopName",null));
-        shop_type.setText(getSharedPreferences("User",MODE_PRIVATE).getString("shopType",null));
-        address.setText(getSharedPreferences("User",MODE_PRIVATE).getString("shopAddress",null));
-    }
-
-    private void declaration(Bundle savedInstanceState) {
-        if (savedInstanceState != null){
-            firstName = savedInstanceState.getString("firstName");
-            lastName = savedInstanceState.getString("lastName");
-            shopName = savedInstanceState.getString("shopName");
-            shopType = savedInstanceState.getString("shopType");
-            shopAddress = savedInstanceState.getString("shopAddress");
-        }
     }
 
     private void initializeItems() {
@@ -140,7 +108,13 @@ public class InfoActivity extends AppCompatActivity {
         shopImage.setImageResource(R.drawable.ic_launcher_background);
     }
 
-
+    private void declaration() {
+        firstName = first_name.getText().toString();
+        lastName = last_name.getText().toString();
+        shopName = shop_name.getText().toString();
+        shopType = shop_type.getText().toString();
+        shopAddress = address.getText().toString();
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -194,14 +168,8 @@ public class InfoActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            proceed.setEnabled(true);
-            proceed.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(InfoActivity.this, MainActivity.class);
-                    startActivity(intent);
-                }
-            });
+            Intent intent = new Intent(InfoActivity.this, MainActivity.class);
+            startActivity(intent);
         }
     }
 }
