@@ -1,6 +1,5 @@
 package com.lendeasy.daancorona;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -118,7 +117,6 @@ public class LoginActivity extends AppCompatActivity {
             super.onPostExecute(s);
 
             otp.setVisibility(View.VISIBLE);
-            otp.setText(s);
             verifyotp.setVisibility(View.VISIBLE);
 
             phone.setVisibility(View.GONE);
@@ -177,13 +175,16 @@ public class LoginActivity extends AppCompatActivity {
 
             super.onPostExecute(s);
 
-            if(s==null)
-                Toast.makeText(LoginActivity.this,"Unsuccessful",Toast.LENGTH_SHORT).show();
+            if(s==null) {
+                Toast.makeText(LoginActivity.this, "Error!!!", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             SharedPreferences sharedPref=getSharedPreferences("User",MODE_PRIVATE);
             SharedPreferences.Editor editor=sharedPref.edit();
             editor.putString("Token",s);
-            editor.commit();
+            editor.apply();
+            Toast.makeText(LoginActivity.this, "Token: "+s, Toast.LENGTH_SHORT).show();
 
             if(!newuser) {
                 Intent i = new Intent(LoginActivity.this, MainActivity.class);

@@ -28,7 +28,7 @@
             android:textColor="#fff"
             android:background="@drawable/edit_text"
             android:inputType="phone"
-            android:hint="Enter Phone" />
+            android:hint="Enter Phone(E.g +91XXXXXXXXXX)" />
 
         <Button
             android:layout_width="match_parent"

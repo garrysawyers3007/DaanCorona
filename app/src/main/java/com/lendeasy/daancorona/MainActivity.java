@@ -120,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
                 return jsonObject.getJSONArray("donors");
 
 
-
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
@@ -144,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
                     recyclerView=findViewById(R.id.recyclerview);
                     recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                    itemAdapter=new ItemAdapter(list);
+                    itemAdapter=new ItemAdapter(list,MainActivity.this);
 
                     recyclerView.setAdapter(itemAdapter);
                 }
