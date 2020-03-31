@@ -11,20 +11,27 @@ import android.os.Build;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     ItemAdapter itemAdapter;
-    String nametxt,net;
+    String nametxt,net,maxcred;
     TextView name,maxcredit,netamt;
     String token;
 
@@ -40,12 +47,8 @@ public class MainActivity extends AppCompatActivity {
         maxcredit=findViewById(R.id.target);
         netamt=findViewById(R.id.balance);
 
-
-        recyclerView=findViewById(R.id.recyclerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        itemAdapter=new ItemAdapter();
-
-        recyclerView.setAdapter(itemAdapter);
+        new SetProfile().execute();
+        new SetRecyclerView().execute();
 
     }
 
@@ -58,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
             final OkHttpClient httpClient = new OkHttpClient();
 
             Request request = new Request.Builder()
-                    .url("https://www.daancorona.pythonanywhere.com/api/recipient_profile/")
-                    .addHeader("Authentication", token)
+                    .url("https://www.daancorona.pythonanywhere.com/api/recipient_details/")
+                    .header("Authentication", token)
                     .build();
 
             try (Response response = httpClient.newCall(request).execute()) {
@@ -68,7 +71,10 @@ public class MainActivity extends AppCompatActivity {
                     throw new IOException("Unexpected code " + response);
 
                 JSONObject jsonObject=new JSONObject(response.body().string());
-                nametxt=jsonObject.getString("first_name")+" "+jsonObject.getString("last_name");
+                nametxt=jsonObject.getString("name");
+                net=jsonObject.getString("total_amt");
+                maxcred=jsonObject.getString("max_credit");
+                return new String[]{nametxt,net,maxcred};
                 // Get response body
 
             } catch (IOException | JSONException e) {
@@ -81,6 +87,71 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String... s) {
 
             super.onPostExecute(s);
+            if(s!=null){
+
+                name.setText(s[0]);
+                netamt.setText(s[1]);
+                maxcredit.setText(s[2]);
+
+            }
+        }
+    }
+
+    class SetRecyclerView extends AsyncTask<Void,Void,JSONArray>{
+        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+        @Override
+        protected JSONArray doInBackground(Void... voids) {
+
+
+            final OkHttpClient httpClient = new OkHttpClient();
+
+            Request request = new Request.Builder()
+                    .url("https://www.daancorona.pythonanywhere.com/api/recipient_details/")
+                    .header("Authentication", token)
+                    .build();
+
+            try (Response response = httpClient.newCall(request).execute()) {
+
+                if (!response.isSuccessful())
+                    throw new IOException("Unexpected code " + response);
+
+                JSONObject jsonObject=new JSONObject(response.body().string());
+
+                return jsonObject.getJSONArray("donors");
+
+
+
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JSONArray jsonArray) {
+            super.onPostExecute(jsonArray);
+
+            try {
+                ArrayList<Item> list = new ArrayList<>();
+                if (jsonArray != null) {
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        list.add(new Item(jsonObject.getString("name"),jsonObject.getString("donor_id"),jsonObject.getString("amount")));
+                    }
+
+
+                    recyclerView=findViewById(R.id.recyclerview);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                    itemAdapter=new ItemAdapter(list);
+
+                    recyclerView.setAdapter(itemAdapter);
+                }
+            }catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
+

@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     Button sendotp,verifyotp;
     String codeSent,code,phoneNumber,url="localhost:3000";
     FirebaseAuth mAuth=FirebaseAuth.getInstance();
-    boolean user;
+    boolean newuser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 phoneNumber=phone.getText().toString();
-                if(phoneNumber.length()==10)
+//                phoneNumber=phoneNumber.trim();
+                if(phoneNumber.length()==13)
                     new GetOtpTask().execute(phoneNumber);
                 else
                     Toast.makeText(getApplicationContext(),"Invalid phone number",Toast.LENGTH_SHORT).show();
@@ -113,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
 
-            Toast.makeText(getApplicationContext(),"code:"+s,Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(),"code:"+s,Toast.LENGTH_LONG).show();
             super.onPostExecute(s);
 
             otp.setVisibility(View.VISIBLE);
@@ -132,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
 
-            String access,refresh;
+            String access="",refresh="";
 
             final OkHttpClient httpClient = new OkHttpClient();
 
@@ -159,15 +160,16 @@ public class LoginActivity extends AppCompatActivity {
                 access=jsonObject1.getString("access");
                 refresh=jsonObject1.getString("refresh");
 
-                user=jsonObject.getBoolean("newUser");
+                newuser=jsonObject.getBoolean("newUser");
+                Log.d("NewUser",newuser+"");
 
-                return access;
+
 
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
 
-            return null;
+            return access;
         }
 
         @Override
@@ -183,7 +185,7 @@ public class LoginActivity extends AppCompatActivity {
             editor.putString("Token",s);
             editor.commit();
 
-            if(user) {
+            if(!newuser) {
                 Intent i = new Intent(LoginActivity.this, MainActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);

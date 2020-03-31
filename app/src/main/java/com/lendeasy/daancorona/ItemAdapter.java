@@ -11,8 +11,9 @@ import java.util.ArrayList;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     private View view;
-    public ItemAdapter(){
-
+    ArrayList<Item> list;
+    public ItemAdapter(ArrayList<Item> list){
+        this.list=list;
     }
 
     @NonNull
@@ -29,7 +30,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return 10;
+        return list.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
