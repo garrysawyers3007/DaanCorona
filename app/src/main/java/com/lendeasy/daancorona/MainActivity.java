@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                     throw new IOException("Unexpected code " + response);
 
                 JSONObject jsonObject=new JSONObject(response.body().string());
-                nametxt=jsonObject.getString("name");
+                nametxt=jsonObject.getString("first_name");
                 net=jsonObject.getString("total_amt");
                 maxcred=jsonObject.getString("max_credit");
 
@@ -93,11 +93,9 @@ public class MainActivity extends AppCompatActivity {
 
             super.onPostExecute(s);
             if(s!=null){
-
                 name.setText(s[0]);
                 netamt.setText(s[1]);
                 maxcredit.setText(s[2]);
-
             }
         }
     }

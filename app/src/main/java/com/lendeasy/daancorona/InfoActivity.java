@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.icu.text.IDNA;
+import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -24,10 +25,13 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -41,7 +45,7 @@ public class InfoActivity extends AppCompatActivity {
     private static final int USER_IMAGE = 100;
     private static final int SHOP_IMAGE = 101;
     String shopName,firstName,lastName,shopType,latitude,longitude,shopAddress;
-    float lat,lng;
+    double lat,lng;
     Uri userImageURI, shopImageURI;
     String token;
 
@@ -83,10 +87,10 @@ public class InfoActivity extends AppCompatActivity {
         });
 
         Intent intent1 = getIntent();
-        intent1.getFloatExtra("lat",lat);
-        intent1.getFloatExtra("lng",lng);
-        latitude = Float.toString(lat);
-        longitude = Float.toString(lng);
+        intent1.getDoubleExtra("lat",lat);
+        intent1.getDoubleExtra("lng",lng);
+        latitude = Double.toString(lat);
+        longitude = Double.toString(lng);
 
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,15 +145,31 @@ public class InfoActivity extends AppCompatActivity {
 
             final OkHttpClient httpClient = new OkHttpClient();
 
-            RequestBody formBody = new FormBody.Builder()
-                    .addEncoded("first_name",strings[0])
-                    .addEncoded("last_name",strings[1])
-                    .addEncoded("business_name",strings[2])
-                    .addEncoded("business_type",strings[3])
-                    .addEncoded("lat",strings[4])
-                    .addEncoded("lng",strings[5])
-                    .addEncoded("address",strings[6])
-                    .addEncoded("recipient_photo","")
+//            RequestBody formBody = new FormBody.Builder()
+//                    .addEncoded("first_name",strings[0])
+//                    .addEncoded("last_name",strings[1])
+//                    .addEncoded("business_name",strings[2])
+//                    .addEncoded("business_type",strings[3])
+//                    .addEncoded("lat",strings[4])
+//                    .addEncoded("lng",strings[5])
+//                    .addEncoded("address",strings[6])
+//                    .addEncoded("recipient_photo","")
+//                    .build();
+
+            final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
+            File user = new File(userImageURI.getPath());
+            File shop = new File(shopImageURI.toString());
+
+            RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                    .addFormDataPart("first_name",strings[0])
+                    .addFormDataPart("last_name",strings[1])
+                    .addFormDataPart("business_name",strings[2])
+                    .addFormDataPart("business_type",strings[3])
+                    .addFormDataPart("lat",strings[4])
+                    .addFormDataPart("lng",strings[5])
+                    .addFormDataPart("address",strings[6])
+                    .addFormDataPart("recipient_photo",user.getName(),RequestBody.create(MEDIA_TYPE_PNG,user))
+                    .addFormDataPart("business_photo",shop.getName(),RequestBody.create(MEDIA_TYPE_PNG,shop))
                     .build();
 
             Request request = new Request.Builder()
