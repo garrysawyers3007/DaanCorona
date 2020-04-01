@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
             Request request = new Request.Builder()
                     .url("http://www.daancorona.pythonanywhere.com/api/recipient_details/")
-                    .header("Authorization","JWT "+token)
+                    .addHeader("Authorization","JWT "+token)
                     .build();
 
             try (Response response = httpClient.newCall(request).execute()) {

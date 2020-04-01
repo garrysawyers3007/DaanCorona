@@ -27,7 +27,8 @@
             android:layout_height="130dp"
             app:civ_border_color="#000"
             app:civ_border_width="2dp"
-            android:layout_marginStart="20dp"
+            android:tooltipText="your image"
+            android:layout_marginLeft="20dp"
             android:elevation="10dp"
             android:src="@drawable/ic_launcher_background"
             android:layout_gravity="center_horizontal"/>
@@ -38,8 +39,9 @@
                 android:layout_height="130dp"
                 app:civ_border_color="#000"
                 app:civ_border_width="2dp"
+                android:tooltipText="shop image"
                 android:elevation="10dp"
-                android:layout_marginStart="60dp"
+                android:layout_marginLeft="60dp"
                 android:src="@drawable/ic_launcher_background"
                 android:layout_gravity="center_horizontal"/>
 
@@ -81,6 +83,16 @@
             android:layout_marginTop="15dp"
             android:hint="Address"
             android:maxLines="3"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/businessaddress"
+            android:background="@drawable/edit_text"
+            android:padding="12dp"
+            android:textColor="#fff"
+            android:textColorHint="#fff"
+            android:layout_marginTop="15dp"
+            android:hint="Business Address" />
 
         <EditText
             android:layout_width="match_parent"
@@ -104,6 +116,18 @@
             android:layout_marginTop="15dp"
             android:hint="Business Type" />
 
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/maxcredit"
+            android:background="@drawable/edit_text"
+            android:padding="12dp"
+            android:textColor="#fff"
+            android:inputType="number"
+            android:textColorHint="#fff"
+            android:layout_marginTop="15dp"
+            android:hint="Max Credit" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

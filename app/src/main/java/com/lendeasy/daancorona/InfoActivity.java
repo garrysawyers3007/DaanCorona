@@ -7,12 +7,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.icu.text.IDNA;
 import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -39,12 +41,12 @@ import okhttp3.Response;
 
 public class InfoActivity extends AppCompatActivity {
 
-    private EditText shop_name,first_name,last_name,shop_type,address;
+    private EditText shop_name,first_name,last_name,shop_type,address,maxcredit,buss_address;
     private Button proceed, location;
     private CircleImageView userImageView, shopImage;
     private static final int USER_IMAGE = 100;
     private static final int SHOP_IMAGE = 101;
-    String shopName,firstName,lastName,shopType,latitude,longitude,shopAddress;
+    String shopName,firstName,lastName,shopType,latitude,longitude,shopAddress,MaxCredit,BussAddress;
     double lat,lng;
     Uri userImageURI, shopImageURI;
     String token;
@@ -63,7 +65,7 @@ public class InfoActivity extends AppCompatActivity {
         userImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                Intent gallery = new Intent(Intent.ACTION_PICK);
                 gallery.setType("image/*");
                 startActivityForResult(gallery, USER_IMAGE);
             }
@@ -72,7 +74,7 @@ public class InfoActivity extends AppCompatActivity {
         shopImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                Intent gallery = new Intent(Intent.ACTION_PICK);
                 gallery.setType("image/*");
                 startActivityForResult(gallery, SHOP_IMAGE);
             }
@@ -95,7 +97,7 @@ public class InfoActivity extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new sendDataTask().execute(firstName,lastName,shopName,shopType,latitude,longitude,shopAddress);
+                new sendDataTask().execute(firstName,lastName,shopName,shopType,latitude,longitude,shopAddress,MaxCredit,BussAddress);
             }
         });
 
@@ -111,6 +113,8 @@ public class InfoActivity extends AppCompatActivity {
         shop_name = findViewById(R.id.shopName);
         shop_type = findViewById(R.id.shopType);
         address = findViewById(R.id.address);
+        maxcredit=findViewById(R.id.maxcredit);
+        buss_address=findViewById(R.id.businessaddress);
 
         userImageView.setImageResource(R.drawable.ic_launcher_background);
         shopImage.setImageResource(R.drawable.ic_launcher_background);
@@ -122,6 +126,8 @@ public class InfoActivity extends AppCompatActivity {
         shopName = shop_name.getText().toString();
         shopType = shop_type.getText().toString();
         shopAddress = address.getText().toString();
+        MaxCredit=maxcredit.getText().toString();
+        BussAddress=buss_address.getText().toString();
     }
 
     @Override
@@ -156,9 +162,18 @@ public class InfoActivity extends AppCompatActivity {
 //                    .addEncoded("recipient_photo","")
 //                    .build();
 
-            final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
-            File user = new File(userImageURI.getPath());
-            File shop = new File(shopImageURI.toString());
+            final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/jpeg");
+            //File path = Environment.getExternalStoragePublicDirectory(
+              //      Environment.DIRECTORY_PICTURES);
+
+            Log.d("TAG",""+userImageURI);
+
+            String userpath=getPath(userImageURI),shoppath=getPath(shopImageURI);
+            Log.d("TAG",""+userpath);
+            Log.d("TAG",""+shoppath);
+
+            File user = new File(userpath);
+            File shop = new File(shoppath);
 
             RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
                     .addFormDataPart("first_name",strings[0])
@@ -166,17 +181,20 @@ public class InfoActivity extends AppCompatActivity {
                     .addFormDataPart("business_name",strings[2])
                     .addFormDataPart("business_type",strings[3])
                     .addFormDataPart("lat",strings[4])
-                    .addFormDataPart("lng",strings[5])
+                    .addFormDataPart("long",strings[5])
                     .addFormDataPart("address",strings[6])
+                    .addFormDataPart("max_credit",strings[7])
+                    .addFormDataPart("business_address",strings[8])
                     .addFormDataPart("recipient_photo",user.getName(),RequestBody.create(MEDIA_TYPE_PNG,user))
                     .addFormDataPart("business_photo",shop.getName(),RequestBody.create(MEDIA_TYPE_PNG,shop))
                     .build();
 
             Request request = new Request.Builder()
-                    .url("http://daancorona.pythonanywhere.com/api/recepient_profile/")
+                    .url("http://daancorona.pythonanywhere.com/api/recipient_profile/")
                     .addHeader("Authorization","JWT "+token)
                     .post(formBody)
                     .build();
+
 
             try (Response response = httpClient.newCall(request).execute()) {
 
@@ -184,8 +202,11 @@ public class InfoActivity extends AppCompatActivity {
                     throw new IOException("Unexpected code " + response);
 
                 Log.d("Tag",response.body()+"");
+                return "Done";
 
-            } catch (IOException e) {
+            } catch (IOException e ) {
+                e.printStackTrace();
+            } catch (NullPointerException e){
                 e.printStackTrace();
             }
             return null;
@@ -194,8 +215,22 @@ public class InfoActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Intent intent = new Intent(InfoActivity.this, MainActivity.class);
-            startActivity(intent);
+            if(s!=null) {
+                Intent intent = new Intent(InfoActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+            else
+                Toast.makeText(InfoActivity.this,"Error",Toast.LENGTH_LONG).show();
         }
+    }
+    public String getPath(Uri uri) {
+        String[] projection = {MediaStore.MediaColumns.DATA};
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        int column_index = cursor
+                .getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
+        cursor.moveToFirst();
+        String imagePath = cursor.getString(column_index);
+
+        return cursor.getString(column_index);
     }
 }

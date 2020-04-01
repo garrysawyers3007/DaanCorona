@@ -102,12 +102,12 @@ public class LoginActivity extends AppCompatActivity {
 
                 Log.d("Tag",response.body()+"");
 
-                JSONObject jsonObject=new JSONObject(response.body().string());
-                codeSent= jsonObject.getString("otp");
+//                JSONObject jsonObject=new JSONObject(response.body().string());
+//                codeSent= jsonObject.getString("otp");
 
                 return codeSent;
 
-            } catch (IOException | JSONException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             return null;
@@ -165,6 +165,7 @@ public class LoginActivity extends AppCompatActivity {
                 Log.d("NewUser",newuser+"");
 
             } catch (IOException | JSONException e) {
+                access=null;
                 e.printStackTrace();
             }
 
