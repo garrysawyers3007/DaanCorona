@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -47,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
         maxcredit=findViewById(R.id.target);
         netamt=findViewById(R.id.balance);
 
+        recyclerView=findViewById(R.id.recyclerview);
+
         new SetProfile().execute();
         new SetRecyclerView().execute();
 
@@ -61,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
             final OkHttpClient httpClient = new OkHttpClient();
 
             Request request = new Request.Builder()
-                    .url("https://www.daancorona.pythonanywhere.com/api/recipient_details/")
-                    .header("Authentication", token)
+                    .url("http://www.daancorona.pythonanywhere.com/api/recipient_details/")
+                    .header("Authorization","JWT "+token)
                     .build();
 
             try (Response response = httpClient.newCall(request).execute()) {
@@ -74,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
                 nametxt=jsonObject.getString("name");
                 net=jsonObject.getString("total_amt");
                 maxcred=jsonObject.getString("max_credit");
+
+                Log.d("Values",nametxt+net+maxcred+"");
                 return new String[]{nametxt,net,maxcred};
                 // Get response body
 
@@ -106,8 +111,8 @@ public class MainActivity extends AppCompatActivity {
             final OkHttpClient httpClient = new OkHttpClient();
 
             Request request = new Request.Builder()
-                    .url("https://www.daancorona.pythonanywhere.com/api/recipient_details/")
-                    .header("Authentication", token)
+                    .url("http://www.daancorona.pythonanywhere.com/api/recipient_details/")
+                    .addHeader("Authorization", "JWT "+token)
                     .build();
 
             try (Response response = httpClient.newCall(request).execute()) {
@@ -141,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
 
-                    recyclerView=findViewById(R.id.recyclerview);
+
                     recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
                     itemAdapter=new ItemAdapter(list,MainActivity.this);
 

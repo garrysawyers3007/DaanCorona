@@ -23,6 +23,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLSession;
+
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -88,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                         .build();
 
                 Request request = new Request.Builder()
-                        .url("https://daancorona.pythonanywhere.com/api/mobile/")
+                        .url("http://daancorona.pythonanywhere.com/api/mobile/")
                         .post(formbody)
                         .build();
 
@@ -141,7 +144,7 @@ public class LoginActivity extends AppCompatActivity {
                     .build();
 
             Request request = new Request.Builder()
-                    .url("https://daancorona.pythonanywhere.com/api/otp/")
+                    .url("http://daancorona.pythonanywhere.com/api/otp/")
                     .post(formbody)
                     .build();
 
@@ -173,7 +176,7 @@ public class LoginActivity extends AppCompatActivity {
 
             super.onPostExecute(s);
 
-            if(s==null) {
+            if(s==null || s.equals("")) {
                 Toast.makeText(LoginActivity.this, "Error!!!", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -182,7 +185,7 @@ public class LoginActivity extends AppCompatActivity {
             SharedPreferences.Editor editor=sharedPref.edit();
             editor.putString("Token",s);
             editor.apply();
-            Toast.makeText(LoginActivity.this, "Token: "+ s, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Token: "+s, Toast.LENGTH_SHORT).show();
 
             if(!newuser) {
                 Intent i = new Intent(LoginActivity.this, InfoActivity.class);

@@ -43,11 +43,15 @@ public class InfoActivity extends AppCompatActivity {
     String shopName,firstName,lastName,shopType,latitude,longitude,shopAddress;
     float lat,lng;
     Uri userImageURI, shopImageURI;
+    String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
+
+        SharedPreferences sharedPref=getSharedPreferences("User",MODE_PRIVATE);
+        token=sharedPref.getString("Token","");
 
         initializeItems();
         declaration();
@@ -145,10 +149,12 @@ public class InfoActivity extends AppCompatActivity {
                     .addEncoded("lat",strings[4])
                     .addEncoded("lng",strings[5])
                     .addEncoded("address",strings[6])
+                    .addEncoded("recipient_photo","")
                     .build();
 
             Request request = new Request.Builder()
-                    .url("https://daancorona.pythonanywhere.com/api/recepient_profile/")
+                    .url("http://daancorona.pythonanywhere.com/api/recepient_profile/")
+                    .addHeader("Authorization","JWT "+token)
                     .post(formBody)
                     .build();
 

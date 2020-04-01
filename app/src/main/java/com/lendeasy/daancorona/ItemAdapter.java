@@ -97,8 +97,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
                     .build();
 
             Request request = new Request.Builder()
-                    .url("https://daancorona.pythonanywhere.com/api/send_thanks/")
-                    .header("Authentication",strings[1])
+                    .url("http://daancorona.pythonanywhere.com/api/send_thanks/")
+                    .header("Authorization","JWT "+strings[1])
                     .post(formbody)
                     .build();
 
