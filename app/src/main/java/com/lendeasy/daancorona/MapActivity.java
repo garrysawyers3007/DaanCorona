@@ -160,9 +160,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(MapActivity.this,InfoActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         intent.putExtra("lat",latLng.latitude);
                         intent.putExtra("lng",latLng.longitude);
                         startActivity(intent);
+                        finish();
                     }
                 });
             }

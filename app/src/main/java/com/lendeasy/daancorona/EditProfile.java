@@ -12,22 +12,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.icu.text.IDNA;
-import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,7 +31,8 @@ import java.io.File;
 import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import okhttp3.FormBody;
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -43,7 +40,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class InfoActivity extends AppCompatActivity {
+public class EditProfile extends AppCompatActivity {
 
     private static final int MY_GALLERY_REQUEST_CODE =102 ;
     private static final int STORAGE_PERMISSION_CODE = 103;
@@ -60,8 +57,7 @@ public class InfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_info);
-
+        setContentView(R.layout.activity_edit_profile);
         SharedPreferences sharedPref=getSharedPreferences("User",MODE_PRIVATE);
         token=sharedPref.getString("Token","");
 
@@ -91,7 +87,7 @@ public class InfoActivity extends AppCompatActivity {
         location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(InfoActivity.this, MapActivity.class);
+                Intent intent = new Intent(EditProfile.this, MapActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -110,10 +106,11 @@ public class InfoActivity extends AppCompatActivity {
                 new sendDataTask().execute(firstName,lastName,shopName,shopType,latitude,longitude,shopAddress,MaxCredit,BussAddress);
             }
         });
-
     }
 
     private void initializeItems() {
+
+
         location = findViewById(R.id.shopLocation);
         first_name = findViewById(R.id.firstname);
         last_name = findViewById(R.id.lastname);
@@ -126,11 +123,53 @@ public class InfoActivity extends AppCompatActivity {
         maxcredit=findViewById(R.id.maxcredit);
         buss_address=findViewById(R.id.businessaddress);
 
+        OkHttpClient httpClient = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url("http://daancorona.pythonanywhere.com/api/recipient_profile/")
+                .addHeader("Authorization","JWT "+token)
+                .build();
+
+        httpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                if (!response.isSuccessful())
+                    throw new IOException("Unexpected code " + response);
+                else
+                {
+                    try {
+                        JSONObject jsonObject=new JSONObject(response.body().string());
+                        shopName=jsonObject.getString("business_name");
+                        firstName=jsonObject.getString("first_name");
+                        lastName=jsonObject.getString("last_name");
+                        shopType=jsonObject.getString("business_type");
+                        latitude=jsonObject.getString("lat");
+                        longitude=jsonObject.getString("long");
+                        shopAddress=jsonObject.getString("address");
+                        MaxCredit=jsonObject.getString("max_credit");
+                        BussAddress=jsonObject.getString("business_address");
+
+                       // userImageView.setImageURI(userImageURI);
+                        //shopImage.setImageURI(shopImageURI);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
         userImageView.setImageResource(R.drawable.ic_launcher_background);
         shopImage.setImageResource(R.drawable.ic_launcher_background);
     }
 
     private void declaration() {
+
         firstName = first_name.getText().toString();
         lastName = last_name.getText().toString();
         shopName = shop_name.getText().toString();
@@ -153,7 +192,7 @@ public class InfoActivity extends AppCompatActivity {
         }
     }
 
-    class sendDataTask extends AsyncTask<String,Void,String>{
+    class sendDataTask extends AsyncTask<String,Void,String> {
 
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override
@@ -174,7 +213,7 @@ public class InfoActivity extends AppCompatActivity {
 
             final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/jpeg");
             //File path = Environment.getExternalStoragePublicDirectory(
-              //      Environment.DIRECTORY_PICTURES);
+            //      Environment.DIRECTORY_PICTURES);
 
             Log.d("TAG",""+userImageURI);
 
@@ -229,13 +268,13 @@ public class InfoActivity extends AppCompatActivity {
             super.onPostExecute(s);
             if(s!=null) {
 
-                Toast.makeText(InfoActivity.this,s,Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(InfoActivity.this, MainActivity.class);
+                Toast.makeText(EditProfile.this,s,Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(EditProfile.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
             else
-                Toast.makeText(InfoActivity.this,"Error",Toast.LENGTH_LONG).show();
+                Toast.makeText(EditProfile.this,"Error",Toast.LENGTH_LONG).show();
         }
     }
     public String getPath(Uri uri) {
@@ -272,8 +311,8 @@ public class InfoActivity extends AppCompatActivity {
                                            @NonNull int[] grantResults)
     {
         super.onRequestPermissionsResult(requestCode,
-                        permissions,
-                        grantResults);
+                permissions,
+                grantResults);
 
 
         if (requestCode ==  STORAGE_PERMISSION_CODE) {
@@ -292,5 +331,6 @@ public class InfoActivity extends AppCompatActivity {
             }
         }
     }
+
 
 }

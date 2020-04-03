@@ -189,7 +189,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Token: "+s, Toast.LENGTH_SHORT).show();
 
             if(!newuser) {
-                Intent i = new Intent(LoginActivity.this, InfoActivity.class);
+                Intent i = new Intent(LoginActivity.this, MainActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
                 finish();

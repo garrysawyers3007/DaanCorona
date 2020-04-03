@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             final OkHttpClient httpClient = new OkHttpClient();
 
             Request request = new Request.Builder()
-                    .url("http://www.daancorona.pythonanywhere.com/api/recipient_details/")
+                    .url("http://daancorona.pythonanywhere.com/api/recipient_details/")
                     .addHeader("Authorization","JWT "+token)
                     .build();
 
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                     throw new IOException("Unexpected code " + response);
 
                 JSONObject jsonObject=new JSONObject(response.body().string());
-                nametxt=jsonObject.getString("first_name");
+                nametxt=jsonObject.getString("name");
                 net=jsonObject.getString("total_amt");
                 maxcred=jsonObject.getString("max_credit");
 
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
             final OkHttpClient httpClient = new OkHttpClient();
 
             Request request = new Request.Builder()
-                    .url("http://www.daancorona.pythonanywhere.com/api/recipient_details/")
+                    .url("http://daancorona.pythonanywhere.com/api/recipient_details/")
                     .addHeader("Authorization", "JWT "+token)
                     .build();
 
@@ -121,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject jsonObject=new JSONObject(response.body().string());
 
                 return jsonObject.getJSONArray("donors");
-
 
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
@@ -142,8 +141,6 @@ public class MainActivity extends AppCompatActivity {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         list.add(new Item(jsonObject.getString("name"),jsonObject.getString("donor_id"),jsonObject.getString("amount")));
                     }
-
-
 
                     recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
                     itemAdapter=new ItemAdapter(list,MainActivity.this);

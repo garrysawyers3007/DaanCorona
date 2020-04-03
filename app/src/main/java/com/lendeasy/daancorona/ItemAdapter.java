@@ -58,6 +58,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         holder.thanks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //new Populate().execute(list.get(position).getUid(),token);
+                Toast.makeText(context,"Sent!!!",Toast.LENGTH_LONG).show();
 
             }
         });
@@ -98,7 +100,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
             Request request = new Request.Builder()
                     .url("http://daancorona.pythonanywhere.com/api/send_thanks/")
-                    .header("Authorization","JWT "+strings[1])
+                    .addHeader("Authorization","JWT "+strings[1])
                     .post(formbody)
                     .build();
 
@@ -121,7 +123,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         protected void onPostExecute(String s) {
 
             super.onPostExecute(s);
-            if(s.equals("Done"))
+            if(s!=null)
                 Toast.makeText(context,"Sent!!!",Toast.LENGTH_LONG).show();
             else
                 Toast.makeText(context,"Error",Toast.LENGTH_LONG).show();

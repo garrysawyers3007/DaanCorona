@@ -12,8 +12,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:id="@+id/name"
+        android:layout_centerHorizontal="true"
         android:textColor="#fff"
-        android:textSize="20sp"
+        android:textSize="24sp"
     android:text="Name"/>
 
 
@@ -22,10 +23,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/amount"
         android:textColor="#fff"
-        android:layout_marginTop="8dp"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
         android:layout_below="@id/name"
+        android:layout_marginTop="8dp"
         android:textSize="30sp"
+        android:gravity="top"
         android:text="Amount"/>
 
     <TextView
@@ -34,7 +36,7 @@
         android:id="@+id/UiD"
         android:textColor="#fff"
         android:layout_alignParentRight="true"
-
+        android:visibility="gone"
         android:textSize="17sp"
         android:text="Uid"/>
 
