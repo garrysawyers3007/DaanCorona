@@ -161,17 +161,6 @@ public class InfoActivity extends AppCompatActivity {
 
             final OkHttpClient httpClient = new OkHttpClient();
 
-//            RequestBody formBody = new FormBody.Builder()
-//                    .addEncoded("first_name",strings[0])
-//                    .addEncoded("last_name",strings[1])
-//                    .addEncoded("business_name",strings[2])
-//                    .addEncoded("business_type",strings[3])
-//                    .addEncoded("lat",strings[4])
-//                    .addEncoded("lng",strings[5])
-//                    .addEncoded("address",strings[6])
-//                    .addEncoded("recipient_photo","")
-//                    .build();
-
             final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/jpeg");
             //File path = Environment.getExternalStoragePublicDirectory(
               //      Environment.DIRECTORY_PICTURES);
@@ -207,7 +196,6 @@ public class InfoActivity extends AppCompatActivity {
                     .post(formBody)
                     .build();
 
-
             try (Response response = httpClient.newCall(request).execute()) {
 
                 if (!response.isSuccessful())
@@ -228,7 +216,6 @@ public class InfoActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             if(s!=null) {
-
                 Toast.makeText(InfoActivity.this,s,Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(InfoActivity.this, MainActivity.class);
                 startActivity(intent);

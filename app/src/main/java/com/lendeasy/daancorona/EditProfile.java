@@ -12,10 +12,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -109,8 +113,6 @@ public class EditProfile extends AppCompatActivity {
     }
 
     private void initializeItems() {
-
-
         location = findViewById(R.id.shopLocation);
         first_name = findViewById(R.id.firstname);
         last_name = findViewById(R.id.lastname);
@@ -133,9 +135,7 @@ public class EditProfile extends AppCompatActivity {
         httpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-
             }
-
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 if (!response.isSuccessful())
@@ -154,8 +154,7 @@ public class EditProfile extends AppCompatActivity {
                         MaxCredit=jsonObject.getString("max_credit");
                         BussAddress=jsonObject.getString("business_address");
 
-                       // userImageView.setImageURI(userImageURI);
-                        //shopImage.setImageURI(shopImageURI);
+                        setData(shopName,firstName,lastName,shopType,shopAddress,MaxCredit,BussAddress);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -164,8 +163,78 @@ public class EditProfile extends AppCompatActivity {
             }
         });
 
+        Request request1 = new Request.Builder()
+                .url("http://daancorona.pythonanywhere.com/api/recipient_profile/recepient_photo")
+                .addHeader("Authorization","JWT "+token)
+                .build();
+
+        httpClient.newCall(request1).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+            }
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                if (!response.isSuccessful())
+                    throw new IOException("Unexpected code " + response);
+                else
+                {
+                    try {
+                        final Bitmap userBitmap = BitmapFactory.decodeStream(response.body().byteStream());
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+                                userImageView.setImageBitmap(userBitmap);
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        Request request2 = new Request.Builder()
+                .url("http://daancorona.pythonanywhere.com/api/recipient_profile/business_photo")
+                .addHeader("Authorization","JWT "+token)
+                .build();
+
+        httpClient.newCall(request2).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+            }
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                if (!response.isSuccessful())
+                    throw new IOException("Unexpected code " + response);
+                else
+                {
+                    try {
+                        final Bitmap shopBitmap = BitmapFactory.decodeStream(response.body().byteStream());
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+                                shopImage.setImageBitmap(shopBitmap);
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
         userImageView.setImageResource(R.drawable.ic_launcher_background);
         shopImage.setImageResource(R.drawable.ic_launcher_background);
+    }
+
+    private void setData(String shopName, String firstName, String lastName, String shopType, String shopAddress, String maxCredit, String bussAddress) {
+        shop_name.setText(shopName);
+        first_name.setText(firstName);
+        last_name.setText(lastName);
+        shop_type.setText(shopType);
+        address.setText(shopAddress);
+        maxcredit.setText(maxCredit);
+        buss_address.setText(bussAddress);
     }
 
     private void declaration() {
@@ -199,17 +268,6 @@ public class EditProfile extends AppCompatActivity {
         protected String doInBackground(String... strings) {
 
             final OkHttpClient httpClient = new OkHttpClient();
-
-//            RequestBody formBody = new FormBody.Builder()
-//                    .addEncoded("first_name",strings[0])
-//                    .addEncoded("last_name",strings[1])
-//                    .addEncoded("business_name",strings[2])
-//                    .addEncoded("business_type",strings[3])
-//                    .addEncoded("lat",strings[4])
-//                    .addEncoded("lng",strings[5])
-//                    .addEncoded("address",strings[6])
-//                    .addEncoded("recipient_photo","")
-//                    .build();
 
             final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/jpeg");
             //File path = Environment.getExternalStoragePublicDirectory(
@@ -290,7 +348,6 @@ public class EditProfile extends AppCompatActivity {
 
     public void checkPermission(String permission, int requestCode)
     {
-
         // Checking if permission is not granted
         if (ContextCompat.checkSelfPermission(
                 this,
