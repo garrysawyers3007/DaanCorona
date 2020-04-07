@@ -47,12 +47,12 @@ public class InfoActivity extends AppCompatActivity {
 
     private static final int MY_GALLERY_REQUEST_CODE =102 ;
     private static final int STORAGE_PERMISSION_CODE = 103;
-    private EditText shop_name,first_name,last_name,shop_type,address,maxcredit,buss_address;
+    private EditText shop_name,first_name,last_name,shop_type,address,maxcredit,buss_address,upi;
     private Button proceed, location;
     private CircleImageView userImageView, shopImage;
     private static final int USER_IMAGE = 100;
     private static final int SHOP_IMAGE = 101;
-    String shopName,firstName,lastName,shopType,latitude,longitude,shopAddress,MaxCredit,BussAddress;
+    String shopName,firstName,lastName,shopType,latitude,longitude,shopAddress,MaxCredit,BussAddress,Upi;
     double lat,lng;
     Uri userImageURI, shopImageURI;
     String token;
@@ -107,13 +107,20 @@ public class InfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 declaration();
-                new sendDataTask().execute(firstName,lastName,shopName,shopType,latitude,longitude,shopAddress,MaxCredit,BussAddress);
+                if(firstName.isEmpty() || lastName.isEmpty() || shopName.isEmpty() || shopType.isEmpty() ||
+                        latitude.isEmpty() || longitude.isEmpty() || shopAddress.isEmpty() || MaxCredit.isEmpty()
+                        || BussAddress.isEmpty() || Upi.isEmpty() || userImageURI==null || shopImageURI==null)
+                    Toast.makeText(InfoActivity.this,"Enter all details",Toast.LENGTH_SHORT).show();
+                else
+                    new sendDataTask().execute(firstName,lastName,shopName,shopType,latitude,
+                            longitude,shopAddress,MaxCredit,BussAddress,Upi);
             }
         });
 
     }
 
     private void initializeItems() {
+
         location = findViewById(R.id.shopLocation);
         first_name = findViewById(R.id.firstname);
         last_name = findViewById(R.id.lastname);
@@ -138,6 +145,7 @@ public class InfoActivity extends AppCompatActivity {
         shopAddress = address.getText().toString();
         MaxCredit=maxcredit.getText().toString();
         BussAddress=buss_address.getText().toString();
+        Upi=upi.getText().toString();
     }
 
     @Override

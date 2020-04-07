@@ -12,14 +12,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -27,12 +23,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.Call;
@@ -53,10 +56,10 @@ public class EditProfile extends AppCompatActivity {
     private CircleImageView userImageView, shopImage;
     private static final int USER_IMAGE = 100;
     private static final int SHOP_IMAGE = 101;
-    String shopName,firstName,lastName,shopType,latitude,longitude,shopAddress,MaxCredit,BussAddress;
+    String shopName,firstName,lastName,shopType,latitude,longitude,shopAddress,MaxCredit,BussAddress,profile_img,shop_img;
     double lat,lng;
-    Uri userImageURI, shopImageURI;
-    String token;
+    Uri userImageURI, shopImageURI,dwnloaduser,dwnldshop;
+    String token,shopUrl,userUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,7 @@ public class EditProfile extends AppCompatActivity {
         token=sharedPref.getString("Token","");
 
         initializeItems();
+
 
         userImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +96,7 @@ public class EditProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EditProfile.this, MapActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
             }
@@ -107,7 +112,13 @@ public class EditProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 declaration();
-                new sendDataTask().execute(firstName,lastName,shopName,shopType,latitude,longitude,shopAddress,MaxCredit,BussAddress);
+
+                if(firstName.isEmpty() || lastName.isEmpty() || shopName.isEmpty() || shopType.isEmpty() ||
+                        latitude.isEmpty() || longitude.isEmpty() || shopAddress.isEmpty() || MaxCredit.isEmpty()
+                        || BussAddress.isEmpty() || userImageURI==null || shopImageURI==null)
+                    Toast.makeText(EditProfile.this,"Enter all details",Toast.LENGTH_SHORT).show();
+                else
+                    new sendDataTask().execute(firstName,lastName,shopName,shopType,latitude,longitude,shopAddress,MaxCredit,BussAddress);
             }
         });
     }
@@ -125,109 +136,14 @@ public class EditProfile extends AppCompatActivity {
         maxcredit=findViewById(R.id.maxcredit);
         buss_address=findViewById(R.id.businessaddress);
 
-        OkHttpClient httpClient = new OkHttpClient();
-
-        Request request = new Request.Builder()
-                .url("http://daancorona.pythonanywhere.com/api/recipient_profile/")
-                .addHeader("Authorization","JWT "+token)
-                .build();
-
-        httpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-            }
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                if (!response.isSuccessful())
-                    throw new IOException("Unexpected code " + response);
-                else
-                {
-                    try {
-                        JSONObject jsonObject=new JSONObject(response.body().string());
-                        shopName=jsonObject.getString("business_name");
-                        firstName=jsonObject.getString("first_name");
-                        lastName=jsonObject.getString("last_name");
-                        shopType=jsonObject.getString("business_type");
-                        latitude=jsonObject.getString("lat");
-                        longitude=jsonObject.getString("long");
-                        shopAddress=jsonObject.getString("address");
-                        MaxCredit=jsonObject.getString("max_credit");
-                        BussAddress=jsonObject.getString("business_address");
-
-                        setData(shopName,firstName,lastName,shopType,shopAddress,MaxCredit,BussAddress);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-
-        Request request1 = new Request.Builder()
-                .url("http://daancorona.pythonanywhere.com/api/recipient_profile/recepient_photo")
-                .addHeader("Authorization","JWT "+token)
-                .build();
-
-        httpClient.newCall(request1).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-            }
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                if (!response.isSuccessful())
-                    throw new IOException("Unexpected code " + response);
-                else
-                {
-                    try {
-                        final Bitmap userBitmap = BitmapFactory.decodeStream(response.body().byteStream());
-                        new Handler(Looper.getMainLooper()).post(new Runnable() {
-                            @Override
-                            public void run() {
-                                userImageView.setImageBitmap(userBitmap);
-                            }
-                        });
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-
-        Request request2 = new Request.Builder()
-                .url("http://daancorona.pythonanywhere.com/api/recipient_profile/business_photo")
-                .addHeader("Authorization","JWT "+token)
-                .build();
-
-        httpClient.newCall(request2).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
-            }
-            @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                if (!response.isSuccessful())
-                    throw new IOException("Unexpected code " + response);
-                else
-                {
-                    try {
-                        final Bitmap shopBitmap = BitmapFactory.decodeStream(response.body().byteStream());
-                        new Handler(Looper.getMainLooper()).post(new Runnable() {
-                            @Override
-                            public void run() {
-                                shopImage.setImageBitmap(shopBitmap);
-                            }
-                        });
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
 
         userImageView.setImageResource(R.drawable.ic_launcher_background);
         shopImage.setImageResource(R.drawable.ic_launcher_background);
+
+        new getTask().execute();
     }
 
-    private void setData(String shopName, String firstName, String lastName, String shopType, String shopAddress, String maxCredit, String bussAddress) {
+    private void setData(String shopName, String firstName, String lastName, String shopType, String shopAddress, String maxCredit, String bussAddress,String  profile_img,String shop_img) throws MalformedURLException {
         shop_name.setText(shopName);
         first_name.setText(firstName);
         last_name.setText(lastName);
@@ -235,6 +151,12 @@ public class EditProfile extends AppCompatActivity {
         address.setText(shopAddress);
         maxcredit.setText(maxCredit);
         buss_address.setText(bussAddress);
+
+        Log.d("Img",profile_img);
+
+
+        Glide.with(this).load(userImageURI).into(userImageView);
+        Glide.with(this).load(shopImageURI).into(shopImage);
     }
 
     private void declaration() {
@@ -270,6 +192,7 @@ public class EditProfile extends AppCompatActivity {
             final OkHttpClient httpClient = new OkHttpClient();
 
             final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/jpeg");
+            File user,shop;
             //File path = Environment.getExternalStoragePublicDirectory(
             //      Environment.DIRECTORY_PICTURES);
 
@@ -279,8 +202,9 @@ public class EditProfile extends AppCompatActivity {
             Log.d("TAG",""+userpath);
             Log.d("TAG",""+shoppath);
 
-            File user = new File(userpath);
-            File shop = new File(shoppath);
+
+            user = new File(userpath);
+            shop = new File(shoppath);
 
             Log.d("TAG",""+user.getName());
 
@@ -335,6 +259,78 @@ public class EditProfile extends AppCompatActivity {
                 Toast.makeText(EditProfile.this,"Error",Toast.LENGTH_LONG).show();
         }
     }
+
+    class getTask extends AsyncTask<Void, Void, String> {
+
+        @Override
+        protected String doInBackground(Void... voids) {
+
+            OkHttpClient httpClient = new OkHttpClient();
+
+            Request request = new Request.Builder()
+                    .url("http://daancorona.pythonanywhere.com/api/recipient_profile/")
+                    .addHeader("Authorization","JWT "+token)
+                    .build();
+
+            try (Response response = httpClient.newCall(request).execute()) {
+
+                if (!response.isSuccessful())
+                    throw new IOException("Unexpected code " + response);
+
+                JSONObject jsonObject=new JSONObject(response.body().string());
+
+                shopName=jsonObject.getString("business_name");
+                firstName=jsonObject.getString("first_name");
+                lastName=jsonObject.getString("last_name");
+                shopType=jsonObject.getString("business_type");
+                latitude=jsonObject.getString("lat");
+                longitude=jsonObject.getString("long");
+                shopAddress=jsonObject.getString("address");
+                MaxCredit=jsonObject.getString("max_credit");
+                BussAddress=jsonObject.getString("business_address");
+                profile_img=(String)jsonObject.get("recipient_photo");
+                Log.d("Taggg",jsonObject.get("recipient_photo")+"");
+
+                shop_img=(String)jsonObject.get("business_photo");
+
+                userUrl="http://daancorona.pythonanywhere.com"+profile_img;
+                userImageURI=Uri.parse(userUrl);
+                shopUrl="http://daancorona.pythonanywhere.com"+shop_img;
+                shopImageURI=Uri.parse(shopUrl);
+
+                dwnldshop=shopImageURI;
+                dwnloaduser=userImageURI;
+//
+//                SaveImageFromUrl.saveImage("http://daancorona.pythonanywhere.com"+profile_img , profile_img.substring(profile_img.lastIndexOf('/')));
+//                SaveImageFromUrl.saveImage("http://daancorona.pythonanywhere.com"+shop_img, shop_img.substring(shop_img.lastIndexOf('/')));
+
+                return "Done";
+
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+            }
+
+            return "";
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+
+            super.onPostExecute(s);
+
+            if(s.equals("Done")){
+                try {
+                    setData(shopName,firstName,lastName,shopType,shopAddress,MaxCredit,BussAddress,profile_img,shop_img);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+            }
+            else
+                Toast.makeText(getApplicationContext(),"Error!",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
     public String getPath(Uri uri) {
         String[] projection = {MediaStore.MediaColumns.DATA};
         Cursor cursor = managedQuery(uri, projection, null, null, null);

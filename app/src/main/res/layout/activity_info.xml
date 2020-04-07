@@ -71,6 +71,19 @@
             android:layout_marginTop="15dp"
             android:hint="Last Name" />
 
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/upi"
+            android:inputType="text"
+            android:padding="12dp"
+            android:textColor="#fff"
+            android:textColorHint="#fff"
+            android:background="@drawable/edit_text"
+            android:layout_marginTop="15dp"
+            android:hint="Upi Id" />
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

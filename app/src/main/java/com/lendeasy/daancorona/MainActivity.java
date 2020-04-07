@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -35,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     String nametxt,net,maxcred;
     TextView name,maxcredit,netamt;
     String token;
+    ImageView edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +51,15 @@ public class MainActivity extends AppCompatActivity {
         name=findViewById(R.id.name);
         maxcredit=findViewById(R.id.target);
         netamt=findViewById(R.id.balance);
+        edit=findViewById(R.id.edit);
 
         recyclerView=findViewById(R.id.recyclerview);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,EditProfile.class));
+            }
+        });
 
         new SetProfile().execute();
         new SetRecyclerView().execute();
