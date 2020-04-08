@@ -5,15 +5,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/app_bg2"
+    android:background="#4b4c78"
     tools:context=".LoginActivity">
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"/>
 
 
     <LinearLayout
+        android:layout_below="@+id/img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
+        android:layout_marginTop="30dp"
         android:orientation="vertical"
         android:padding="16dp"
         android:background="@drawable/bg"
@@ -34,7 +44,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Send OTP code"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:textAllCaps="false"
             android:id="@+id/sendotp"
             android:background="@drawable/button"
             android:elevation="10dp"
@@ -59,7 +71,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/verifyotp"
             android:text="Verify OTP"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#fff"
+            android:textAllCaps="false"
+            android:textSize="20sp"
             android:background="@drawable/button"
             android:elevation="10dp"
             android:layout_marginTop="15dp"

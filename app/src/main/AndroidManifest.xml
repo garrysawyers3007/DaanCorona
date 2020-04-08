@@ -18,17 +18,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditProfile"></activity>
+        <activity android:name=".PaymentModeActivity"></activity>
+        <activity android:name=".PersonalInfoActivity" />
+        <activity android:name=".ShopInfoActivity" />
+        <activity android:name=".EditProfile" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/MAP_API_KEY" />
 
-        <activity android:name=".MapActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".InfoActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".LoginActivity"
+        <activity
+            android:name=".MapActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".InfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,8 +42,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

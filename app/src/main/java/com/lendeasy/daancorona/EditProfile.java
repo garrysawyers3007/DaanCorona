@@ -136,7 +136,6 @@ public class EditProfile extends AppCompatActivity {
         maxcredit=findViewById(R.id.maxcredit);
         buss_address=findViewById(R.id.businessaddress);
 
-
         userImageView.setImageResource(R.drawable.ic_launcher_background);
         shopImage.setImageResource(R.drawable.ic_launcher_background);
 

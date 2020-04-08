@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/app_bg1"
-    tools:context=".InfoActivity">
+    android:background="#4b4c78"
+    tools:context=".ShopInfoActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,95 +17,25 @@
         android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Business Information"
+            android:textSize="30sp"
+            android:layout_marginBottom="20dp"
+            android:textColor="#ffffff"/>
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/user_image"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
+            android:id="@+id/shop_image"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
             app:civ_border_color="#000"
             app:civ_border_width="2dp"
-            android:tooltipText="your image"
-            android:layout_marginLeft="20dp"
+            android:tooltipText="shop image"
             android:elevation="10dp"
-            android:src="@drawable/ic_launcher_background"
+            android:src="@drawable/shop"
             android:layout_gravity="center_horizontal"/>
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/shop_image"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
-                app:civ_border_color="#000"
-                app:civ_border_width="2dp"
-                android:tooltipText="shop image"
-                android:elevation="10dp"
-                android:layout_marginLeft="60dp"
-                android:src="@drawable/ic_launcher_background"
-                android:layout_gravity="center_horizontal"/>
-
-        </LinearLayout>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/firstname"
-            android:inputType="text"
-            android:padding="12dp"
-            android:textColor="#fff"
-            android:textColorHint="#fff"
-            android:background="@drawable/edit_text"
-            android:layout_marginTop="30dp"
-            android:hint="First Name" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/lastname"
-            android:inputType="text"
-            android:padding="12dp"
-            android:textColor="#fff"
-            android:textColorHint="#fff"
-            android:background="@drawable/edit_text"
-            android:layout_marginTop="15dp"
-            android:hint="Last Name" />
-
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/upi"
-            android:inputType="text"
-            android:padding="12dp"
-            android:textColor="#fff"
-            android:textColorHint="#fff"
-            android:background="@drawable/edit_text"
-            android:layout_marginTop="15dp"
-            android:hint="Upi Id" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:id="@+id/address"
-            android:padding="12dp"
-            android:textColor="#fff"
-            android:textColorHint="#fff"
-            android:background="@drawable/edit_text"
-            android:layout_marginTop="15dp"
-            android:hint="Address"
-            android:maxLines="3"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/businessaddress"
-            android:background="@drawable/edit_text"
-            android:padding="12dp"
-            android:textColor="#fff"
-            android:textColorHint="#fff"
-            android:layout_marginTop="15dp"
-            android:hint="Business Address" />
 
         <EditText
             android:layout_width="match_parent"
@@ -129,6 +59,16 @@
             android:layout_marginTop="15dp"
             android:hint="Business Type" />
 
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/businessaddress"
+            android:background="@drawable/edit_text"
+            android:padding="12dp"
+            android:textColor="#fff"
+            android:textColorHint="#fff"
+            android:layout_marginTop="15dp"
+            android:hint="Business Address" />
 
         <EditText
             android:layout_width="match_parent"
@@ -141,10 +81,14 @@
             android:textColorHint="#fff"
             android:layout_marginTop="15dp"
             android:hint="Max Credit" />
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Shop Location"
+            android:text="Shop Location"
+            android:textSize="20sp"
+            android:textColor="#fff"
+            android:textAllCaps="false"
             android:id="@+id/shopLocation"
             android:background="@drawable/button"
             android:elevation="10dp"
@@ -155,8 +99,11 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Proceed"
+            android:text="Proceed"
             android:id="@+id/signin"
+            android:textSize="20sp"
+            android:textColor="#fff"
+            android:textAllCaps="false"
             android:background="@drawable/button"
             android:elevation="10dp"
             android:layout_marginTop="15dp"
