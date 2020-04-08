@@ -1,9 +1,6 @@
 package com.lendeasy.daancorona;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -15,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -22,9 +21,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLSession;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -37,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
     EditText phone,otp;
     Button sendotp,verifyotp;
     String codeSent,code,phoneNumber,url="localhost:3000";
-    FirebaseAuth mAuth=FirebaseAuth.getInstance();
     boolean newuser;
 
     @Override
@@ -58,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                phoneNumber=phone.getText().toString();
+                phoneNumber = "+91" + phone.getText().toString();
 //                phoneNumber=phoneNumber.trim();
                 if(phoneNumber.length()==13)
                     new GetOtpTask().execute(phoneNumber);
@@ -148,7 +143,7 @@ public class LoginActivity extends AppCompatActivity {
                     .post(formbody)
                     .build();
 
-            try (Response response = httpClient.newCall(request).execute()) {
+            try (okhttp3.Response response = httpClient.newCall(request).execute()) {
 
                 if (!response.isSuccessful())
                     throw new IOException("Unexpected code " + response);
