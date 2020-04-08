@@ -18,7 +18,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PaymentModeActivity"></activity>
+        <activity android:name=".UPIDetailsActivity"></activity>
+        <activity android:name=".BankDetailsActvity" />
+        <activity android:name=".PaymentModeActivity" />
         <activity android:name=".PersonalInfoActivity" />
         <activity android:name=".ShopInfoActivity" />
         <activity android:name=".EditProfile" />
