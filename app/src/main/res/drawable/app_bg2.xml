@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle" >
 
-    <gradient android:startColor="#cc343a90" android:endColor="#cc973197" android:angle="-45"/>
+    <gradient
+        android:angle="-45"
+        android:endColor="#B8BDF7"
+        android:centerColor="#AAAEF7"
+        android:startColor="#9062F8"
+        android:type="linear" />
 
 </shape>
-<!-- f35633 -->
+<!-- f35633   #F5EEFE-->
