@@ -38,6 +38,15 @@
             android:src="@drawable/profile_pic"
             android:layout_gravity="center_horizontal"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Profile Image"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:textColor="#fff"/>
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -74,6 +83,18 @@
             android:layout_marginTop="15dp"
             android:hint="Address"
             android:maxLines="3"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Are you the owner/proprietor of the store ?"
+            android:textSize="15sp"
+            android:layout_gravity="center_horizontal"
+            android:paddingRight="5dp"
+            android:drawablePadding="5dp"
+            android:buttonTint="#fff"
+            android:textColor="#fff"
+            android:layout_marginTop="15dp"/>
 
         <Button
             android:layout_width="match_parent"

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#4b4c78"
+    tools:context=".LanguageSelectActivity">
+
+    <LinearLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:orientation="vertical"
+        android:layout_marginTop="30dp"
+        android:layout_centerInParent="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="Select a language : "
+                android:textSize="35sp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="15dp"
+                android:textColor="#ffffff"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/select_a_language"
+                android:layout_marginStart="20dp"
+                android:textSize="35sp"
+                android:layout_marginBottom="20dp"
+                android:textColor="#ffffff"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="16dp"
+            android:orientation="horizontal"
+            android:background="@drawable/edit_text"
+            android:elevation="10dp"
+            android:layout_marginRight="16dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="English"
+            android:layout_weight="1"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:layout_marginStart="30dp"
+            android:padding="15dp"
+            android:textSize="20sp"
+            android:textColor="#fff" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/english"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:textStyle="bold"
+                android:layout_marginEnd="30dp"
+                android:textAllCaps="false"
+                android:padding="15dp"
+                android:textSize="20sp"
+                android:textColor="#fff" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="16dp"
+            android:orientation="horizontal"
+            android:background="@drawable/edit_text"
+            android:elevation="10dp"
+            android:layout_marginRight="16dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Hindi"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textAllCaps="false"
+                android:layout_marginStart="30dp"
+                android:padding="15dp"
+                android:textSize="20sp"
+                android:textColor="#fff" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/hindi"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:layout_marginEnd="30dp"
+                android:textAllCaps="false"
+                android:padding="15dp"
+                android:textSize="20sp"
+                android:textColor="#fff" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

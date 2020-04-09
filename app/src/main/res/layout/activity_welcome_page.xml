@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#4b4c78"
+    tools:context=".WelcomePageActivity">
+
+    <LinearLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:orientation="vertical"
+        android:layout_marginTop="30dp"
+        android:layout_centerInParent="true">
+
+        <RelativeLayout
+            android:id="@+id/relLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/user_image"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            app:civ_border_color="#000"
+            app:civ_border_width="2dp"
+            android:tooltipText="your image"
+            android:elevation="10dp"
+            android:src="@drawable/profile_pic"
+            android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:layout_below="@id/user_image"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="If we can, we should help, for it's our duty as humans to help others, donate for a good cause"
+                android:textSize="15sp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:textColor="#ffffff"/>
+
+        </RelativeLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:textAllCaps="false"
+            android:id="@+id/login"
+            android:background="@drawable/button"
+            android:elevation="10dp"
+            android:textSize="20sp"
+            android:textColor="#fff"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            android:textAllCaps="false"
+            android:id="@+id/register"
+            android:background="@drawable/button"
+            android:elevation="10dp"
+            android:textSize="20sp"
+            android:textColor="#fff"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

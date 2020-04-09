@@ -26,8 +26,15 @@
         android:layout_marginTop="30dp"
         android:orientation="vertical"
         android:padding="16dp"
-        android:background="@drawable/bg"
         android:layout_centerInParent="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter Your Phone Number :"
+            android:textSize="23sp"
+            android:layout_marginStart="10dp"
+            android:textColor="#fff"/>
 
         <EditText
             android:layout_width="match_parent"
@@ -35,15 +42,16 @@
             android:id="@+id/phone"
             android:textColorHint="#fff"
             android:padding="15dp"
+            android:layout_marginTop="20dp"
             android:textColor="#fff"
-            android:background="@drawable/edit_text"
+            android:background="@drawable/edit_text1"
             android:inputType="phone"
             android:hint="Enter 10 digit phone no." />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Send OTP code"
+            android:text="Get OTP"
             android:textColor="#fff"
             android:textSize="20sp"
             android:textAllCaps="false"
@@ -54,11 +62,20 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter OTP :"
+            android:layout_marginTop="20dp"
+            android:textSize="23sp"
+            android:layout_marginStart="10dp"
+            android:textColor="#fff"/>
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:background="@drawable/edit_text"
+            android:background="@drawable/edit_text1"
             android:padding="15dp"
             android:textColor="#fff"
             android:textColorHint="#fff"
