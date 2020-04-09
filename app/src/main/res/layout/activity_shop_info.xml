@@ -37,50 +37,85 @@
             android:src="@drawable/shop"
             android:layout_gravity="center_horizontal"/>
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/shopName"
-            android:background="@drawable/edit_text"
-            android:padding="12dp"
-            android:textColor="#fff"
-            android:textColorHint="#fff"
+            android:layout_height="match_parent"
             android:layout_marginTop="15dp"
-            android:hint="Business Name" />
+            android:textColorHint="#fff">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/shopType"
-            android:background="@drawable/edit_text"
-            android:padding="12dp"
-            android:textColor="#fff"
-            android:textColorHint="#fff"
-            android:layout_marginTop="15dp"
-            android:hint="Business Type" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/shopName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text1"
+                android:hint="Business Name"
+                android:textColor="#fff"
+                android:padding="10dp"
+                android:inputType="text"
+                android:layout_marginTop="15dp"
+                android:textSize="20sp" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/businessaddress"
-            android:background="@drawable/edit_text"
-            android:padding="12dp"
-            android:textColor="#fff"
-            android:textColorHint="#fff"
-            android:layout_marginTop="15dp"
-            android:hint="Business Address" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/maxcredit"
-            android:background="@drawable/edit_text"
-            android:padding="12dp"
-            android:textColor="#fff"
-            android:inputType="number"
-            android:textColorHint="#fff"
+            android:layout_height="match_parent"
             android:layout_marginTop="15dp"
-            android:hint="Max Credit" />
+            android:textColorHint="#fff">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/shopType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text1"
+                android:hint="Business Type"
+                android:textColor="#fff"
+                android:padding="10dp"
+                android:inputType="text"
+                android:layout_marginTop="15dp"
+                android:textSize="20sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:textColorHint="#fff">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/businessaddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text1"
+                android:hint="Business Address"
+                android:textColor="#fff"
+                android:padding="10dp"
+                android:inputType="text"
+                android:layout_marginTop="15dp"
+                android:textSize="20sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:textColorHint="#fff">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/maxcredit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text1"
+                android:hint="Max Credit"
+                android:textColor="#fff"
+                android:padding="10dp"
+                android:inputType="number"
+                android:layout_marginTop="15dp"
+                android:textSize="20sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:layout_width="wrap_content"

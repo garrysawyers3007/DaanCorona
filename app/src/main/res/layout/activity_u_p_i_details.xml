@@ -29,28 +29,26 @@
         android:background="@drawable/bg"
         android:layout_centerInParent="true">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/phone"
-            android:textColorHint="#fff"
-            android:padding="15dp"
-            android:textColor="#fff"
-            android:background="@drawable/edit_text"
-            android:inputType="phone"
-            android:hint="Enter Your VPA (Virtual Payment Address)" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:background="@drawable/edit_text"
-            android:padding="15dp"
-            android:textColor="#fff"
-            android:textColorHint="#fff"
+            android:layout_height="match_parent"
             android:layout_marginTop="15dp"
-            android:id="@+id/otp"
-            android:hint="Enter OTP" />
+            android:textColorHint="#fff">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/upi_vpa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text1"
+                android:hint="Enter Your VPA (Virtual Payment Address)"
+                android:textColor="#fff"
+                android:padding="10dp"
+                android:inputType="text"
+                android:layout_marginTop="15dp"
+                android:textSize="20sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <Button
             android:layout_width="match_parent"

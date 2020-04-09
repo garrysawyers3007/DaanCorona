@@ -10,11 +10,11 @@
 
     <ImageView
         android:id="@+id/img"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
         android:src="@drawable/login"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"/>
+        android:layout_marginTop="40dp"/>
 
 
     <LinearLayout
@@ -37,24 +37,32 @@
             android:layout_marginStart="10dp"
             android:textColor="#fff"/>
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/phone"
-            android:textColorHint="#fff"
-            android:padding="15dp"
-            android:layout_marginTop="20dp"
-            android:textColor="#fff"
-            android:background="@drawable/edit_text1"
-            android:inputType="phone"
-            android:hint="Enter 10 digit phone no." />
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:textColorHint="#fff">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text1"
+                android:hint="Enter 10 digit phone no."
+                android:textColor="#fff"
+                android:padding="10dp"
+                android:inputType="phone"
+                android:layout_marginTop="20dp"
+                android:textSize="20sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Get OTP"
             android:textColor="#fff"
-            android:textSize="20sp"
             android:textAllCaps="false"
             android:id="@+id/sendotp"
             android:background="@drawable/button"
@@ -73,17 +81,26 @@
             android:layout_marginStart="10dp"
             android:textColor="#fff"/>
 
-        <EditText
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:background="@drawable/edit_text1"
-            android:padding="15dp"
-            android:textColor="#fff"
-            android:textColorHint="#fff"
+            android:layout_height="match_parent"
             android:layout_marginTop="15dp"
-            android:id="@+id/otp"
-            android:hint="Enter OTP" />
+            android:textColorHint="#fff">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/otp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text1"
+                android:hint="Enter OTP"
+                android:textColor="#fff"
+                android:padding="10dp"
+                android:inputType="number"
+                android:layout_marginTop="20dp"
+                android:textSize="20sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:layout_width="match_parent"
