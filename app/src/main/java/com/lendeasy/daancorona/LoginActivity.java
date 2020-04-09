@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -32,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText phone,otp;
     Button sendotp,verifyotp;
+    TextView textOtp,textPhone;
     String codeSent,code,phoneNumber,url="localhost:3000";
     boolean newuser;
 
@@ -42,12 +44,15 @@ public class LoginActivity extends AppCompatActivity {
 
         phone=findViewById(R.id.phone);
         otp=findViewById(R.id.otp);
+        textOtp = findViewById(R.id.txt_otp);
+        textPhone = findViewById(R.id.txt_phone);
 
         sendotp=findViewById(R.id.sendotp);
         verifyotp=findViewById(R.id.verifyotp);
 
         otp.setVisibility(View.GONE);
         verifyotp.setVisibility(View.GONE);
+        textOtp.setVisibility(View.GONE);
 
         sendotp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,9 +121,11 @@ public class LoginActivity extends AppCompatActivity {
 
             otp.setVisibility(View.VISIBLE);
             verifyotp.setVisibility(View.VISIBLE);
+            textOtp.setVisibility(View.VISIBLE);
 
             phone.setVisibility(View.GONE);
             sendotp.setVisibility(View.GONE);
+            textPhone.setVisibility(View.GONE);
         }
     }
 

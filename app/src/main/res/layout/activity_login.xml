@@ -29,6 +29,7 @@
         android:layout_centerInParent="true">
 
         <TextView
+            android:id="@+id/txt_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Enter Your Phone Number :"
@@ -63,6 +64,7 @@
             android:layout_marginRight="16dp"/>
 
         <TextView
+            android:id="@+id/txt_otp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Enter OTP :"
