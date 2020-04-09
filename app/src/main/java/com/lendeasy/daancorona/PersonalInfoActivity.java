@@ -8,6 +8,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -73,8 +74,11 @@ public class PersonalInfoActivity extends AppCompatActivity {
                 declaration();
                 if(firstName.isEmpty() || lastName.isEmpty() || userImageURI==null || shopAddress.isEmpty())
                     Toast.makeText(PersonalInfoActivity.this,"Enter all details",Toast.LENGTH_SHORT).show();
-                else
-                    new PersonalInfoActivity.sendDataTask().execute(firstName,lastName,shopAddress);
+                else{
+//                    new PersonalInfoActivity.sendDataTask().execute(firstName,lastName,shopAddress);
+                    Intent i = new Intent(PersonalInfoActivity.this, ShopInfoActivity.class);
+                    startActivity(i);
+                }
             }
         });
     }

@@ -7,18 +7,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class UPIDetailsActivity extends AppCompatActivity {
-    Button btnproceedUpi;
+public class MOUActivity extends AppCompatActivity {
+    Button btnMou;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_u_p_i_details);
-
-        btnproceedUpi = findViewById(R.id.proceed_upi_details);
-        btnproceedUpi.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_mou);
+        btnMou = findViewById(R.id.btn_mou_accepted);
+        btnMou.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(UPIDetailsActivity.this, MOUActivity.class);
+                Intent i = new Intent(MOUActivity.this, MainActivity.class);
                 startActivity(i);
             }
         });

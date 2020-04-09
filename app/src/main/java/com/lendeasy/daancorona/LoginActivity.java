@@ -1,6 +1,5 @@
 package com.lendeasy.daancorona;
 
-import android.app.DownloadManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -16,8 +15,6 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,9 +28,9 @@ import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText phone,otp;
-    Button sendotp,verifyotp;
-    TextView textOtp,textPhone;
+    EditText editTxtPhone, editTxtOtp;
+    Button btnSendotp, btnVerifyOtp;
+  //  TextView textOtp,textPhone;
     String codeSent,code,phoneNumber,url="localhost:3000";
     boolean newuser;
 
@@ -42,24 +39,22 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        phone=findViewById(R.id.phone);
-        otp=findViewById(R.id.otp);
-        textOtp = findViewById(R.id.txt_otp);
-        textPhone = findViewById(R.id.txt_phone);
+       // textPhone = findViewById(R.id.txt_phone);
+        editTxtPhone =findViewById(R.id.editTxt_phone);
+        btnSendotp = findViewById(R.id.btn_send_otp);
 
-        sendotp=findViewById(R.id.sendotp);
-        verifyotp=findViewById(R.id.verifyotp);
+      //  textOtp = findViewById(R.id.txt_otp);
+        editTxtOtp = findViewById(R.id.edit_txt_otp);
+        btnVerifyOtp = findViewById(R.id.btn_verify_otp);
 
-        otp.setVisibility(View.GONE);
-        verifyotp.setVisibility(View.GONE);
-        textOtp.setVisibility(View.GONE);
+        editTxtOtp.setVisibility(View.GONE);
+        btnVerifyOtp.setVisibility(View.GONE);
+       // textOtp.setVisibility(View.GONE);
 
-        sendotp.setOnClickListener(new View.OnClickListener() {
+        btnSendotp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                phoneNumber = "+91" + phone.getText().toString();
-//                phoneNumber=phoneNumber.trim();
+                phoneNumber = "+91" + editTxtPhone.getText().toString().trim();
                 if(phoneNumber.length()==13)
                     new GetOtpTask().execute(phoneNumber);
                 else
@@ -67,12 +62,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        verifyotp.setOnClickListener(new View.OnClickListener() {
-
+        btnVerifyOtp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                code=otp.getText().toString();
+                code= editTxtOtp.getText().toString();
                     new VerifyOtpTask().execute(phoneNumber,code);
                 //verifySignIn();
             }
@@ -119,13 +112,13 @@ public class LoginActivity extends AppCompatActivity {
             //Toast.makeText(getApplicationContext(),"code:"+s,Toast.LENGTH_LONG).show();
             super.onPostExecute(s);
 
-            otp.setVisibility(View.VISIBLE);
-            verifyotp.setVisibility(View.VISIBLE);
-            textOtp.setVisibility(View.VISIBLE);
-
-            phone.setVisibility(View.GONE);
-            sendotp.setVisibility(View.GONE);
-            textPhone.setVisibility(View.GONE);
+            editTxtOtp.setVisibility(View.VISIBLE);
+            btnVerifyOtp.setVisibility(View.VISIBLE);
+           // textOtp.setVisibility(View.VISIBLE);
+            editTxtPhone.setText("");
+            btnSendotp.setVisibility(View.GONE);
+            editTxtPhone.setVisibility(View.GONE);
+           // textPhone.setVisibility(View.GONE);
         }
     }
 

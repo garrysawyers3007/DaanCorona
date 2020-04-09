@@ -22,7 +22,7 @@ public class PaymentModeActivity extends AppCompatActivity {
         upi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PaymentModeActivity.this,MainActivity.class);
+                Intent intent = new Intent(PaymentModeActivity.this, UPIDetailsActivity.class);
                 startActivity(intent);
             }
         });
@@ -30,7 +30,7 @@ public class PaymentModeActivity extends AppCompatActivity {
         bank.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PaymentModeActivity.this,MainActivity.class);
+                Intent intent = new Intent(PaymentModeActivity.this, BankDetailsActvity.class);
                 startActivity(intent);
             }
         });

@@ -3,5 +3,9 @@
     <string name="MAP_API_KEY" translatable="false">AIzaSyCiyc_4v8hbbwX86H6Cy9020JNY6dzQJGE</string>
     <string name="hindi">हिन्दी</string>
     <string name="english">अंग्रेज़ी</string>
-    <string name="select_a_language">भाषा चुने :</string>
+    <string name="select_a_language">Select language / भाषा चुने :</string>
+    <string name="mouDetails">
+        "This Memorandum of Understanding es+5tablishes the terms for collaboration between:\n“CoronaDaan”: includes the mobile application, online web-application and the essence of the service being offered (referred to as the “app” or “platform” or “service”).\n“ (Business’ name)”: includes the business and the businesses’ stakeholders - owners, employees, and the like (referred to as the “business”) \n for the purpose of signing-up on the CoronaDaan platform and the following is being agreed upon by the undersigned.\n (A)Duration: \n Once signed by both parties, this Memorandum of Understanding will begin on (__/__/____)  and shall stay in effect till (__/__/____). This Memorandum of Understanding is at-will and thus may be modified with the mutual consent of competent authorities from both parties. Thus the duration of the Memorandum of Understanding may be extended or reduced with mutual consent. \n (B)Deliverables from CoronaDaan: \n After the signing of this Memorandum of Understanding, CoronaDaan shall be promising these deliverables:\n(1)Creating a public profile for the business on the platform.
+    </string>
+
 </resources>

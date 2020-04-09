@@ -8,6 +8,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -90,9 +91,15 @@ public class ShopInfoActivity extends AppCompatActivity {
                         latitude.isEmpty() || longitude.isEmpty() || MaxCredit.isEmpty()
                         || BussAddress.isEmpty() || shopImageURI==null)
                     Toast.makeText(ShopInfoActivity.this,"Enter all details",Toast.LENGTH_SHORT).show();
-                else
-                    new ShopInfoActivity.sendDataTask().execute(shopName,shopType,latitude,
-                            longitude,MaxCredit,BussAddress);
+                else{
+//                    new ShopInfoActivity.sendDataTask().execute(shopName,shopType,latitude,
+//                            longitude,MaxCredit,BussAddress);
+
+                    Intent i = new Intent(ShopInfoActivity.this, PaymentModeActivity.class);
+                    startActivity(i);
+
+                }
+
             }
         });
     }

@@ -18,28 +18,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LanguageSelectActivity">
+        <activity android:name=".MOUActivity"></activity>
+        <activity android:name=".LogoActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:name=".WelcomePageActivity" >
-
-        </activity>
-        <activity android:name=".UPIDetailsActivity" >
-
-        </activity>
-        <activity android:name=".BankDetailsActvity" >
-
-        </activity>
-        <activity android:name=".PaymentModeActivity" >
-
-        </activity>
-        <activity android:name=".PersonalInfoActivity" >
-
-        </activity>
-        <activity android:name=".ShopInfoActivity" >
-
-        </activity>
-        <activity android:name=".EditProfile" ></activity>
+        <activity android:name=".LanguageSelectActivity" />
+        <activity android:name=".WelcomePageActivity" />
+        <activity android:name=".UPIDetailsActivity"></activity>
+        <activity android:name=".BankDetailsActvity" />
+        <activity android:name=".PaymentModeActivity" />
+        <activity android:name=".PersonalInfoActivity" />
+        <activity android:name=".ShopInfoActivity" />
+        <activity android:name=".EditProfile" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -47,20 +41,13 @@
 
         <activity
             android:name=".MapActivity"
-            android:screenOrientation="portrait" ></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".InfoActivity"
-            android:screenOrientation="portrait" ></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".LoginActivity"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-
-            </intent-filter>
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />

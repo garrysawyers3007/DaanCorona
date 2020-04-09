@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4b4c78"
+    android:background="@drawable/bgn"
     tools:context=".LanguageSelectActivity">
 
     <LinearLayout
@@ -21,73 +21,33 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="Select a language / "
-                android:textSize="35sp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="15dp"
-                android:textColor="#ffffff"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
                 android:text="@string/select_a_language"
-                android:layout_marginStart="20dp"
-                android:textSize="35sp"
+                android:textSize="20sp"
                 android:layout_marginBottom="20dp"
-                android:textColor="#ffffff"/>
-
-        <RelativeLayout
+                android:textColor="#000"/>
+        <Button
+            android:id="@+id/laguage_english"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="16dp"
-            android:orientation="horizontal"
-            android:background="@drawable/edit_text"
-            android:elevation="10dp"
-            android:layout_marginRight="16dp">
-
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="English"
+            android:textSize="20sp"
+            android:textColor="#000"
             android:textAllCaps="false"
             android:textStyle="bold"
-            android:layout_marginStart="30dp"
-            android:layout_centerInParent="true"
-            android:padding="15dp"
-            android:textSize="20sp"
-            android:textColor="#fff" />
+            android:background="@drawable/black_bg"/>
 
-        </RelativeLayout>
-
-        <RelativeLayout
+        <Button
+            android:id="@+id/laguage_hindi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/hindi"
             android:layout_marginTop="15dp"
-            android:layout_marginLeft="16dp"
-            android:orientation="horizontal"
-            android:background="@drawable/edit_text"
-            android:elevation="10dp"
-            android:layout_marginRight="16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/hindi"
-                android:textStyle="bold"
-                android:gravity="end"
-                android:layout_marginEnd="30dp"
-                android:layout_centerInParent="true"
-                android:textAllCaps="false"
-                android:padding="15dp"
-                android:textSize="20sp"
-                android:textColor="#fff" />
-
-        </RelativeLayout>
-
+            android:textSize="20sp"
+            android:textColor="#000"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:background="@drawable/black_bg"/>
     </LinearLayout>
 
 </RelativeLayout>

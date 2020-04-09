@@ -28,23 +28,24 @@
         android:padding="16dp"
         android:layout_centerInParent="true">
 
-        <TextView
-            android:id="@+id/txt_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Enter Your Phone Number :"
-            android:textSize="23sp"
-            android:layout_marginStart="10dp"
-            android:textColor="#fff"/>
+<!--        <TextView-->
+<!--            android:id="@+id/txt_phone"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Enter Your Phone Number :"-->
+<!--            android:textSize="23sp"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:textColor="#fff"/>-->
 
         <com.google.android.material.textfield.TextInputLayout
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="15dp"
             android:textColorHint="#fff">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/phone"
+                android:id="@+id/editTxt_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text1"
@@ -64,22 +65,22 @@
             android:text="Get OTP"
             android:textColor="#fff"
             android:textAllCaps="false"
-            android:id="@+id/sendotp"
+            android:id="@+id/btn_send_otp"
             android:background="@drawable/button"
             android:elevation="10dp"
             android:layout_marginTop="15dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"/>
 
-        <TextView
-            android:id="@+id/txt_otp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Enter OTP :"
-            android:layout_marginTop="20dp"
-            android:textSize="23sp"
-            android:layout_marginStart="10dp"
-            android:textColor="#fff"/>
+<!--        <TextView-->
+<!--            android:id="@+id/txt_otp"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Enter OTP :"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:textSize="23sp"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:textColor="#fff"/>-->
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -89,7 +90,7 @@
             android:textColorHint="#fff">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/otp"
+                android:id="@+id/edit_txt_otp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text1"
@@ -105,7 +106,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/verifyotp"
+            android:id="@+id/btn_verify_otp"
             android:text="Verify OTP"
             android:textColor="#fff"
             android:textAllCaps="false"
