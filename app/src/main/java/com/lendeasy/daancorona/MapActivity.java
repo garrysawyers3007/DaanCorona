@@ -45,7 +45,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private MarkerOptions markerOptions1;
     private Marker m;
     private Button ok;
-
+// sab badiya hai
     private static final int LOCATION_PERMISSION_REQUEST_CODE =1234;
     private static final float DEFAULT_ZOOM = 17.5f;
     private Boolean mLocationPermissionsGranted = false;
