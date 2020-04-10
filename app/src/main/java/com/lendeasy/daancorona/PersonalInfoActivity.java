@@ -170,6 +170,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(PersonalInfoActivity.this, ShopInfoActivity.class);
                 startActivity(intent);
+
                 finish();
             }
             else

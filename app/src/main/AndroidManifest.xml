@@ -28,7 +28,9 @@
 
         </activity>
         <activity android:name=".BankDetailsActvity"/>
-        <activity android:name=".MOUActivity"></activity>
+        <activity android:name=".MOUActivity">
+
+        </activity>
         <activity android:name=".LogoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,9 +39,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".PaymentModeActivity" />
-        <activity android:name=".PersonalInfoActivity" />
+        <activity android:name=".PersonalInfoActivity">
+
+        </activity>
         <activity android:name=".ShopInfoActivity" />
-        <activity android:name=".EditProfile" />
+        <activity android:name=".EditProfile" >
+
+        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -47,7 +53,9 @@
 
         <activity
             android:name=".MapActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity
             android:name=".InfoActivity"
             android:screenOrientation="portrait" />
