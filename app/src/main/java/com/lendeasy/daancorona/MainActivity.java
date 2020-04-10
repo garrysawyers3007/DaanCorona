@@ -129,9 +129,9 @@ public class MainActivity extends AppCompatActivity {
                 netamt.setText(s[1]);
                 maxcredit.setText(s[2]);
                // if(sharedPref.getString("Lang","").equals("hin")){
-                    name.setText(TranslateTo.getTranslation(name.getText().toString(),MainActivity.this));
-                    maxcredit.setText(TranslateTo.getTranslation(maxcredit.getText().toString(),MainActivity.this));
-                    netamt.setText(TranslateTo.getTranslation(netamt.getText().toString(),MainActivity.this));
+//                    name.setText(TranslateTo.getTranslation(name.getText().toString(),MainActivity.this));
+//                    maxcredit.setText(TranslateTo.getTranslation(maxcredit.getText().toString(),MainActivity.this));
+//                    netamt.setText(TranslateTo.getTranslation(netamt.getText().toString(),MainActivity.this));
                 //}
             }
             if(mSwipeRefreshLayout.isRefreshing()) {
