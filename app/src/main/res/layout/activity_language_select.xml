@@ -18,26 +18,14 @@
         android:layout_marginTop="30dp"
         android:layout_centerInParent="true">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_centerHorizontal="true"
-                android:text="Select a language / "
-                android:textSize="35sp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="15dp"
-                android:textColor="#ffffff"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="@string/select_a_language"
-                android:textSize="20sp"
-                android:layout_marginBottom="20dp"
-                android:textColor="#000"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/select_a_language"
+            android:textSize="20sp"
+            android:layout_marginBottom="20dp"
+            android:textColor="#000"/>
         <Button
             android:id="@+id/laguage_english"
             android:layout_width="match_parent"
@@ -49,19 +37,6 @@
             android:textStyle="bold"
             android:background="@drawable/black_bg"/>
 
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/hindi"
-                android:textStyle="bold"
-                android:gravity="end"
-                android:layout_marginRight="30dp"
-                android:layout_centerInParent="true"
-                android:textAllCaps="false"
-                android:padding="15dp"
-                android:textSize="20sp"
-                android:textColor="#fff" />
         <Button
             android:id="@+id/laguage_hindi"
             android:layout_width="match_parent"
