@@ -95,7 +95,6 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text1"
                 android:hint="Enter OTP"
-                android:visibility="gone"
                 android:textColor="#fff"
                 android:padding="10dp"
                 android:inputType="number"

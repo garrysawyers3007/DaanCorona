@@ -47,6 +47,7 @@ public class ShopInfoActivity extends AppCompatActivity {
     double lat,lng;
     Uri shopImageURI;
     String token;
+    LoadingDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +94,7 @@ public class ShopInfoActivity extends AppCompatActivity {
                         || BussAddress.isEmpty() || shopImageURI==null)
                     Toast.makeText(ShopInfoActivity.this,"Enter all details",Toast.LENGTH_SHORT).show();
                 else{
+                    dialog.startloadingDialog();
                     new ShopInfoActivity.sendDataTask().execute(shopName,shopType,latitude,
                             longitude,MaxCredit,BussAddress);
 //
@@ -116,6 +118,7 @@ public class ShopInfoActivity extends AppCompatActivity {
         buss_address=findViewById(R.id.businessaddress);
 
         shopImage.setImageResource(R.drawable.ic_launcher_background);
+        dialog=new LoadingDialog(this);
     }
 
     private void declaration() {
@@ -186,6 +189,7 @@ public class ShopInfoActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            dialog.dismissDialog();
             if(s!=null) {
                 Toast.makeText(ShopInfoActivity.this,s,Toast.LENGTH_LONG).show();
                 SharedPreferences sharedPref=getSharedPreferences("User",MODE_PRIVATE);

@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg"
+    android:background="@drawable/black_bg"
     android:layout_margin="8dp"
     android:padding="8dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -13,7 +13,7 @@
     android:layout_height="wrap_content"
     android:id="@+id/name"
         android:layout_centerHorizontal="true"
-        android:textColor="#fff"
+        android:textColor="#000"
         android:textSize="24sp"
     android:text="Name"/>
 
@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/amount"
-        android:textColor="#fff"
+        android:textColor="#000"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/name"
         android:layout_marginTop="8dp"

@@ -19,6 +19,7 @@ public class MOUActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(MOUActivity.this, MainActivity.class);
                 startActivity(i);
+                finish();
             }
         });
     }

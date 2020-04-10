@@ -60,6 +60,7 @@ public class EditProfile extends AppCompatActivity {
     double lat,lng;
     Uri userImageURI, shopImageURI,dwnloaduser,dwnldshop;
     String token,shopUrl,userUrl;
+    LoadingDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,8 +118,10 @@ public class EditProfile extends AppCompatActivity {
                         latitude.isEmpty() || longitude.isEmpty() || shopAddress.isEmpty() || MaxCredit.isEmpty()
                         || BussAddress.isEmpty() || userImageURI==null || shopImageURI==null)
                     Toast.makeText(EditProfile.this,"Enter all details",Toast.LENGTH_SHORT).show();
-                else
-                    new sendDataTask().execute(firstName,lastName,shopName,shopType,latitude,longitude,shopAddress,MaxCredit,BussAddress);
+                else {
+                    dialog.startloadingDialog();
+                    new sendDataTask().execute(firstName, lastName, shopName, shopType, latitude, longitude, shopAddress, MaxCredit, BussAddress);
+                }
             }
         });
     }
@@ -138,6 +141,8 @@ public class EditProfile extends AppCompatActivity {
 
         userImageView.setImageResource(R.drawable.ic_launcher_background);
         shopImage.setImageResource(R.drawable.ic_launcher_background);
+        dialog=new LoadingDialog(this);
+        dialog.startloadingDialog();
 
         new getTask().execute();
     }
@@ -297,6 +302,7 @@ public class EditProfile extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            dialog.dismissDialog();
             if(s!=null) {
 
                 Toast.makeText(EditProfile.this,s,Toast.LENGTH_LONG).show();
@@ -367,6 +373,7 @@ public class EditProfile extends AppCompatActivity {
         protected void onPostExecute(String s) {
 
             super.onPostExecute(s);
+            dialog.dismissDialog();
 
             if(s.equals("Done")){
                 try {

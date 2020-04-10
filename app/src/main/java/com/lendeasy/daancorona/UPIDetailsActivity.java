@@ -2,6 +2,7 @@ package com.lendeasy.daancorona;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import okhttp3.Response;
 
 public class UPIDetailsActivity extends AppCompatActivity {
     Button btnproceedUpi;
+    LoadingDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -34,6 +36,7 @@ public class UPIDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_u_p_i_details);
 
         TextInputEditText upivpa=findViewById(R.id.upi_vpa);
+        dialog=new LoadingDialog(this);
 
         btnproceedUpi = findViewById(R.id.proceed_upi_details);
         btnproceedUpi.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +52,7 @@ public class UPIDetailsActivity extends AppCompatActivity {
                     Toast.makeText(UPIDetailsActivity.this,"Enter Upi",Toast.LENGTH_SHORT).show();
                 else {
 
+                    dialog.startloadingDialog();
                     final OkHttpClient client = new OkHttpClient();
 
                     RequestBody formBody = new FormBody.Builder()
@@ -67,6 +71,7 @@ public class UPIDetailsActivity extends AppCompatActivity {
                             UPIDetailsActivity.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    dialog.dismissDialog();
                                     Toast.makeText(UPIDetailsActivity.this, "Error!!", Toast.LENGTH_SHORT).show();
                                 }
                             });
@@ -79,6 +84,7 @@ public class UPIDetailsActivity extends AppCompatActivity {
                             UPIDetailsActivity.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    dialog.dismissDialog();
                                     Toast.makeText(UPIDetailsActivity.this, "Success", Toast.LENGTH_SHORT).show();
                                 }
                             });

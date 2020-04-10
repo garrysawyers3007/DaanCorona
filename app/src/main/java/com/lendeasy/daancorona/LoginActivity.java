@@ -29,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText editTxtPhone, editTxtOtp;
     Button btnSendotp, btnVerifyOtp;
+    LoadingDialog dialog;
   //  TextView textOtp,textPhone;
     String codeSent,code,phoneNumber,url="localhost:3000";
     boolean newuser;
@@ -51,9 +52,14 @@ public class LoginActivity extends AppCompatActivity {
         btnVerifyOtp.setVisibility(View.GONE);
        // textOtp.setVisibility(View.GONE);
 
+        dialog=new LoadingDialog(this);
+
         btnSendotp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                dialog.startloadingDialog();
+
                 phoneNumber = "+91" + editTxtPhone.getText().toString().trim();
                 if(phoneNumber.length()==13)
                     new GetOtpTask().execute(phoneNumber);
@@ -65,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
         btnVerifyOtp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dialog.startloadingDialog();
                 code= editTxtOtp.getText().toString();
                     new VerifyOtpTask().execute(phoneNumber,code);
                 //verifySignIn();
@@ -111,6 +118,7 @@ public class LoginActivity extends AppCompatActivity {
 
             //Toast.makeText(getApplicationContext(),"code:"+s,Toast.LENGTH_LONG).show();
             super.onPostExecute(s);
+            dialog.dismissDialog();
 
             editTxtOtp.setVisibility(View.VISIBLE);
             btnVerifyOtp.setVisibility(View.VISIBLE);
@@ -171,6 +179,7 @@ public class LoginActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
 
             super.onPostExecute(s);
+            dialog.dismissDialog();
 
             if(s==null || s.equals("")) {
                 Toast.makeText(LoginActivity.this, "Error!!!", Toast.LENGTH_SHORT).show();

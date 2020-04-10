@@ -46,6 +46,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
     String firstName,lastName,shopAddress;
     Uri userImageURI;
     String token;
+    LoadingDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +76,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
                 if(firstName.isEmpty() || lastName.isEmpty() || userImageURI==null || shopAddress.isEmpty())
                     Toast.makeText(PersonalInfoActivity.this,"Enter all details",Toast.LENGTH_SHORT).show();
                 else{
+                    dialog.startloadingDialog();
                   new PersonalInfoActivity.sendDataTask().execute(firstName,lastName,shopAddress);
 //                    Intent i = new Intent(PersonalInfoActivity.this, ShopInfoActivity.class);
 //                    startActivity(i);
@@ -92,6 +94,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
         userImageView = findViewById(R.id.user_image);
 
         userImageView.setImageResource(R.drawable.profile_pic);
+        dialog=new LoadingDialog(this);
     }
 
     private void declaration() {
@@ -160,6 +163,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            dialog.dismissDialog();
             if(s!=null) {
                 Toast.makeText(PersonalInfoActivity.this,s,Toast.LENGTH_LONG).show();
 
