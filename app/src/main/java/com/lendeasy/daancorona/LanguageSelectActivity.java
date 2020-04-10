@@ -48,9 +48,9 @@ public class LanguageSelectActivity extends AppCompatActivity {
             public void onClick(View view) {
                 editor.putString("Lang","hin");
                 editor.apply();
-                //Toast.makeText(LanguageSelectActivity.this, "Feature yet to be added", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(LanguageSelectActivity.this,LoginActivity.class));
-                finish();
+                Toast.makeText(LanguageSelectActivity.this, "Feature yet to be added", Toast.LENGTH_SHORT).show();
+//                startActivity(new Intent(LanguageSelectActivity.this,LoginActivity.class));
+//                finish();
 
             }
         });

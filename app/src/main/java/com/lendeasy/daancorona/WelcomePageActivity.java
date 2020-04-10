@@ -31,8 +31,9 @@ public class WelcomePageActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(WelcomePageActivity.this, "Smj nhi aaya abhi", Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(WelcomePageActivity.this, "Feature yet to be added", Toast.LENGTH_SHORT).show();
+//                Intent i = new Intent(WelcomePageActivity.this, MainActivity.class);
+//                startActivity(i);
             }
         });
 

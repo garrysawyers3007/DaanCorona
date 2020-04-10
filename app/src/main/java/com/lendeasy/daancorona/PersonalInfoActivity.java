@@ -170,6 +170,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(PersonalInfoActivity.this, ShopInfoActivity.class);
                 startActivity(intent);
+                Toast.makeText(PersonalInfoActivity.this,"Enter Shop location first",Toast.LENGTH_LONG).show();
 
                 finish();
             }

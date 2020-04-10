@@ -52,7 +52,7 @@ public class ShopInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_info);
-        Toast.makeText(ShopInfoActivity.this,"Enter Shop location first",Toast.LENGTH_LONG).show();
+//        Toast.makeText(ShopInfoActivity.this,"Enter Shop location first",Toast.LENGTH_LONG).show();
 
         SharedPreferences sharedPref=getSharedPreferences("User",MODE_PRIVATE);
         token=sharedPref.getString("Token","");
