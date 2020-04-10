@@ -32,24 +32,23 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/phone"
+            android:id="@+id/acc_no"
             android:textColorHint="#fff"
             android:padding="15dp"
             android:textColor="#fff"
             android:background="@drawable/edit_text"
-            android:inputType="phone"
+            android:inputType="number"
             android:hint="Enter Your Account Number" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
             android:background="@drawable/edit_text"
             android:padding="15dp"
             android:textColor="#fff"
             android:textColorHint="#fff"
             android:layout_marginTop="15dp"
-            android:id="@+id/otp"
+            android:id="@+id/ifsc"
             android:hint="Enter IFSC Code" />
 
         <Button

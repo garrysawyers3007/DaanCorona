@@ -4,22 +4,30 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import okhttp3.OkHttpClient;
@@ -39,19 +47,31 @@ public class MainActivity extends AppCompatActivity {
     TextView name,maxcredit,netamt;
     String token;
     ImageView edit;
+    SharedPreferences sharedPref;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences sharedPref=getSharedPreferences("User",MODE_PRIVATE);
+
+        sharedPref = getSharedPreferences("User",MODE_PRIVATE);
         token=sharedPref.getString("Token","");
 
         name=findViewById(R.id.name);
         maxcredit=findViewById(R.id.target);
         netamt=findViewById(R.id.balance);
         edit=findViewById(R.id.edit);
+
+        mSwipeRefreshLayout=findViewById(R.id.swiperefresh_items);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new SetProfile().execute();
+                new SetRecyclerView().execute();
+            }
+        });
 
         recyclerView=findViewById(R.id.recyclerview);
         edit.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         new SetRecyclerView().execute();
 
     }
+
 
     class SetProfile extends AsyncTask<Void,Void,String[]>{
 
@@ -107,6 +128,14 @@ public class MainActivity extends AppCompatActivity {
                 name.setText(s[0]);
                 netamt.setText(s[1]);
                 maxcredit.setText(s[2]);
+                if(sharedPref.getString("Lang","").equals("hin")){
+                    name.setText(TranslateTo.getTranslation(name.getText().toString(),MainActivity.this));
+                    maxcredit.setText(TranslateTo.getTranslation(maxcredit.getText().toString(),MainActivity.this));
+                    netamt.setText(TranslateTo.getTranslation(netamt.getText().toString(),MainActivity.this));
+                }
+            }
+            if(mSwipeRefreshLayout.isRefreshing()) {
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         }
     }
@@ -160,6 +189,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             }catch (JSONException e) {
                 e.printStackTrace();
+            }
+            if(mSwipeRefreshLayout.isRefreshing()) {
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         }
     }

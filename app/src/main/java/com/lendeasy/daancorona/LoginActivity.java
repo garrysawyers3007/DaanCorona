@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -42,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
        // textPhone = findViewById(R.id.txt_phone);
         editTxtPhone =findViewById(R.id.editTxt_phone);
         btnSendotp = findViewById(R.id.btn_send_otp);
+
 
       //  textOtp = findViewById(R.id.txt_otp);
         editTxtOtp = findViewById(R.id.edit_txt_otp);
@@ -184,14 +184,31 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Token: "+s, Toast.LENGTH_SHORT).show();
 
             if(!newuser) {
-                Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                Intent i;
+
+                if(!sharedPref.getBoolean("Page1",false))
+                    i=new Intent(LoginActivity.this,PersonalInfoActivity.class);
+                else if(!sharedPref.getBoolean("Page2",false))
+                    i=new Intent(LoginActivity.this,ShopInfoActivity.class);
+                else if(!sharedPref.getBoolean("Page3",false))
+                    i=new Intent(LoginActivity.this,PaymentModeActivity.class);
+                else
+                    i = new Intent(LoginActivity.this, MainActivity.class);
+
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(i);
                 finish();
             }
             else{
+
+                editor.putBoolean("Page1",false);
+                editor.putBoolean("Page2",false);
+                editor.putBoolean("Page3",false);
+                editor.apply();
+
                 Intent i = new Intent(LoginActivity.this, PersonalInfoActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(i);
                 finish();
             }

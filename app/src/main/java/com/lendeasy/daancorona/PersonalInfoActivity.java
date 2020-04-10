@@ -75,9 +75,9 @@ public class PersonalInfoActivity extends AppCompatActivity {
                 if(firstName.isEmpty() || lastName.isEmpty() || userImageURI==null || shopAddress.isEmpty())
                     Toast.makeText(PersonalInfoActivity.this,"Enter all details",Toast.LENGTH_SHORT).show();
                 else{
-//                    new PersonalInfoActivity.sendDataTask().execute(firstName,lastName,shopAddress);
-                    Intent i = new Intent(PersonalInfoActivity.this, ShopInfoActivity.class);
-                    startActivity(i);
+                  new PersonalInfoActivity.sendDataTask().execute(firstName,lastName,shopAddress);
+//                    Intent i = new Intent(PersonalInfoActivity.this, ShopInfoActivity.class);
+//                    startActivity(i);
                 }
             }
         });
@@ -162,6 +162,12 @@ public class PersonalInfoActivity extends AppCompatActivity {
             super.onPostExecute(s);
             if(s!=null) {
                 Toast.makeText(PersonalInfoActivity.this,s,Toast.LENGTH_LONG).show();
+
+                SharedPreferences sharedPref=getSharedPreferences("User",MODE_PRIVATE);
+                SharedPreferences.Editor editor=sharedPref.edit();
+                editor.putBoolean("Page1",true);
+                editor.apply();
+
                 Intent intent = new Intent(PersonalInfoActivity.this, ShopInfoActivity.class);
                 startActivity(intent);
                 finish();
@@ -177,7 +183,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
         int column_index = cursor
                 .getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
         cursor.moveToFirst();
-        String imagePath = cursor.getString(column_index);
+
 
         return cursor.getString(column_index);
     }

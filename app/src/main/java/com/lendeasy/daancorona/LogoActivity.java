@@ -29,6 +29,7 @@ public class LogoActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(LogoActivity.this, LanguageSelectActivity.class);
                 startActivity(i);
+                finish();
             }
         });
     }

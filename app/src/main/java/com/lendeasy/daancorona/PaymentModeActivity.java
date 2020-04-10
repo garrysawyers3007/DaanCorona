@@ -24,6 +24,7 @@ public class PaymentModeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PaymentModeActivity.this, UPIDetailsActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 

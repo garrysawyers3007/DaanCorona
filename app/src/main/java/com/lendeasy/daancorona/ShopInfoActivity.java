@@ -92,11 +92,11 @@ public class ShopInfoActivity extends AppCompatActivity {
                         || BussAddress.isEmpty() || shopImageURI==null)
                     Toast.makeText(ShopInfoActivity.this,"Enter all details",Toast.LENGTH_SHORT).show();
                 else{
-//                    new ShopInfoActivity.sendDataTask().execute(shopName,shopType,latitude,
-//                            longitude,MaxCredit,BussAddress);
-
-                    Intent i = new Intent(ShopInfoActivity.this, PaymentModeActivity.class);
-                    startActivity(i);
+                    new ShopInfoActivity.sendDataTask().execute(shopName,shopType,latitude,
+                            longitude,MaxCredit,BussAddress);
+//
+//                    Intent i = new Intent(ShopInfoActivity.this, PaymentModeActivity.class);
+//                    startActivity(i);
 
                 }
 
@@ -155,8 +155,8 @@ public class ShopInfoActivity extends AppCompatActivity {
                     .addFormDataPart("business_type",strings[1])
                     .addFormDataPart("lat",strings[2])
                     .addFormDataPart("long",strings[3])
-                    .addFormDataPart("max_credit",strings[5])
-                    .addFormDataPart("business_address",strings[6])
+                    .addFormDataPart("max_credit",strings[4])
+                    .addFormDataPart("business_address",strings[5])
                     .addFormDataPart("business_photo",shop.getName(),RequestBody.create(MEDIA_TYPE_PNG,shop))
                     .build();
 
@@ -187,6 +187,11 @@ public class ShopInfoActivity extends AppCompatActivity {
             super.onPostExecute(s);
             if(s!=null) {
                 Toast.makeText(ShopInfoActivity.this,s,Toast.LENGTH_LONG).show();
+                SharedPreferences sharedPref=getSharedPreferences("User",MODE_PRIVATE);
+                SharedPreferences.Editor editor=sharedPref.edit();
+                editor.putBoolean("Page2",true);
+                editor.apply();
+
                 Intent intent = new Intent(ShopInfoActivity.this, PaymentModeActivity.class);
                 startActivity(intent);
                 finish();
