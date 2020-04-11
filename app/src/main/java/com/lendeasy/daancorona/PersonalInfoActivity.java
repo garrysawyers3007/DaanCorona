@@ -139,7 +139,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
                     .build();
 
             Request request = new Request.Builder()
-                    .url("http://daancorona.pythonanywhere.com/api/recipient_profile/")
+                    .url("http://daancorona.herokuapp.com/api/recipient_profile/")
                     .addHeader("Authorization","JWT "+token)
                     .post(formBody)
                     .build();

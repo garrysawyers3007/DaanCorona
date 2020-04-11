@@ -37,10 +37,11 @@ public class LanguageSelectActivity extends AppCompatActivity {
         langEng.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                editor.putString("Lang","eng");
-//                editor.apply();
+                editor.putString("Lang","eng");
+                editor.apply();
                 Intent i = new Intent(LanguageSelectActivity.this, WelcomePageActivity.class);
                 startActivity(i);
+                finish();
             }
         });
         langHindi.setOnClickListener(new View.OnClickListener() {

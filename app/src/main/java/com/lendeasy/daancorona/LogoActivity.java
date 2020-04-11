@@ -27,6 +27,7 @@ public class LogoActivity extends AppCompatActivity {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent i = new Intent(LogoActivity.this, LanguageSelectActivity.class);
                 startActivity(i);
                 finish();

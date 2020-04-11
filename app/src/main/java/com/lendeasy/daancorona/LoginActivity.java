@@ -30,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText editTxtPhone, editTxtOtp;
     Button btnSendotp, btnVerifyOtp;
     LoadingDialog dialog;
+    OTPDialog otpDialog;
   //  TextView textOtp,textPhone;
     String codeSent,code,phoneNumber,url="localhost:3000";
     boolean newuser;
@@ -55,14 +56,17 @@ public class LoginActivity extends AppCompatActivity {
         dialog=new LoadingDialog(this);
 
         btnSendotp.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
 
-                dialog.startloadingDialog();
+
 
                 phoneNumber = "+91" + editTxtPhone.getText().toString().trim();
-                if(phoneNumber.length()==13)
+                if(phoneNumber.length()==13) {
+                    dialog.startloadingDialog();
                     new GetOtpTask().execute(phoneNumber);
+                }
                 else
                     Toast.makeText(getApplicationContext(),"Invalid phone number",Toast.LENGTH_SHORT).show();
             }
@@ -91,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
                         .build();
 
                 Request request = new Request.Builder()
-                        .url("http://daancorona.pythonanywhere.com/api/mobile/")
+                        .url("http://daancorona.herokuapp.com/api/mobile/")
                         .post(formbody)
                         .build();
 
@@ -99,6 +103,9 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (!response.isSuccessful())
                     throw new IOException("Unexpected code " + response);
+                JSONObject jsonObject=new JSONObject(response.body().string());
+
+                codeSent=jsonObject.getString("otp");
 
                 Log.d("Tag",response.body()+"");
 
@@ -107,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 return codeSent;
 
-            } catch (IOException e) {
+            } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
             return null;
@@ -119,6 +126,15 @@ public class LoginActivity extends AppCompatActivity {
             //Toast.makeText(getApplicationContext(),"code:"+s,Toast.LENGTH_LONG).show();
             super.onPostExecute(s);
             dialog.dismissDialog();
+
+            if(!s.equals(null)){
+                otpDialog=new OTPDialog(s,LoginActivity.this);
+                otpDialog.setCancelable(true);
+                otpDialog.show();
+
+            }
+            else
+                Toast.makeText(LoginActivity.this,"Error",Toast.LENGTH_SHORT).show();
 
             editTxtOtp.setVisibility(View.VISIBLE);
             btnVerifyOtp.setVisibility(View.VISIBLE);
@@ -147,7 +163,7 @@ public class LoginActivity extends AppCompatActivity {
                     .build();
 
             Request request = new Request.Builder()
-                    .url("http://daancorona.pythonanywhere.com/api/otp/")
+                    .url("http://daancorona.herokuapp.com/api/otp/")
                     .post(formbody)
                     .build();
 
