@@ -9,7 +9,7 @@ import java.net.URL;
 public class SaveImageFromUrl {
 
     public static void main(String[] args) throws Exception {
-        String imageUrl = "http://daancorona.pythonanywhere.com/media/recipient/image.jpg";
+        String imageUrl = "http://daancorona.tech/media/recipient/image.jpg";
         String destinationFile = "image.jpg";
 
         saveImage(imageUrl, destinationFile);

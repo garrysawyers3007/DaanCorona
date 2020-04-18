@@ -277,7 +277,7 @@ public class EditProfile extends AppCompatActivity {
             }
 
             Request request = new Request.Builder()
-                    .url("http://daancorona.herokuapp.com/api/recipient_profile/")
+                    .url("http://daancorona.tech/api/recipient_profile/")
                     .addHeader("Authorization","JWT "+token)
                     .post(formBody)
                     .build();
@@ -324,7 +324,7 @@ public class EditProfile extends AppCompatActivity {
             OkHttpClient httpClient = new OkHttpClient();
 
             Request request = new Request.Builder()
-                    .url("http://daancorona.herokuapp.com/api/recipient_profile/")
+                    .url("http://daancorona.tech/api/recipient_profile/")
                     .addHeader("Authorization","JWT "+token)
                     .build();
 
@@ -349,9 +349,9 @@ public class EditProfile extends AppCompatActivity {
 
                 shop_img=(String)jsonObject.get("business_photo");
 
-                userUrl="http://daancorona.herokuapp.com"+profile_img;
+                userUrl="http://daancorona.tech"+profile_img;
                 userImageURI=Uri.parse(userUrl);
-                shopUrl="http://daancorona.herokuapp.com"+shop_img;
+                shopUrl="http://daancorona.tech"+shop_img;
                 shopImageURI=Uri.parse(shopUrl);
 
                 dwnldshop=shopImageURI;

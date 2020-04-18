@@ -95,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
                         .build();
 
                 Request request = new Request.Builder()
-                        .url("http://daancorona.herokuapp.com/api/mobile/")
+                        .url("http://daancorona.tech/api/mobile/")
                         .post(formbody)
                         .build();
 
@@ -105,14 +105,14 @@ public class LoginActivity extends AppCompatActivity {
                     throw new IOException("Unexpected code " + response);
                 JSONObject jsonObject=new JSONObject(response.body().string());
 
-                codeSent=jsonObject.getString("otp");
+//                codeSent=jsonObject.getString("otp");
 
                 Log.d("Tag",response.body()+"");
 
 //                JSONObject jsonObject=new JSONObject(response.body().string());
 //                codeSent= jsonObject.getString("otp");
 
-                return codeSent;
+                return "Done";
 
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
@@ -127,22 +127,18 @@ public class LoginActivity extends AppCompatActivity {
             super.onPostExecute(s);
             dialog.dismissDialog();
 
-            if(!s.equals(null)){
-                otpDialog=new OTPDialog(s,LoginActivity.this);
-                otpDialog.setCancelable(true);
-                otpDialog.show();
-
-            }
-            else
+            if(s==null)
                 Toast.makeText(LoginActivity.this,"Error",Toast.LENGTH_SHORT).show();
 
-            editTxtOtp.setVisibility(View.VISIBLE);
-            btnVerifyOtp.setVisibility(View.VISIBLE);
-           // textOtp.setVisibility(View.VISIBLE);
-            editTxtPhone.setText("");
-            btnSendotp.setVisibility(View.GONE);
-            editTxtPhone.setVisibility(View.GONE);
-           // textPhone.setVisibility(View.GONE);
+            else {
+                editTxtOtp.setVisibility(View.VISIBLE);
+                btnVerifyOtp.setVisibility(View.VISIBLE);
+                // textOtp.setVisibility(View.VISIBLE);
+                editTxtPhone.setText("");
+                btnSendotp.setVisibility(View.GONE);
+                editTxtPhone.setVisibility(View.GONE);
+                // textPhone.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -163,7 +159,7 @@ public class LoginActivity extends AppCompatActivity {
                     .build();
 
             Request request = new Request.Builder()
-                    .url("http://daancorona.herokuapp.com/api/otp/")
+                    .url("http://daancorona.tech/api/otp/")
                     .post(formbody)
                     .build();
 

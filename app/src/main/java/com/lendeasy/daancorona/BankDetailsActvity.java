@@ -58,7 +58,7 @@ public class BankDetailsActvity extends AppCompatActivity {
 
 
                     Request request = new Request.Builder()
-                            .url("http://daancorona.herokuapp.com/api/recipient_profile/")
+                            .url("http://daancorona.tech/api/recipient_profile/")
                             .addHeader("Authorization", "JWT " + token)
                             .post(formBody)
                             .build();

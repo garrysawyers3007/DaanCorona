@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Gallery;
 import android.widget.Toast;
 
 import java.io.File;
@@ -63,9 +64,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 checkPermission(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}[0], MY_GALLERY_REQUEST_CODE);
-                Intent gallery = new Intent(Intent.ACTION_PICK);
-                gallery.setType("image/*");
-                startActivityForResult(gallery, USER_IMAGE);
+
             }
         });
 
@@ -139,7 +138,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
                     .build();
 
             Request request = new Request.Builder()
-                    .url("http://daancorona.herokuapp.com/api/recipient_profile/")
+                    .url("http://daancorona.tech/api/recipient_profile/")
                     .addHeader("Authorization","JWT "+token)
                     .post(formBody)
                     .build();
@@ -207,6 +206,13 @@ public class PersonalInfoActivity extends AppCompatActivity {
                             new String[] { permission },
                             requestCode);
         }
+        else{
+            if(requestCode== MY_GALLERY_REQUEST_CODE){
+                Intent gallery = new Intent(Intent.ACTION_PICK);
+                gallery.setType("image/*");
+                startActivityForResult(gallery, USER_IMAGE);
+            }
+        }
 
     }
 
@@ -219,13 +225,16 @@ public class PersonalInfoActivity extends AppCompatActivity {
                 permissions,
                 grantResults);
 
-        if (requestCode ==  STORAGE_PERMISSION_CODE) {
+        if (requestCode ==  MY_GALLERY_REQUEST_CODE) {
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this,
                         "Storage Permission Granted",
                         Toast.LENGTH_SHORT)
                         .show();
+                Intent gallery = new Intent(Intent.ACTION_PICK);
+                gallery.setType("image/*");
+                startActivityForResult(gallery, USER_IMAGE);
             }
             else {
                 Toast.makeText(this,

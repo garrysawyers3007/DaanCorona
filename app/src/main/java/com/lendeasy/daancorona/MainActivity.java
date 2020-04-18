@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
             final OkHttpClient httpClient = new OkHttpClient();
 
             Request request = new Request.Builder()
-                    .url("http://daancorona.herokuapp.com/api/recipient_details/")
+                    .url("http://daancorona.tech/api/recipient_details/")
                     .addHeader("Authorization","JWT "+token)
                     .build();
 
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
             final OkHttpClient httpClient = new OkHttpClient();
 
             Request request = new Request.Builder()
-                    .url("http://daancorona.herokuapp.com/api/recipient_details/")
+                    .url("http://daancorona.tech/api/recipient_details/")
                     .addHeader("Authorization", "JWT "+token)
                     .build();
 

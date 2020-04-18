@@ -99,7 +99,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
                     .build();
 
             Request request = new Request.Builder()
-                    .url("http://daancorona.pythonanywhere.com/api/send_thanks/")
+                    .url("http://daancorona.tech/api/send_thanks/")
                     .addHeader("Authorization","JWT "+strings[1])
                     .post(formbody)
                     .build();

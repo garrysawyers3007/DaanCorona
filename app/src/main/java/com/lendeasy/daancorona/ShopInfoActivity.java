@@ -39,6 +39,7 @@ public class ShopInfoActivity extends AppCompatActivity {
 
     private static final int MY_GALLERY_REQUEST_CODE =102 ;
     private static final int STORAGE_PERMISSION_CODE = 103;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE =1234;
     private EditText shop_name,shop_type,maxCredit,buss_address;
     private Button proceed, location;
     private CircleImageView shopImage;
@@ -64,18 +65,14 @@ public class ShopInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 checkPermission(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}[0], MY_GALLERY_REQUEST_CODE);
-                Intent gallery = new Intent(Intent.ACTION_PICK);
-                gallery.setType("image/*");
-                startActivityForResult(gallery, SHOP_IMAGE);
+
             }
         });
 
         location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ShopInfoActivity.this, MapActivity.class);
-                startActivity(intent);
-                finish();
+                getLocationPermission(LOCATION_PERMISSION_REQUEST_CODE);
             }
         });
 
@@ -165,7 +162,7 @@ public class ShopInfoActivity extends AppCompatActivity {
                     .build();
 
             Request request = new Request.Builder()
-                    .url("http://daancorona.herokuapp.com/api/recipient_profile/")
+                    .url("http://daancorona.tech/api/recipient_profile/")
                     .addHeader("Authorization","JWT "+token)
                     .post(formBody)
                     .build();
@@ -229,6 +226,14 @@ public class ShopInfoActivity extends AppCompatActivity {
                             new String[] { permission },
                             requestCode);
         }
+        else{
+            if(requestCode== MY_GALLERY_REQUEST_CODE){
+
+                Intent gallery = new Intent(Intent.ACTION_PICK);
+                gallery.setType("image/*");
+                startActivityForResult(gallery, SHOP_IMAGE);
+            }
+        }
 
     }
 
@@ -248,12 +253,51 @@ public class ShopInfoActivity extends AppCompatActivity {
                         "Storage Permission Granted",
                         Toast.LENGTH_SHORT)
                         .show();
+
+                Intent gallery = new Intent(Intent.ACTION_PICK);
+                gallery.setType("image/*");
+                startActivityForResult(gallery, SHOP_IMAGE);
+
             }
             else {
                 Toast.makeText(this,
                         "Storage Permission Denied",
                         Toast.LENGTH_SHORT)
                         .show();
+            }
+        }
+        else{
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this,
+                        "Location Permission Granted",
+                        Toast.LENGTH_SHORT)
+                        .show();
+                Intent intent = new Intent(ShopInfoActivity.this, MapActivity.class);
+                startActivity(intent);
+                finish();
+            }
+            else {
+                Toast.makeText(this,
+                        "Location Permission Denied",
+                        Toast.LENGTH_SHORT)
+                        .show();
+            }
+        }
+    }
+
+    private void getLocationPermission(int requestCode){
+        Log.d("isnull","Null");
+
+        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION};
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,permissions, LOCATION_PERMISSION_REQUEST_CODE);
+        }else{
+            if(requestCode== LOCATION_PERMISSION_REQUEST_CODE){
+                Intent intent = new Intent(ShopInfoActivity.this, MapActivity.class);
+                startActivity(intent);
+                finish();
             }
         }
     }
