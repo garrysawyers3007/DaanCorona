@@ -1,43 +1,31 @@
 package com.lendeasy.daancorona;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.StrictMode;
-import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.cloud.translate.Translate;
-import com.google.cloud.translate.TranslateOptions;
-import com.google.cloud.translate.Translation;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import retrofit2.Call;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         sharedPref = getSharedPreferences("User",MODE_PRIVATE);
         token=sharedPref.getString("Token","");
@@ -128,11 +115,11 @@ public class MainActivity extends AppCompatActivity {
                 name.setText(s[0]);
                 netamt.setText(s[1]);
                 maxcredit.setText(s[2]);
-               // if(sharedPref.getString("Lang","").equals("hin")){
-//                    name.setText(TranslateTo.getTranslation(name.getText().toString(),MainActivity.this));
-//                    maxcredit.setText(TranslateTo.getTranslation(maxcredit.getText().toString(),MainActivity.this));
-//                    netamt.setText(TranslateTo.getTranslation(netamt.getText().toString(),MainActivity.this));
-                //}
+                if(sharedPref.getString("Lang","").equals("hin")){
+                    name.setText(TranslateTo.getTranslation(name.getText().toString(),MainActivity.this));
+                    maxcredit.setText(TranslateTo.getTranslation(maxcredit.getText().toString(),MainActivity.this));
+                    netamt.setText(TranslateTo.getTranslation(netamt.getText().toString(),MainActivity.this));
+                }
             }
             if(mSwipeRefreshLayout.isRefreshing()) {
                 mSwipeRefreshLayout.setRefreshing(false);
@@ -179,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        list.add(new Item(jsonObject.getString("name"),jsonObject.getString("donor_id"),jsonObject.getString("amount")));
+                        list.add(new Item(jsonObject.getString("name"),jsonObject.getString("amount")));
                     }
 
                     recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));

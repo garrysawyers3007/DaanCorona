@@ -49,7 +49,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ItemAdapter.ViewHolder holder, int position) {
         holder.name.setText(list.get(position).getName());
-        holder.UiD.setText(list.get(position).getUid());
         holder.amount.setText(list.get(position).getAmount());
 
         SharedPreferences sharedPref=context.getSharedPreferences("User",MODE_PRIVATE);
@@ -79,7 +78,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
             super(itemView);
             name=itemView.findViewById(R.id.name);
-            UiD=itemView.findViewById(R.id.UiD);
             amount=itemView.findViewById(R.id.amount);
 
             thanks=itemView.findViewById(R.id.thanks);

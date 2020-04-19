@@ -3,22 +3,16 @@ package com.lendeasy.daancorona;
 import java.sql.Timestamp;
 
 public class Item {
-    private String name,Uid,amount;
+    private String name,amount;
 
-    public Item(String name, String uid, String amount) {
+    public Item(String name, String amount) {
         this.name = name;
-        Uid = uid;
         this.amount = amount;
 
     }
 
     public String getName() {
         return name;
-    }
-
-
-    public String getUid() {
-        return Uid;
     }
 
     public String getAmount() {

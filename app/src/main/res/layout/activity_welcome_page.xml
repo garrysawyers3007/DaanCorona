@@ -72,7 +72,7 @@
             android:id="@+id/register"
             android:background="@drawable/black_bg"
             android:elevation="10dp"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:textColor="#000"
             android:layout_marginTop="15dp"
             android:layout_marginLeft="16dp"

@@ -30,16 +30,6 @@
         android:gravity="top"
         android:text="Amount"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/UiD"
-        android:textColor="#fff"
-        android:layout_alignParentRight="true"
-        android:visibility="gone"
-        android:textSize="17sp"
-        android:text="Uid"/>
-
 <Button
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"

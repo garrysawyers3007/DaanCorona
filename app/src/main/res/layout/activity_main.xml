@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,70 +8,97 @@
     android:background="@drawable/bgn"
     android:id="@+id/swiperefresh_items"
     tools:context=".MainActivity">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="30dp"
         android:paddingTop="10dp"
+        android:orientation="vertical"
         android:paddingBottom="10dp"
         android:id="@+id/holder"
         android:elevation="5dp"
         android:background="@drawable/black_bg">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/edit"
-            android:layout_marginRight="8dp"
-            android:layout_alignParentRight="true"
-            android:id="@+id/edit"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="Name"
+            android:layout_marginStart="5dp"
+            android:gravity="center_horizontal"
             android:textColor="#000"
             android:textSize="24sp"
-            android:layout_centerHorizontal="true"/>
+            android:layout_gravity="center_horizontal"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.09"
+                android:src="@drawable/edit"
+                android:layout_marginRight="5dp"
+                android:id="@+id/edit"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+
         <TextView
             android:id="@+id/tgttext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Max Credit"
             android:layout_below="@+id/name"
+            android:layout_gravity="center_horizontal"
             android:textColor="#000"
             android:textSize="20sp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="17dp"
-            android:layout_marginTop="10dp"/>
-        <TextView
-            android:id="@+id/blctext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Net Amount"
-            android:layout_below="@+id/name"
-            android:textColor="#000"
-            android:textSize="20sp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="17dp"
-            android:layout_marginTop="10dp"/>
+            android:layout_alignParentLeft="true" />
+
         <TextView
             android:id="@+id/target"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
-            android:layout_below="@+id/tgttext"
+            android:layout_gravity="center_horizontal"
             android:textColor="#000"
             android:textSize="20sp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="17dp"
             android:layout_marginTop="3dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp">
+        <TextView
+            android:id="@+id/blctext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Net Amount"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#000"
+            android:textSize="20sp" />
         <TextView
             android:id="@+id/balance"
             android:layout_width="wrap_content"
@@ -79,11 +107,13 @@
             android:layout_below="@+id/blctext"
             android:textColor="#000"
             android:textSize="20sp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="17dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="3dp"/>
+        </LinearLayout>
 
-    </RelativeLayout>
+        </LinearLayout>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/text"
