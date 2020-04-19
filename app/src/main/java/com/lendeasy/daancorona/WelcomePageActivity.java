@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 public class WelcomePageActivity extends AppCompatActivity {
 
     Button login,register;
+    SharedPreferences sharedPref;
+    String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +23,13 @@ public class WelcomePageActivity extends AppCompatActivity {
 
         login = findViewById(R.id.login);
         register = findViewById(R.id.register);
+        sharedPref=getSharedPreferences("User",MODE_PRIVATE);
+        token=sharedPref.getString("Token","");
+
+        if(sharedPref.getString("Lang","").equals("hin")){
+            login.setText(TranslateTo.getTranslation(getResources().getString(R.string.login),WelcomePageActivity.this));
+            register.setText(TranslateTo.getTranslation(getResources().getString(R.string.register_new_user),WelcomePageActivity.this));
+        }
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override

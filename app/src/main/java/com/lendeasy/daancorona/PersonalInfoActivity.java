@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Gallery;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -40,6 +41,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
 
     private static final int MY_GALLERY_REQUEST_CODE =102 ;
     private static final int STORAGE_PERMISSION_CODE = 103;
+    TextView pInfo,pImage;
     private EditText first_name,last_name,address;
     private Button proceed;
     private CircleImageView userImageView;
@@ -48,13 +50,14 @@ public class PersonalInfoActivity extends AppCompatActivity {
     Uri userImageURI;
     String token;
     LoadingDialog dialog;
+    SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_info);
 
-        SharedPreferences sharedPref=getSharedPreferences("User",MODE_PRIVATE);
+        sharedPref=getSharedPreferences("User",MODE_PRIVATE);
         token=sharedPref.getString("Token","");
 
         initializeItems();
@@ -91,9 +94,17 @@ public class PersonalInfoActivity extends AppCompatActivity {
         address = findViewById(R.id.address);
         proceed = findViewById(R.id.signin);
         userImageView = findViewById(R.id.user_image);
+        pInfo=findViewById(R.id.pinfo);
+        pImage=findViewById(R.id.pimg);
 
         userImageView.setImageResource(R.drawable.profile_pic);
         dialog=new LoadingDialog(this);
+
+        if(sharedPref.getString("Lang","").equals("hin")){
+            pInfo.setText(TranslateTo.getTranslation(getResources().getString(R.string.personal_info),PersonalInfoActivity.this));
+            pImage.setText(TranslateTo.getTranslation(getResources().getString(R.string.select_profile),PersonalInfoActivity.this));
+            proceed.setText(TranslateTo.getTranslation(getResources().getString(R.string.proceed),PersonalInfoActivity.this));
+        }
     }
 
     private void declaration() {

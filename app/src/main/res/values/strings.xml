@@ -7,5 +7,17 @@
     <string name="mouDetails">
         "This Memorandum of Understanding establishes the terms for collaboration between:\n“CoronaDaan”: includes the mobile application, online web-application and the essence of the service being offered (referred to as the “app” or “platform” or “service”).\n“ (Business’ name)”: includes the business and the businesses’ stakeholders - owners, employees, and the like (referred to as the “business”) \n for the purpose of signing-up on the CoronaDaan platform and the following is being agreed upon by the undersigned.\n (A)Duration: \n Once signed by both parties, this Memorandum of Understanding will begin on (__/__/____)  and shall stay in effect till (__/__/____). This Memorandum of Understanding is at-will and thus may be modified with the mutual consent of competent authorities from both parties. Thus the duration of the Memorandum of Understanding may be extended or reduced with mutual consent. \n (B)Deliverables from CoronaDaan: \n After the signing of this Memorandum of Understanding, CoronaDaan shall be promising these deliverables:\n(1)Creating a public profile for the business on the platform.
     </string>
+    <string name="personal_info">व्यक्तिगत जानकारी</string>
+    <string name="select_profile">प्रोफ़ाइल छवि चुनें</string>
+    <string name="sole_owner">क्या आप स्टोर के मालिक हैं?</string>
+    <string name="proceed">आगे बढ़े</string>
+    <string name="buss_info">व्यवसाय जानकारी</string>
+    <string name="shop_location">दुकान का स्थान</string>
+    <string name="login">लॉग इन करें</string>
+    <string name="register_new_user">नया उपयोगकर्ता ??..यहाँ रजिस्टर करें</string>
+    <string name="accept_UPI">UPI के माध्यम से स्वीकार करें</string>
+    <string name="accept_bank">बैंक खाते के माध्यम से स्वीकार करें</string>
+    <string name="mark_shop_location">अपनी दुकान का स्थान चिह्नित करें</string>
+
 
 </resources>

@@ -3,6 +3,7 @@ package com.lendeasy.daancorona;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +11,8 @@ import android.widget.Button;
 public class PaymentModeActivity extends AppCompatActivity {
 
     private Button upi,bank;
+    SharedPreferences sharedPref;
+    String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +21,13 @@ public class PaymentModeActivity extends AppCompatActivity {
 
         upi = findViewById(R.id.upi);
         bank = findViewById(R.id.bank);
+        sharedPref=getSharedPreferences("User",MODE_PRIVATE);
+        token=sharedPref.getString("Token","");
+
+        if(sharedPref.getString("Lang","").equals("hin")){
+            upi.setText(TranslateTo.getTranslation(getResources().getString(R.string.accept_UPI),PaymentModeActivity.this));
+            bank.setText(TranslateTo.getTranslation(getResources().getString(R.string.accept_bank),PaymentModeActivity.this));
+        }
 
         upi.setOnClickListener(new View.OnClickListener() {
             @Override
