@@ -20,11 +20,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".InstructionsSlider">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".Transactions" />
-        <activity android:name=".LanguageSelectActivity" />
-        <activity android:name=".WelcomePageActivity" />
+        <activity android:name=".LanguageSelectActivity">
+        </activity>
+        <activity android:name=".WelcomePageActivity" >
+
+        </activity>
         <activity android:name=".UPIDetailsActivity" />
         <activity android:name=".BankDetailsActvity" />
         <activity android:name=".MOUActivity" />
@@ -34,7 +41,9 @@
         <activity android:name=".PaymentModeActivity" />
         <activity android:name=".PersonalInfoActivity" />
         <activity android:name=".ShopInfoActivity" />
-        <activity android:name=".EditProfile" />
+        <activity android:name=".EditProfile">
+
+        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -54,11 +63,7 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

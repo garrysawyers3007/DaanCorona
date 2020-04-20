@@ -133,10 +133,11 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Business Location"
             android:id="@+id/shopLocation"
             android:background="@drawable/button"
             android:elevation="10dp"
+            android:text="Business Location"
+            android:textColor="#000"
             android:padding="15dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp" />
@@ -144,13 +145,12 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Change"
+            android:text="Apply changes"
+            android:textColor="#000"
             android:id="@+id/signin"
             android:background="@drawable/button"
             android:elevation="10dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"/>
+            android:layout_margin="16dp"/>
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
