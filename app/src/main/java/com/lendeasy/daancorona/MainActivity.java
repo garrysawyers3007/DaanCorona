@@ -2,6 +2,7 @@ package com.lendeasy.daancorona;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,10 +32,13 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Button btnDownload;
+    String TnC_URL = "https://docs.google.com/document/u/0/export?format=pdf&id=1iZAIG22IW48KSJjEUEsulrv8JPCkFt0UAsCw5vI151Y&token=AC4w5VjgRUSVOQZMuIbdbYLIfrJ3ozdcaQ%3A1587411639725&includes_info_params=true";
+
     RecyclerView recyclerView;
     ItemAdapter itemAdapter;
-    String nametxt,net,maxcred;
-    TextView name,maxcredit,netamt,maxcredittxt,netamttxt,donation;
+    String nametxt, net, maxcred;
+    TextView name, maxcredit, netamt, maxcredittxt, netamttxt, donation;
     String token;
     ImageView edit;
     Button transaction;
@@ -44,27 +49,39 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        btnDownload = (Button) findViewById(R.id.btn_download);
+        //btnDownload = (Button) findViewById(R.id.btnDownload);
+        btnDownload.setOnClickListener(new View.OnClickListener() {
 
-        sharedPref = getSharedPreferences("User",MODE_PRIVATE);
-        token=sharedPref.getString("Token","");
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse(TnC_URL); // missing 'http://' will cause crashed
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+                Toast.makeText(MainActivity.this, "Downloading DaanCorona TnC...", Toast.LENGTH_LONG).show();
+            }
+        });
 
-        name=findViewById(R.id.name);
-        maxcredittxt=findViewById(R.id.tgttext);
-        netamttxt=findViewById(R.id.blctext);
-        donation=findViewById(R.id.text);
-        transaction=findViewById(R.id.transc);
+        sharedPref = getSharedPreferences("User", MODE_PRIVATE);
+        token = sharedPref.getString("Token", "");
 
-        maxcredit=findViewById(R.id.target);
-        netamt=findViewById(R.id.balance);
-        edit=findViewById(R.id.edit);
+        name = findViewById(R.id.name);
+        maxcredittxt = findViewById(R.id.tgttext);
+        netamttxt = findViewById(R.id.blctext);
+        donation = findViewById(R.id.text);
+        transaction = findViewById(R.id.transc);
 
-        if(sharedPref.getString("Lang","").equals("hin")){
+        maxcredit = findViewById(R.id.target);
+        netamt = findViewById(R.id.balance);
+        edit = findViewById(R.id.edit);
+
+        if (sharedPref.getString("Lang", "").equals("hin")) {
             maxcredittxt.setText(getResources().getString(R.string.maxcredit));
             netamttxt.setText(getResources().getString(R.string.netamt));
             donation.setText(getResources().getString(R.string.donations));
         }
 
-        mSwipeRefreshLayout=findViewById(R.id.swiperefresh_items);
+        mSwipeRefreshLayout = findViewById(R.id.swiperefresh_items);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -73,17 +90,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        recyclerView=findViewById(R.id.recyclerview);
+        recyclerView = findViewById(R.id.recyclerview);
         transaction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,Transactions.class));
+                startActivity(new Intent(MainActivity.this, Transactions.class));
             }
         });
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,EditProfile.class));
+                startActivity(new Intent(MainActivity.this, EditProfile.class));
             }
         });
 
@@ -93,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    class SetProfile extends AsyncTask<Void,Void,String[]>{
+    class SetProfile extends AsyncTask<Void, Void, String[]> {
 
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override
@@ -103,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
             Request request = new Request.Builder()
                     .url("https://daancorona.tech/api/recipient_details/")
-                    .addHeader("Authorization","JWT "+token)
+                    .addHeader("Authorization", "JWT " + token)
                     .build();
 
             try (Response response = httpClient.newCall(request).execute()) {
@@ -111,13 +128,13 @@ public class MainActivity extends AppCompatActivity {
                 if (!response.isSuccessful())
                     throw new IOException("Unexpected code " + response);
 
-                JSONObject jsonObject=new JSONObject(response.body().string());
-                nametxt=jsonObject.getString("name");
-                net=jsonObject.getString("total_amt");
-                maxcred=jsonObject.getString("max_credit");
+                JSONObject jsonObject = new JSONObject(response.body().string());
+                nametxt = jsonObject.getString("name");
+                net = jsonObject.getString("total_amt");
+                maxcred = jsonObject.getString("max_credit");
 
-                Log.d("Values",nametxt+net+maxcred+"");
-                return new String[]{nametxt,net,maxcred};
+                Log.d("Values", nametxt + net + maxcred + "");
+                return new String[]{nametxt, net, maxcred};
                 // Get response body
 
             } catch (IOException | JSONException e) {
@@ -130,23 +147,23 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String... s) {
 
             super.onPostExecute(s);
-            if(s!=null){
+            if (s != null) {
                 name.setText(s[0]);
                 netamt.setText(s[1]);
                 maxcredit.setText(s[2]);
-                if(sharedPref.getString("Lang","").equals("hin")){
-                    name.setText(TranslateTo.getTranslation(name.getText().toString(),MainActivity.this));
-                    maxcredit.setText(TranslateTo.getTranslation(maxcredit.getText().toString(),MainActivity.this));
-                    netamt.setText(TranslateTo.getTranslation(netamt.getText().toString(),MainActivity.this));
+                if (sharedPref.getString("Lang", "").equals("hin")) {
+                    name.setText(TranslateTo.getTranslation(name.getText().toString(), MainActivity.this));
+                    maxcredit.setText(TranslateTo.getTranslation(maxcredit.getText().toString(), MainActivity.this));
+                    netamt.setText(TranslateTo.getTranslation(netamt.getText().toString(), MainActivity.this));
                 }
             }
-            if(mSwipeRefreshLayout.isRefreshing()) {
+            if (mSwipeRefreshLayout.isRefreshing()) {
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         }
     }
 
-    class SetRecyclerView extends AsyncTask<Void,Void,JSONArray>{
+    class SetRecyclerView extends AsyncTask<Void, Void, JSONArray> {
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override
         protected JSONArray doInBackground(Void... voids) {
@@ -156,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
 
             Request request = new Request.Builder()
                     .url("https://daancorona.tech/api/recipient_details/")
-                    .addHeader("Authorization", "JWT "+token)
+                    .addHeader("Authorization", "JWT " + token)
                     .build();
 
             try (Response response = httpClient.newCall(request).execute()) {
@@ -164,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!response.isSuccessful())
                     throw new IOException("Unexpected code " + response);
 
-                JSONObject jsonObject=new JSONObject(response.body().string());
+                JSONObject jsonObject = new JSONObject(response.body().string());
 
                 return jsonObject.getJSONArray("donors");
 
@@ -185,18 +202,18 @@ public class MainActivity extends AppCompatActivity {
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        list.add(new Item(jsonObject.getString("name"),jsonObject.getString("amount")));
+                        list.add(new Item(jsonObject.getString("name"), jsonObject.getString("amount")));
                     }
 
                     recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                    itemAdapter=new ItemAdapter(list,MainActivity.this);
+                    itemAdapter = new ItemAdapter(list, MainActivity.this);
 
                     recyclerView.setAdapter(itemAdapter);
                 }
-            }catch (JSONException e) {
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
-            if(mSwipeRefreshLayout.isRefreshing()) {
+            if (mSwipeRefreshLayout.isRefreshing()) {
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         }
