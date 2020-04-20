@@ -75,8 +75,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-                phoneNumber = "+91" + editTxtPhone.getText().toString().trim();
-                if(phoneNumber.length()==13) {
+                phoneNumber = editTxtPhone.getText().toString().trim();
+                if(phoneNumber.length()==10) {
                     dialog.startloadingDialog();
                     new GetOtpTask().execute(phoneNumber);
                 }
@@ -156,11 +156,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    class VerifyOtpTask extends AsyncTask<String,Void,String>{
+    class VerifyOtpTask extends AsyncTask<String,Void,String[]>{
 
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override
-        protected String doInBackground(String... strings) {
+        protected String[] doInBackground(String... strings) {
 
             String access="",refresh="";
 
@@ -197,11 +197,11 @@ public class LoginActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            return access;
+            return new String[]{access, refresh};
         }
 
         @Override
-        protected void onPostExecute(String s) {
+        protected void onPostExecute(String... s) {
 
             super.onPostExecute(s);
             dialog.dismissDialog();
@@ -213,7 +213,8 @@ public class LoginActivity extends AppCompatActivity {
 
             SharedPreferences sharedPref=getSharedPreferences("User",MODE_PRIVATE);
             SharedPreferences.Editor editor=sharedPref.edit();
-            editor.putString("Token",s);
+            editor.putString("Token",s[0]);
+            editor.putString("Token1",s[1]);
             editor.apply();
 //            Toast.makeText(getApplicationContext(), "Token: "+s, Toast.LENGTH_SHORT).show();
 

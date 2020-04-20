@@ -39,7 +39,7 @@ public class LanguageSelectActivity extends AppCompatActivity {
             public void onClick(View view) {
                 editor.putString("Lang","eng");
                 editor.apply();
-                Intent i = new Intent(LanguageSelectActivity.this, WelcomePageActivity.class);
+                Intent i = new Intent(LanguageSelectActivity.this, InstructionsSlider.class);
                 startActivity(i);
                 finish();
             }
@@ -50,7 +50,7 @@ public class LanguageSelectActivity extends AppCompatActivity {
                 editor.putString("Lang","hin");
                 editor.apply();
               //  Toast.makeText(LanguageSelectActivity.this, "Feature yet to be added", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(LanguageSelectActivity.this,LoginActivity.class));
+                startActivity(new Intent(LanguageSelectActivity.this,InstructionsSlider.class));
                 finish();
 
             }

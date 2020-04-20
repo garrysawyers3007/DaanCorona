@@ -161,15 +161,15 @@ public class EditProfile extends AppCompatActivity {
         maxcredit.setText(maxCredit);
         buss_address.setText(bussAddress);
 
-        if(sharedPref.getString("Lang","").equals(("hin"))){
-            shop_name.setText(TranslateTo.getTranslation(shop_name.getText().toString(),EditProfile.this));
-            first_name.setText(TranslateTo.getTranslation(first_name.getText().toString(),EditProfile.this));
-            last_name.setText(TranslateTo.getTranslation(last_name.getText().toString(),EditProfile.this));
-            shop_type.setText(TranslateTo.getTranslation(shop_type.getText().toString(),EditProfile.this));
-            address.setText(TranslateTo.getTranslation(address.getText().toString(),EditProfile.this));
-            maxcredit.setText(TranslateTo.getTranslation(maxcredit.getText().toString(),EditProfile.this));
-            buss_address.setText(TranslateTo.getTranslation(buss_address.getText().toString(),EditProfile.this));
-        }
+//        if(sharedPref.getString("Lang","").equals(("hin"))){
+//            shop_name.setText(TranslateTo.getTranslation(shop_name.getText().toString(),EditProfile.this));
+//            first_name.setText(TranslateTo.getTranslation(first_name.getText().toString(),EditProfile.this));
+//            last_name.setText(TranslateTo.getTranslation(last_name.getText().toString(),EditProfile.this));
+//            shop_type.setText(TranslateTo.getTranslation(shop_type.getText().toString(),EditProfile.this));
+//            address.setText(TranslateTo.getTranslation(address.getText().toString(),EditProfile.this));
+//            maxcredit.setText(TranslateTo.getTranslation(maxcredit.getText().toString(),EditProfile.this));
+//            buss_address.setText(TranslateTo.getTranslation(buss_address.getText().toString(),EditProfile.this));
+//        }
 
         Log.d("Img",profile_img);
 
