@@ -40,7 +40,8 @@
             android:gravity="center_horizontal"
             android:textColor="#000"
             android:textSize="24sp"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="5dp" />
 
             <ImageView
                 android:layout_width="0dp"
@@ -129,6 +130,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/text"
+        android:layout_above="@+id/transc"
         android:id="@+id/recyclerview"
         android:background="@drawable/black_bg"
         android:elevation="5dp"
@@ -137,6 +139,22 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"/>
+
+        <Button
+            android:layout_gravity="center"
+            android:id="@+id/transc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/black_bg"
+            android:elevation="10dp"
+            android:padding="8dp"
+            android:layout_alignParentBottom="true"
+            android:text="Transactions"
+            android:textAllCaps="false"
+            android:textColor="#000"
+            android:textSize="20sp"
+            android:layout_marginBottom="20dp"/>
     </RelativeLayout>
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

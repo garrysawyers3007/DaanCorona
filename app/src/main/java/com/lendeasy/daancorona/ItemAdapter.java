@@ -48,11 +48,18 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ItemAdapter.ViewHolder holder, int position) {
-        holder.name.setText(list.get(position).getName());
-        holder.amount.setText(list.get(position).getAmount());
 
         SharedPreferences sharedPref=context.getSharedPreferences("User",MODE_PRIVATE);
         String token=sharedPref.getString("Token","");
+        holder.name.setText(list.get(position).getName());
+        holder.amount.setText(list.get(position).getAmount());
+
+        if(sharedPref.getString("Lang","").equals("hin")){
+            holder.name.setText(TranslateTo.getTranslation(list.get(position).getName(),context));
+            holder.amount.setText(TranslateTo.getTranslation(list.get(position).getAmount(),context));
+            holder.thanks.setText(TranslateTo.getTranslation(holder.thanks.getText().toString(),context));
+        }
+
 
         holder.thanks.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,7 +104,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
                     .build();
 
             Request request = new Request.Builder()
-                    .url("http://daancorona.tech/api/send_thanks/")
+                    .url("https://daancorona.tech/api/send_thanks/")
                     .addHeader("Authorization","JWT "+strings[1])
                     .post(formbody)
                     .build();

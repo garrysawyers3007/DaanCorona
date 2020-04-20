@@ -13,11 +13,30 @@
     <string name="proceed">आगे बढ़े</string>
     <string name="buss_info">व्यवसाय जानकारी</string>
     <string name="shop_location">दुकान का स्थान</string>
+    <string name="bussloc">व्यवसाय का स्थान</string>
     <string name="login">लॉग इन करें</string>
     <string name="register_new_user">नया उपयोगकर्ता ??..यहाँ रजिस्टर करें</string>
     <string name="accept_UPI">UPI के माध्यम से स्वीकार करें</string>
     <string name="accept_bank">बैंक खाते के माध्यम से स्वीकार करें</string>
     <string name="mark_shop_location">अपनी दुकान का स्थान चिह्नित करें</string>
-
-
+    <string name="maxcredit">अधिकतम क्रेडिट</string>
+    <string name="netamt">निवल राशि</string>
+    <string name="donations">दान</string>
+    <string name="getotp">ओ.टी.पी. प्राप्त करें</string>
+    <string name="verifyotp">ओ.टी.पी. सत्यापित करें</string>
+    <string name="enterphn">10 अंकों का फोन नंबर दर्ज करें</string>
+    <string name="enterotp">ओटीपी दर्ज करें</string>
+    <string name="entervpa">vpa दर्ज करें(आभासी भुगतान पता)</string>
+    <string name="firstname">पहला नाम</string>
+    <string name="lastname">सरनेम</string>
+    <string name="address">पता</string>
+    <string name="owner">क्या आप स्टोर के मालिक हैं?</string>
+    <string name="bussname">व्यवास्यक नाम</string>
+    <string name="busstype">व्यापार प्रकार</string>
+    <string name="bussaddr">व्यावसायिक पता</string>
+    <string name="enteracc">अपना खाता नंबर दर्ज करें</string>
+    <string name="ifsc">ifsc कोड दर्ज करें</string>
+    <string name="agree">हाँ मैं सहमत हूँ</string>
+    <string name="change">बदलें</string>
+    <string name="mou">यह समझौता ज्ञापन: \ n "CoronaDaan" के बीच सहयोग के लिए शर्तें स्थापित करता है: इसमें मोबाइल एप्लिकेशन, ऑनलाइन वेब-एप्लिकेशन और दी जा रही सेवा का सार ("ऐप" या "प्लेटफॉर्म" या "सेवा" के रूप में संदर्भित) शामिल है। )। \ n "(व्यवसाय का नाम)": इसमें कोरोनाोना मंच पर साइन-अप करने के उद्देश्य से व्यवसाय और व्यवसाय के हितधारक - मालिक, कर्मचारी और जैसे ("व्यवसाय" के रूप में संदर्भित) शामिल हैं। और निम्न पर अधोहस्ताक्षरी द्वारा सहमति व्यक्त की जा रही है। \ n (ए) अवधि: \ n दोनों पक्षों द्वारा हस्ताक्षर किए जाने के बाद, यह समझौता ज्ञापन (__ / __ / ____) पर शुरू होगा और तब तक रहेगा (__ / __) / ____)। यह समझौता ज्ञापन वसीयत में है और इस प्रकार दोनों पक्षों के सक्षम अधिकारियों की आपसी सहमति से इसे संशोधित किया जा सकता है। इस प्रकार समझौता ज्ञापन की अवधि को आपसी सहमति से बढ़ाया या घटाया जा सकता है। CoronaDaan से \ n (B) वितरण: \ n इस समझौता ज्ञापन पर हस्ताक्षर करने के बाद, CoronaDaan इन डिलिवरेबल्स का वादा करेगा: \ n (1) प्लेटफ़ॉर्म पर व्यवसाय के लिए एक सार्वजनिक प्रोफ़ाइल बनाना।</string>
 </resources>

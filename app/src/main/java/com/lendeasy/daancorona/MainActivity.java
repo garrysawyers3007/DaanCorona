@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,9 +33,10 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ItemAdapter itemAdapter;
     String nametxt,net,maxcred;
-    TextView name,maxcredit,netamt;
+    TextView name,maxcredit,netamt,maxcredittxt,netamttxt,donation;
     String token;
     ImageView edit;
+    Button transaction;
     SharedPreferences sharedPref;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
@@ -47,9 +49,20 @@ public class MainActivity extends AppCompatActivity {
         token=sharedPref.getString("Token","");
 
         name=findViewById(R.id.name);
+        maxcredittxt=findViewById(R.id.tgttext);
+        netamttxt=findViewById(R.id.blctext);
+        donation=findViewById(R.id.text);
+        transaction=findViewById(R.id.transc);
+
         maxcredit=findViewById(R.id.target);
         netamt=findViewById(R.id.balance);
         edit=findViewById(R.id.edit);
+
+        if(sharedPref.getString("Lang","").equals("hin")){
+            maxcredittxt.setText(getResources().getString(R.string.maxcredit));
+            netamttxt.setText(getResources().getString(R.string.netamt));
+            donation.setText(getResources().getString(R.string.donations));
+        }
 
         mSwipeRefreshLayout=findViewById(R.id.swiperefresh_items);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -61,6 +74,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         recyclerView=findViewById(R.id.recyclerview);
+        transaction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,Transactions.class));
+            }
+        });
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
             final OkHttpClient httpClient = new OkHttpClient();
 
             Request request = new Request.Builder()
-                    .url("http://daancorona.tech/api/recipient_details/")
+                    .url("https://daancorona.tech/api/recipient_details/")
                     .addHeader("Authorization","JWT "+token)
                     .build();
 
@@ -136,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
             final OkHttpClient httpClient = new OkHttpClient();
 
             Request request = new Request.Builder()
-                    .url("http://daancorona.tech/api/recipient_details/")
+                    .url("https://daancorona.tech/api/recipient_details/")
                     .addHeader("Authorization", "JWT "+token)
                     .build();
 

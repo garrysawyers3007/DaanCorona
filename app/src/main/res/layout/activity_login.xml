@@ -10,7 +10,7 @@
 
     <ImageView
         android:id="@+id/img"
-        android:layout_width="170dp"
+        android:layout_width="match_parent"
         android:layout_height="170dp"
         android:src="@drawable/login"
         android:layout_centerHorizontal="true"
@@ -42,6 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="15dp"
+            android:id="@+id/editTxt_phone1"
             android:textColorHint="#fff">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -86,7 +87,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="15dp"
+            android:id="@+id/edit_txt_otp1"
             android:textColorHint="#fff">
 
             <com.google.android.material.textfield.TextInputEditText

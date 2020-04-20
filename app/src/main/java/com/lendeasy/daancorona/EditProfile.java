@@ -24,6 +24,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.GlideException;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -71,7 +72,10 @@ public class EditProfile extends AppCompatActivity {
         token=sharedPref.getString("Token","");
 
         initializeItems();
-
+        if(sharedPref.getString("Lang","").equals("hin")){
+            location.setText(getResources().getString(R.string.bussloc));
+            proceed.setText(getResources().getString(R.string.change));
+        }
 
         userImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,7 +152,7 @@ public class EditProfile extends AppCompatActivity {
         new getTask().execute();
     }
 
-    private void setData(String shopName, String firstName, String lastName, String shopType, String shopAddress, String maxCredit, String bussAddress,String  profile_img,String shop_img) throws MalformedURLException {
+    private void setData(String shopName, String firstName, String lastName, String shopType, String shopAddress, String maxCredit, String bussAddress,String  profile_img,String shop_img) throws GlideException {
         shop_name.setText(shopName);
         first_name.setText(firstName);
         last_name.setText(lastName);
@@ -168,7 +172,6 @@ public class EditProfile extends AppCompatActivity {
         }
 
         Log.d("Img",profile_img);
-
 
         Glide.with(this).load(userImageURI).into(userImageView);
         Glide.with(this).load(shopImageURI).into(shopImage);
@@ -190,6 +193,7 @@ public class EditProfile extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == USER_IMAGE) {
             userImageURI = data.getData();
+            Log.d("scjsdk","cnsdcbsdh");
             userImageView.setImageURI(userImageURI);
         }
         if (resultCode == RESULT_OK && requestCode == SHOP_IMAGE) {
@@ -288,7 +292,7 @@ public class EditProfile extends AppCompatActivity {
             }
 
             Request request = new Request.Builder()
-                    .url("http://daancorona.tech/api/recipient_profile/")
+                    .url("https://daancorona.tech/api/recipient_profile/")
                     .addHeader("Authorization","JWT "+token)
                     .post(formBody)
                     .build();
@@ -335,7 +339,7 @@ public class EditProfile extends AppCompatActivity {
             OkHttpClient httpClient = new OkHttpClient();
 
             Request request = new Request.Builder()
-                    .url("http://daancorona.tech/api/recipient_profile/")
+                    .url("https://daancorona.tech/api/recipient_profile/")
                     .addHeader("Authorization","JWT "+token)
                     .build();
 
@@ -360,9 +364,9 @@ public class EditProfile extends AppCompatActivity {
 
                 shop_img=(String)jsonObject.get("business_photo");
 
-                userUrl="http://daancorona.tech"+profile_img;
+                userUrl="https://daancorona.tech"+profile_img;
                 userImageURI=Uri.parse(userUrl);
-                shopUrl="http://daancorona.tech"+shop_img;
+                shopUrl="https://daancorona.tech"+shop_img;
                 shopImageURI=Uri.parse(shopUrl);
 
                 dwnldshop=shopImageURI;
@@ -389,8 +393,9 @@ public class EditProfile extends AppCompatActivity {
             if(s.equals("Done")){
                 try {
                     setData(shopName,firstName,lastName,shopType,shopAddress,MaxCredit,BussAddress,profile_img,shop_img);
-                } catch (MalformedURLException e) {
+                } catch (GlideException e) {
                     e.printStackTrace();
+
                 }
             }
             else

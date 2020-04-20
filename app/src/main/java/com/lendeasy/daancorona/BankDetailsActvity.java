@@ -32,10 +32,18 @@ public class BankDetailsActvity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bank_details_actvity);
 
+        SharedPreferences sharedPref=getSharedPreferences("User",MODE_PRIVATE);
+
         acc=findViewById(R.id.acc_no);
         ifsc=findViewById(R.id.ifsc);
 
         btnproceedBnk = findViewById(R.id.proceed_bank_details);
+
+        if(sharedPref.getString("Lang","").equals("hin")){
+            acc.setHint(getResources().getString(R.string.enteracc));
+            ifsc.setHint(getResources().getString(R.string.ifsc));
+            btnproceedBnk.setText(getResources().getString(R.string.proceed));
+        }
         btnproceedBnk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,7 +66,7 @@ public class BankDetailsActvity extends AppCompatActivity {
 
 
                     Request request = new Request.Builder()
-                            .url("http://daancorona.tech/api/recipient_profile/")
+                            .url("https://daancorona.tech/api/recipient_profile/")
                             .addHeader("Authorization", "JWT " + token)
                             .post(formBody)
                             .build();

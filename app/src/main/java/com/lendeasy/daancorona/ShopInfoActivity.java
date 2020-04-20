@@ -22,7 +22,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,7 +44,9 @@ public class ShopInfoActivity extends AppCompatActivity {
     private static final int STORAGE_PERMISSION_CODE = 103;
     private static final int LOCATION_PERMISSION_REQUEST_CODE =1234;
     private EditText shop_name,shop_type,maxCredit,buss_address;
+    private TextInputLayout shop_name1,shop_type1,maxCredit1,buss_address1;
     private Button proceed, location;
+    private TextView buss_info;
     private CircleImageView shopImage;
     private static final int SHOP_IMAGE = 101;
     String shopName,shopType,latitude,longitude,MaxCredit,BussAddress;
@@ -60,6 +65,16 @@ public class ShopInfoActivity extends AppCompatActivity {
         token=sharedPref.getString("Token","");
 
         initializeItems();
+
+        if(sharedPref.getString("Lang","").equals("hin")){
+            location.setText(getResources().getString(R.string.shop_location));
+            proceed.setText(getResources().getString(R.string.proceed));
+            buss_info.setText(getResources().getString(R.string.buss_info));
+            shop_name1.setHint(getResources().getString(R.string.bussname));
+            shop_type1.setHint(getResources().getString(R.string.busstype));
+            buss_address1.setHint(getResources().getString(R.string.bussaddr));
+            maxCredit1.setHint(getResources().getString(R.string.maxcredit));
+        }
 
         shopImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,10 +124,15 @@ public class ShopInfoActivity extends AppCompatActivity {
         location = findViewById(R.id.shopLocation);
         proceed = findViewById(R.id.signin);
         shopImage = findViewById(R.id.shop_image);
+        shop_name1=findViewById(R.id.shopName1);
         shop_name = findViewById(R.id.shopName);
+        shop_type1=findViewById(R.id.shopType1);
         shop_type = findViewById(R.id.shopType);
         maxCredit=findViewById(R.id.maxcredit);
+        maxCredit1=findViewById(R.id.maxcredit1);
         buss_address=findViewById(R.id.businessaddress);
+        buss_address1=findViewById(R.id.businessaddress1);
+        buss_info=findViewById(R.id.bussinfo);
 
         shopImage.setImageResource(R.drawable.ic_launcher_background);
         dialog=new LoadingDialog(this);
@@ -162,7 +182,7 @@ public class ShopInfoActivity extends AppCompatActivity {
                     .build();
 
             Request request = new Request.Builder()
-                    .url("http://daancorona.tech/api/recipient_profile/")
+                    .url("https://daancorona.tech/api/recipient_profile/")
                     .addHeader("Authorization","JWT "+token)
                     .post(formBody)
                     .build();

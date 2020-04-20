@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -35,10 +36,19 @@ public class UPIDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_u_p_i_details);
 
+        SharedPreferences sharedPref;
+        sharedPref=getSharedPreferences("User",MODE_PRIVATE);
+
         TextInputEditText upivpa=findViewById(R.id.upi_vpa);
+        TextInputLayout upivpa1=findViewById(R.id.upi_vpa1);
         dialog=new LoadingDialog(this);
 
         btnproceedUpi = findViewById(R.id.proceed_upi_details);
+        if(sharedPref.getString("Lang","").equals("hin")){
+            btnproceedUpi.setText(getResources().getString(R.string.proceed));
+            upivpa1.setHint(getResources().getString(R.string.entervpa));
+        }
+
         btnproceedUpi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,7 +70,7 @@ public class UPIDetailsActivity extends AppCompatActivity {
                             .build();
 
                     Request request = new Request.Builder()
-                            .url("http://daancorona.tech/api/recipient_profile/")
+                            .url("https://daancorona.tech/api/recipient_profile/")
                             .addHeader("Authorization", "JWT " + token)
                             .post(formBody)
                             .build();

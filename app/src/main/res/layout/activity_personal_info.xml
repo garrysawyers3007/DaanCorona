@@ -58,6 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="15dp"
+                android:id="@+id/firstname1"
                 android:textColorHint="#fff">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -78,6 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="15dp"
+                android:id="@+id/lastname1"
                 android:textColorHint="#fff">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -98,6 +100,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="15dp"
+                android:id="@+id/address1"
                 android:textColorHint="#fff">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -122,6 +125,7 @@
                 android:layout_marginTop="15dp"
                 android:buttonTint="#fff"
                 android:drawablePadding="5dp"
+                android:id="@+id/checkbox"
                 android:paddingRight="5dp"
                 android:text="Are you the owner/proprietor of the store ?"
                 android:textColor="#fff"

@@ -21,10 +21,13 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Gallery;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,6 +46,8 @@ public class PersonalInfoActivity extends AppCompatActivity {
     private static final int STORAGE_PERMISSION_CODE = 103;
     TextView pInfo,pImage;
     private EditText first_name,last_name,address;
+    private TextInputLayout first_name1,last_name1,address1;
+    CheckBox checkBox;
     private Button proceed;
     private CircleImageView userImageView;
     private static final int USER_IMAGE = 100;
@@ -61,6 +66,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
         token=sharedPref.getString("Token","");
 
         initializeItems();
+
 
         userImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,14 +102,22 @@ public class PersonalInfoActivity extends AppCompatActivity {
         userImageView = findViewById(R.id.user_image);
         pInfo=findViewById(R.id.pinfo);
         pImage=findViewById(R.id.pimg);
+        first_name1=findViewById(R.id.firstname1);
+        last_name1=findViewById(R.id.lastname1);
+        address1=findViewById(R.id.address1);
+        checkBox=findViewById(R.id.checkbox);
 
         userImageView.setImageResource(R.drawable.profile_pic);
         dialog=new LoadingDialog(this);
 
         if(sharedPref.getString("Lang","").equals("hin")){
-            pInfo.setText(TranslateTo.getTranslation(getResources().getString(R.string.personal_info),PersonalInfoActivity.this));
-            pImage.setText(TranslateTo.getTranslation(getResources().getString(R.string.select_profile),PersonalInfoActivity.this));
-            proceed.setText(TranslateTo.getTranslation(getResources().getString(R.string.proceed),PersonalInfoActivity.this));
+            pInfo.setText(getResources().getString(R.string.personal_info));
+            pImage.setText(getResources().getString(R.string.select_profile));
+            proceed.setText(getResources().getString(R.string.proceed));
+            first_name1.setHint(getResources().getString(R.string.firstname));
+            last_name1.setHint(getResources().getString(R.string.lastname));
+            address1.setHint(getResources().getString(R.string.address));
+            checkBox.setText(getResources().getString(R.string.owner));
         }
     }
 
@@ -149,7 +163,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
                     .build();
 
             Request request = new Request.Builder()
-                    .url("http://daancorona.tech/api/recipient_profile/")
+                    .url("https://daancorona.tech/api/recipient_profile/")
                     .addHeader("Authorization","JWT "+token)
                     .post(formBody)
                     .build();

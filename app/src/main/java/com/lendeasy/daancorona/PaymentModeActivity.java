@@ -25,8 +25,8 @@ public class PaymentModeActivity extends AppCompatActivity {
         token=sharedPref.getString("Token","");
 
         if(sharedPref.getString("Lang","").equals("hin")){
-            upi.setText(TranslateTo.getTranslation(getResources().getString(R.string.accept_UPI),PaymentModeActivity.this));
-            bank.setText(TranslateTo.getTranslation(getResources().getString(R.string.accept_bank),PaymentModeActivity.this));
+            upi.setText(getResources().getString(R.string.accept_UPI));
+            bank.setText(getResources().getString(R.string.accept_bank));
         }
 
         upi.setOnClickListener(new View.OnClickListener() {
@@ -34,7 +34,6 @@ public class PaymentModeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PaymentModeActivity.this, UPIDetailsActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 

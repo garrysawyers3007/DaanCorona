@@ -199,7 +199,7 @@ public class InfoActivity extends AppCompatActivity {
                     .build();
 
             Request request = new Request.Builder()
-                    .url("http://daancorona.tech/api/recipient_profile/")
+                    .url("https://daancorona.tech/api/recipient_profile/")
                     .addHeader("Authorization","JWT "+token)
                     .post(formBody)
                     .build();

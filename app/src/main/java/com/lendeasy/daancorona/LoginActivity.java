@@ -14,6 +14,9 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,11 +31,12 @@ import okhttp3.Response;
 public class LoginActivity extends AppCompatActivity {
 
     EditText editTxtPhone, editTxtOtp;
+    TextInputLayout editTxtPhone1,editTxtOtp1;
     Button btnSendotp, btnVerifyOtp;
     LoadingDialog dialog;
     OTPDialog otpDialog;
   //  TextView textOtp,textPhone;
-    String codeSent,code,phoneNumber,url="localhost:3000";
+    String codeSent,code,phoneNumber;
     boolean newuser;
 
     @Override
@@ -44,16 +48,25 @@ public class LoginActivity extends AppCompatActivity {
         editTxtPhone =findViewById(R.id.editTxt_phone);
         btnSendotp = findViewById(R.id.btn_send_otp);
 
+        SharedPreferences sharedPref=getSharedPreferences("User",MODE_PRIVATE);
 
       //  textOtp = findViewById(R.id.txt_otp);
         editTxtOtp = findViewById(R.id.edit_txt_otp);
         btnVerifyOtp = findViewById(R.id.btn_verify_otp);
+        editTxtOtp1=findViewById(R.id.edit_txt_otp1);
+        editTxtPhone1=findViewById(R.id.editTxt_phone1);
 
         editTxtOtp.setVisibility(View.GONE);
         btnVerifyOtp.setVisibility(View.GONE);
        // textOtp.setVisibility(View.GONE);
 
         dialog=new LoadingDialog(this);
+        if(sharedPref.getString("Lang","").equals("hin")){
+            btnSendotp.setText(getResources().getString(R.string.getotp));
+            btnVerifyOtp.setText(getResources().getString(R.string.verifyotp));
+            editTxtPhone1.setHint(getResources().getString(R.string.enterphn));
+            editTxtOtp1.setHint(getResources().getString(R.string.enterotp));
+        }
 
         btnSendotp.setOnClickListener(new View.OnClickListener() {
 
@@ -95,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                         .build();
 
                 Request request = new Request.Builder()
-                        .url("http://daancorona.tech/api/mobile/")
+                        .url("https://daancorona.tech/api/mobile/")
                         .post(formbody)
                         .build();
 
@@ -159,7 +172,7 @@ public class LoginActivity extends AppCompatActivity {
                     .build();
 
             Request request = new Request.Builder()
-                    .url("http://daancorona.tech/api/otp/")
+                    .url("https://daancorona.tech/api/otp/")
                     .post(formbody)
                     .build();
 

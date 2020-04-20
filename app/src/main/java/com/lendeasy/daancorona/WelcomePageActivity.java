@@ -27,8 +27,8 @@ public class WelcomePageActivity extends AppCompatActivity {
         token=sharedPref.getString("Token","");
 
         if(sharedPref.getString("Lang","").equals("hin")){
-            login.setText(TranslateTo.getTranslation(getResources().getString(R.string.login),WelcomePageActivity.this));
-            register.setText(TranslateTo.getTranslation(getResources().getString(R.string.register_new_user),WelcomePageActivity.this));
+            login.setText(getResources().getString(R.string.login));
+            register.setText(getResources().getString(R.string.register_new_user));
         }
 
         register.setOnClickListener(new View.OnClickListener() {
