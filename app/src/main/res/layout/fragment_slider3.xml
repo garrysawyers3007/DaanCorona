@@ -14,35 +14,57 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-
-            <ImageView
-                android:layout_width="300dp"
-                android:layout_height="300dp"
-                android:scaleX=".7"
-                android:scaleY="0.7"
-               android:layout_weight="0.1"
-                android:src="@drawable/bank" />
-
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Voucher"
-                android:textColor="@android:color/white"
-                android:textSize="21sp"
-                android:paddingLeft="40dp"
-                android:paddingRight="40dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:paddingLeft="40dp"
                 android:paddingRight="40dp"
-                android:text="The amount donated act as a voucher for the donor for him to redeem the amount in the future."
+                android:text="Registration Process"
+                android:textColor="@android:color/white"
+                android:textSize="30sp" />
+
+            <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="350dp"
+                    android:layout_weight="0.1"
+                    android:src="@drawable/personal"/>
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="350dp"
+                    android:layout_weight="0.1"
+                    android:src="@drawable/business"/>
+
+
+        </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
+                android:text="Register yourself as a verified business by providing details about yourself and your business."
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
-                android:textSize="16sp"
+                android:textSize="20sp"
+                android:gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
+                android:layout_marginTop="30dp"
+                android:text="Provides Bank as well as UPI for accepting payments."
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
                 android:gravity="center_horizontal" />
 
         </LinearLayout>

@@ -61,7 +61,8 @@ public class InstructionsSlider extends AppCompatActivity {
                 R.layout.fragment_slider1,
                 R.layout.fragment_slider2,
                 R.layout.fragment_slider3,
-                R.layout.fragment_slider4};
+                R.layout.fragment_slider4,
+                R.layout.fragment_slider5};
 
         // adding bottom dots
         addBottomDots(0);

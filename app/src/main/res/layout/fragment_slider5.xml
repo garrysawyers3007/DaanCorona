@@ -19,7 +19,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="40dp"
                 android:paddingRight="40dp"
-                android:text="Payment Modes"
+                android:text="Received Payments"
                 android:textColor="@android:color/white"
                 android:textSize="30sp" />
 
@@ -32,14 +32,7 @@
                     android:layout_width="0dp"
                     android:layout_height="350dp"
                     android:layout_weight="0.1"
-                    android:src="@drawable/bank1"/>
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="350dp"
-                    android:layout_weight="0.1"
-                    android:src="@drawable/upi"/>
-
+                    android:src="@drawable/main"/>
 
             </LinearLayout>
 
@@ -49,19 +42,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="40dp"
                 android:paddingRight="40dp"
-                android:text="The amount donated act as a voucher for the donor for him to redeem the amount in the future."
-                android:textAlignment="center"
-                android:textColor="@android:color/white"
-                android:textSize="20sp"
-                android:gravity="center_horizontal" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="40dp"
-                android:paddingRight="40dp"
-                android:layout_marginTop="30dp"
-                android:text="Provides Bank as well as UPI for accepting payments."
+                android:text="Get to know about every person who have donated"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
