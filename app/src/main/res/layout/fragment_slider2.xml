@@ -33,7 +33,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Upload Relevant Info"
+                android:text="Registration Process"
                 android:textColor="@android:color/white"
                 android:paddingRight="40dp"
                 android:paddingLeft="40dp"
@@ -45,7 +45,7 @@
                 android:layout_marginTop="20dp"
                 android:paddingLeft="40dp"
                 android:paddingRight="40dp"
-                android:text="Upload details regarding your business and be visible to the willing donors. The names of donors will be in front of you."
+                android:text="Register yourself as a verified business by providing details about yourself and your business."
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"

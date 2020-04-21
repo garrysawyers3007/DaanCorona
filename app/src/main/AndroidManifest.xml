@@ -20,7 +20,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".InstructionsSlider">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".Transactions" />
         <activity android:name=".LanguageSelectActivity">
@@ -32,11 +36,7 @@
         <activity android:name=".BankDetailsActvity" />
         <activity android:name=".MOUActivity" />
         <activity android:name=".LogoActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".PaymentModeActivity" />
         <activity android:name=".PersonalInfoActivity" />
