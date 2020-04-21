@@ -79,8 +79,10 @@ public class LogoActivity extends AppCompatActivity {
                             dialog.dismissDialog();
                             Log.d("Ekdum sahi","yayyy");
                             Intent i;
-                            if(!sharedPref.getBoolean("Page1",false))
-                                i=new Intent(LogoActivity.this,PersonalInfoActivity.class);
+                            if(sharedPref.getString("Lang","").equals(""))
+                                i=new Intent(LogoActivity.this,LanguageSelectActivity.class);
+                            else if(!sharedPref.getBoolean("Page1",false))
+                                i=new Intent(LogoActivity.this,LoginActivity.class);
                             else if(!sharedPref.getBoolean("Page2",false))
                                 i=new Intent(LogoActivity.this,ShopInfoActivity.class);
                             else if(!sharedPref.getBoolean("Page3",false))
@@ -125,7 +127,7 @@ public class LogoActivity extends AppCompatActivity {
                                                 Intent i;
                                                 Log.d("Ekdum sahi", "kinda");
                                                 if(!sharedPref.getBoolean("Page1",false))
-                                                    i=new Intent(LogoActivity.this,LoginActivity.class);
+                                                    i=new Intent(LogoActivity.this,LanguageSelectActivity.class);
                                                 else if(!sharedPref.getBoolean("Page2",false))
                                                     i=new Intent(LogoActivity.this,ShopInfoActivity.class);
                                                 else if(!sharedPref.getBoolean("Page3",false))

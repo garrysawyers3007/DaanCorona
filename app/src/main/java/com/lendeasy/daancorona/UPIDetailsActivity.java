@@ -103,6 +103,7 @@ public class UPIDetailsActivity extends AppCompatActivity {
                             editor.putBoolean("Page3",true);
                             editor.apply();
                             Intent i = new Intent(UPIDetailsActivity.this, MOUActivity.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(i);
                             finish();
                         }
