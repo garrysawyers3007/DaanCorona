@@ -33,8 +33,7 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity {
 
     private Button btnDownload;
-    String TnC_URL = "https://docs.google.com/document/u/0/export?format=pdf&id=1iZAIG22IW48KSJjEUEsulrv8JPCkFt0UAsCw5vI151Y&token=AC4w5VjgRUSVOQZMuIbdbYLIfrJ3ozdcaQ%3A1587411639725&includes_info_params=true";
-
+    String TnC_URL = "https://docs.google.com/document/u/0/export?format=pdf&id=1iZAIG22IW48KSJjEUEsulrv8JPCkFt0UAsCw5vI151Y&token=AC4w5VhKtYN9MZjeZ8jN43QLxy-nNS69ZQ%3A1587457520168&includes_info_params=true";
     RecyclerView recyclerView;
     ItemAdapter itemAdapter;
     String nametxt, net, maxcred;

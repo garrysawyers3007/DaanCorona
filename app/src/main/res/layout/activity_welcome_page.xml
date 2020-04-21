@@ -53,21 +53,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login"
-            android:textAllCaps="false"
-            android:id="@+id/login"
-            android:background="@drawable/black_bg"
-            android:elevation="10dp"
-            android:textSize="20sp"
-            android:textColor="#000"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="New User??.. Register Here"
+            android:text="Register Here"
             android:textAllCaps="false"
             android:id="@+id/register"
             android:background="@drawable/black_bg"

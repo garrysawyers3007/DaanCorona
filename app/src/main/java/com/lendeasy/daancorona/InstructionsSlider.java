@@ -114,7 +114,7 @@ public class InstructionsSlider extends AppCompatActivity {
     }
 
     private void launchHomeScreen() {
-        Intent intent=new Intent(InstructionsSlider.this, LoginActivity.class);
+        Intent intent=new Intent(InstructionsSlider.this, WelcomePageActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
