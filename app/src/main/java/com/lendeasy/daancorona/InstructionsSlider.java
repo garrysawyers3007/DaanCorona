@@ -27,10 +27,18 @@ public class InstructionsSlider extends AppCompatActivity {
     private TextView[] dots;
     private int[] layouts;
     private Button btnNext;
+    private PrefManager prefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        prefManager = new PrefManager(this);
+        if (!prefManager.isFirstTimeLaunch() ) {
+            prefManager.setFirstTimeLaunch(false);
+            launchHomeScreen();
+            finish();
+        }
 
         // Making notification bar transparent
         if (Build.VERSION.SDK_INT >= 21) {

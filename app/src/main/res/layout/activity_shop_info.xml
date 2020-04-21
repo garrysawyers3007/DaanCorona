@@ -126,7 +126,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Shop Location"
+            android:text="Business Location"
             android:textSize="20sp"
             android:textColor="#fff"
             android:textAllCaps="false"

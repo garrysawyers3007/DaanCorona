@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Each of us has the power to help prevent the spread of the Coronavirus pandemic in India."
+            android:text="Each of us has the power to help each other in times of pandemic in India."
             android:textColor="@android:color/white"
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
@@ -37,10 +37,11 @@
             android:layout_marginTop="20dp"
             android:paddingLeft="40dp"
             android:paddingRight="40dp"
-            android:text="Would you like to be kept informed if you have crossed paths with someone who has tested COVID-19 positive?"
+            android:text="Would you like to be kept informed if who all have reached out and helped you in such times?"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:gravity="center_horizontal" />
 
     </LinearLayout>
 </RelativeLayout>

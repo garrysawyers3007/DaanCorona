@@ -27,13 +27,13 @@
                     android:scaleY="0.7"
                     android:scaleX="0.7"
                     android:layout_weight="0.1"
-                    android:src="@drawable/bank"/>
+                    android:src="@drawable/upload_your_img"/>
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+                android:text="Upload Relevant Info"
                 android:textColor="@android:color/white"
                 android:paddingRight="40dp"
                 android:paddingLeft="40dp"
@@ -45,10 +45,11 @@
                 android:layout_marginTop="20dp"
                 android:paddingLeft="40dp"
                 android:paddingRight="40dp"
-                android:text="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distributio"
+                android:text="Upload details regarding your business and be visible to the willing donors. The names of donors will be in front of you."
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:gravity="center_horizontal" />
 
         </LinearLayout>
     </RelativeLayout>

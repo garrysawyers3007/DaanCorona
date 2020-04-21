@@ -33,7 +33,8 @@
                 android:text="d to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a han"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:gravity="center_horizontal" />
 
         </LinearLayout>
     </RelativeLayout>
