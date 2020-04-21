@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ItemAdapter itemAdapter;
     String nametxt, net, maxcred;
-    TextView name, maxcredit, netamt, maxcredittxt, netamttxt, donation;
+    TextView name, maxcredit, netamt, maxcredittxt, netamttxt, donation,nodonation;
     String token;
     ImageView edit;
     Button transaction;
@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         netamttxt = findViewById(R.id.blctext);
         donation = findViewById(R.id.text);
         transaction = findViewById(R.id.transc);
+        nodonation=findViewById(R.id.nodon);
 
         maxcredit = findViewById(R.id.target);
         netamt = findViewById(R.id.balance);
@@ -204,10 +205,20 @@ public class MainActivity extends AppCompatActivity {
                         list.add(new Item(jsonObject.getString("name"), jsonObject.getString("amount")));
                     }
 
-                    recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                    itemAdapter = new ItemAdapter(list, MainActivity.this);
+                    if(jsonArray.length()==0){
+                        if(sharedPref.getString("Lang","").equals("hin"))
+                            nodonation.setText(getResources().getString(R.string.nodon));
+                        recyclerView.setVisibility(View.GONE);
+                        nodonation.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        recyclerView.setVisibility(View.VISIBLE);
+                        nodonation.setVisibility(View.GONE);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                        itemAdapter = new ItemAdapter(list, MainActivity.this);
 
-                    recyclerView.setAdapter(itemAdapter);
+                        recyclerView.setAdapter(itemAdapter);
+                    }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

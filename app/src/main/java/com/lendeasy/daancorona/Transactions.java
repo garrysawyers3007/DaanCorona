@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.jetbrains.annotations.NotNull;
@@ -29,6 +31,7 @@ public class Transactions extends AppCompatActivity {
     TransactionAdapter transactionAdapter;
     String access;
     ArrayList<TransactionModel> list;
+    TextView notransactions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,8 @@ public class Transactions extends AppCompatActivity {
         setContentView(R.layout.activity_transactions);
 
         recyclerView=findViewById(R.id.recyclerview);
+        notransactions=findViewById(R.id.notrans);
+
         SharedPreferences sharedPref=getSharedPreferences("User",MODE_PRIVATE);
         access=sharedPref.getString("Token","");
 
@@ -77,10 +82,23 @@ public class Transactions extends AppCompatActivity {
                         Transactions.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                recyclerView.setLayoutManager(new LinearLayoutManager(Transactions.this));
-                                transactionAdapter=new TransactionAdapter(list,Transactions.this);
 
-                                recyclerView.setAdapter(transactionAdapter);
+                                if(jsonArray.length()==0){
+
+                                    if(sharedPref.getString("Lang","").equals("hin"))
+                                        notransactions.setText(getResources().getString(R.string.transaction));
+                                    recyclerView.setVisibility(View.GONE);
+                                    notransactions.setVisibility(View.VISIBLE);
+                                }
+                                else {
+
+                                    recyclerView.setVisibility(View.VISIBLE);
+                                    notransactions.setVisibility(View.GONE);
+                                    recyclerView.setLayoutManager(new LinearLayoutManager(Transactions.this));
+                                    transactionAdapter = new TransactionAdapter(list, Transactions.this);
+
+                                    recyclerView.setAdapter(transactionAdapter);
+                                }
                             }
                         });
 

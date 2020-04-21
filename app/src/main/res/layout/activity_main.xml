@@ -136,20 +136,35 @@
             android:text="Donations"
             android:textColor="#000"
             android:textSize="30sp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/transc"
             android:layout_below="@+id/text"
+
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/black_bg"
+            android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:elevation="5dp"
             android:padding="4dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:textSize="30sp"
+                android:id="@+id/nodon"
+                android:textColor="#000"
+                android:gravity="center"
+                android:visibility="gone"
+                android:text="No Donations yet"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
 
         <Button
             android:id="@+id/transc"
