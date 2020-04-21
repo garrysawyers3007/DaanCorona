@@ -1,5 +1,7 @@
 package com.lendeasy.daancorona;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -79,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
             maxcredittxt.setText(getResources().getString(R.string.maxcredit));
             netamttxt.setText(getResources().getString(R.string.netamt));
             donation.setText(getResources().getString(R.string.donations));
+            transaction.setText(getResources().getString(R.string.transactions));
         }
 
         mSwipeRefreshLayout = findViewById(R.id.swiperefresh_items);
@@ -107,6 +110,28 @@ public class MainActivity extends AppCompatActivity {
         new SetProfile().execute();
         new SetRecyclerView().execute();
 
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setIcon(R.drawable.alert)
+                .setTitle("Alert")
+                .setMessage("Sure to exit DaanCorona ???")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent a = new Intent(Intent.ACTION_MAIN);
+                        a.addCategory(Intent.CATEGORY_HOME);
+                        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(a);
+                    }
+
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 
 
@@ -152,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
                 netamt.setText(s[1]);
                 maxcredit.setText(s[2]);
                 if (sharedPref.getString("Lang", "").equals("hin")) {
-                    name.setText(TranslateTo.getTranslation(name.getText().toString(), MainActivity.this));
+                    name.setText(name.getText().toString());
                     maxcredit.setText(TranslateTo.getTranslation(maxcredit.getText().toString(), MainActivity.this));
                     netamt.setText(TranslateTo.getTranslation(netamt.getText().toString(), MainActivity.this));
                 }

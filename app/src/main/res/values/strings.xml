@@ -15,11 +15,13 @@
     <string name="shop_location">दुकान का स्थान</string>
     <string name="bussloc">व्यवसाय का स्थान</string>
     <string name="login">लॉग इन करें</string>
-    <string name="register_new_user">नया उपयोगकर्ता ??..यहाँ रजिस्टर करें</string>
+    <string name="register_new_user">रजिस्टर करें</string>
+    <string name="quote">रजिस्टर करें और भुगतान स्वीकार करना शुरू करें !!</string>
     <string name="accept_UPI">UPI के माध्यम से स्वीकार करें</string>
     <string name="accept_bank">बैंक खाते के माध्यम से स्वीकार करें</string>
     <string name="mark_shop_location">अपनी दुकान का स्थान चिह्नित करें</string>
     <string name="maxcredit">अधिकतम क्रेडिट</string>
+    <string name="transactions">लेनदेन का सारांश</string>
     <string name="netamt">निवल राशि</string>
     <string name="donations">दान</string>
     <string name="getotp">ओ.टी.पी. प्राप्त करें</string>
