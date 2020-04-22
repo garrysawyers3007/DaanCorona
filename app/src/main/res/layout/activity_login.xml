@@ -117,6 +117,32 @@
             android:layout_marginTop="15dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"/>
+
+        <TextView
+            android:id="@+id/timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You can resend otp in 0s"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#fff"
+            android:visibility="gone"
+            android:layout_marginTop="8dp"
+            android:textSize="20sp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button"
+            android:id="@+id/resend"
+            android:layout_marginTop="15dp"
+            android:visibility="gone"
+            android:text="Resend"
+            android:textColor="#fff"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            />
     </LinearLayout>
 
 </RelativeLayout>

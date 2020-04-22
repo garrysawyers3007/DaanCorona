@@ -107,7 +107,6 @@ public class PersonalInfoActivity extends AppCompatActivity {
         address1=findViewById(R.id.address1);
         checkBox=findViewById(R.id.checkbox);
 
-        userImageView.setImageResource(R.drawable.profile_pic);
         dialog=new LoadingDialog(this);
 
         if(sharedPref.getString("Lang","").equals("hin")){
@@ -189,7 +188,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
             super.onPostExecute(s);
             dialog.dismissDialog();
             if(s!=null) {
-                Toast.makeText(PersonalInfoActivity.this,s,Toast.LENGTH_LONG).show();
+                Toast.makeText(PersonalInfoActivity.this,s,Toast.LENGTH_SHORT).show();
 
                 SharedPreferences sharedPref=getSharedPreferences("User",MODE_PRIVATE);
                 SharedPreferences.Editor editor=sharedPref.edit();
@@ -198,9 +197,9 @@ public class PersonalInfoActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(PersonalInfoActivity.this, ShopInfoActivity.class);
                 startActivity(intent);
-                Toast.makeText(PersonalInfoActivity.this,"Enter Shop location first",Toast.LENGTH_LONG).show();
+                //Toast.makeText(PersonalInfoActivity.this,"Enter Shop location first",Toast.LENGTH_LONG).show();
 
-                finish();
+
             }
             else
                 Toast.makeText(PersonalInfoActivity.this,"Error",Toast.LENGTH_LONG).show();

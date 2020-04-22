@@ -5,10 +5,12 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -32,9 +34,12 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText editTxtPhone, editTxtOtp;
     TextInputLayout editTxtPhone1,editTxtOtp1;
-    Button btnSendotp, btnVerifyOtp;
+    Button btnSendotp, btnVerifyOtp,resend;
     LoadingDialog dialog;
+    TextView timer;
+    private int totalTimeCountInMilliseconds;
     OTPDialog otpDialog;
+    private CountDownTimer countDownTimer;
   //  TextView textOtp,textPhone;
     String codeSent,code,phoneNumber;
     boolean newuser;
@@ -55,6 +60,8 @@ public class LoginActivity extends AppCompatActivity {
         btnVerifyOtp = findViewById(R.id.btn_verify_otp);
         editTxtOtp1=findViewById(R.id.edit_txt_otp1);
         editTxtPhone1=findViewById(R.id.editTxt_phone1);
+        timer=findViewById(R.id.timer);
+        resend=findViewById(R.id.resend);
 
         editTxtOtp.setVisibility(View.GONE);
         btnVerifyOtp.setVisibility(View.GONE);
@@ -67,6 +74,18 @@ public class LoginActivity extends AppCompatActivity {
             editTxtPhone1.setHint(getResources().getString(R.string.enterphn));
             editTxtOtp1.setHint(getResources().getString(R.string.enterotp));
         }
+
+        resend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                btnSendotp.setVisibility(View.VISIBLE);
+                editTxtPhone.setVisibility(View.VISIBLE);
+                resend.setVisibility(View.GONE);
+                editTxtOtp.setVisibility(View.GONE);
+                btnVerifyOtp.setVisibility(View.GONE);
+            }
+        });
 
         btnSendotp.setOnClickListener(new View.OnClickListener() {
 
@@ -150,6 +169,7 @@ public class LoginActivity extends AppCompatActivity {
                 editTxtPhone.setText("");
                 btnSendotp.setVisibility(View.GONE);
                 editTxtPhone.setVisibility(View.GONE);
+                setTimer();
                 // textPhone.setVisibility(View.GONE);
             }
         }
@@ -249,6 +269,35 @@ public class LoginActivity extends AppCompatActivity {
             }
 
         }
+    }
+
+    private void setTimer() {
+        totalTimeCountInMilliseconds=20;
+        //Toast.makeText(getContext(), "Please Enter Minutes...",
+        //      Toast.LENGTH_LONG).show();
+        totalTimeCountInMilliseconds = totalTimeCountInMilliseconds * 1000;
+        //totalTimeCountInMilliseconds = 60 * time * 1000;
+
+        startTimer();
+    }
+
+    private void startTimer() {
+        timer.setVisibility(View.VISIBLE);
+        countDownTimer = new CountDownTimer(totalTimeCountInMilliseconds, 1000) {
+            // 500 means, onTick function will be called at every 500
+            // milliseconds
+            @Override
+            public void onFinish() {
+
+                resend.setVisibility(View.VISIBLE);
+                timer.setVisibility(View.GONE);
+            }
+            @Override
+            public void onTick(long leftTimeInMilliseconds) {
+                timer.setText("You can resend otp in "+leftTimeInMilliseconds/1000+"s");
+            }
+
+        }.start();
     }
 
 }

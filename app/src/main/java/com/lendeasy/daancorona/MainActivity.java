@@ -127,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
                         a.addCategory(Intent.CATEGORY_HOME);
                         a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(a);
+                        finishAffinity();
                     }
 
                 })

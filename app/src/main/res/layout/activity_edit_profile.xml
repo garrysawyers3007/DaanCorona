@@ -137,7 +137,7 @@
             android:background="@drawable/button"
             android:elevation="10dp"
             android:text="Business Location"
-            android:textColor="#000"
+            android:textColor="#fff"
             android:padding="15dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp" />
@@ -146,7 +146,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Apply changes"
-            android:textColor="#000"
+            android:textColor="#fff"
             android:id="@+id/signin"
             android:background="@drawable/button"
             android:elevation="10dp"

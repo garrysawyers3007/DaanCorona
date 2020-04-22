@@ -54,6 +54,7 @@ public class ShopInfoActivity extends AppCompatActivity {
     Uri shopImageURI;
     String token;
     LoadingDialog dialog;
+    SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,7 @@ public class ShopInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shop_info);
 //        Toast.makeText(ShopInfoActivity.this,"Enter Shop location first",Toast.LENGTH_LONG).show();
 
-        SharedPreferences sharedPref=getSharedPreferences("User",MODE_PRIVATE);
+        sharedPref = getSharedPreferences("User",MODE_PRIVATE);
         token=sharedPref.getString("Token","");
 
         initializeItems();
@@ -85,15 +86,18 @@ public class ShopInfoActivity extends AppCompatActivity {
         });
 
         location.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+
+                declaration();
                 getLocationPermission(LOCATION_PERMISSION_REQUEST_CODE);
             }
         });
 
         Intent intent1 = getIntent();
-        lat=intent1.getDoubleExtra("lat",0.0);
-        lng=intent1.getDoubleExtra("lng",0.0);
+        lat=intent1.getDoubleExtra("lat",-1.0);
+        lng=intent1.getDoubleExtra("lng",-1.0);
         latitude = Double.toString(lat);
         longitude = Double.toString(lng);
 
@@ -101,7 +105,7 @@ public class ShopInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 declaration();
-                if(shopName.isEmpty() || shopType.isEmpty() ||
+                if(shopName.isEmpty() || shopType.isEmpty() || lat==-1.0 || lng==-1.0 ||
                         latitude.isEmpty() || longitude.isEmpty() || MaxCredit.isEmpty()
                         || BussAddress.isEmpty() || shopImageURI==null)
                     Toast.makeText(ShopInfoActivity.this,"Enter all details",Toast.LENGTH_SHORT).show();
@@ -134,8 +138,17 @@ public class ShopInfoActivity extends AppCompatActivity {
         buss_address1=findViewById(R.id.businessaddress1);
         buss_info=findViewById(R.id.bussinfo);
 
-        shopImage.setImageResource(R.drawable.ic_launcher_background);
         dialog=new LoadingDialog(this);
+
+        shop_name.setText(sharedPref.getString("shopName",""));
+        shop_type.setText(sharedPref.getString("shopType",""));
+        maxCredit.setText(sharedPref.getString("MaxCredit",""));
+        buss_address.setText(sharedPref.getString("BussAddress",""));
+
+        if(!sharedPref.getString("Uri","").equals("")) {
+            shopImageURI = Uri.parse(sharedPref.getString("Uri", ""));
+            shopImage.setImageURI(shopImageURI);
+        }
     }
 
     private void declaration() {
@@ -143,6 +156,15 @@ public class ShopInfoActivity extends AppCompatActivity {
         shopType = shop_type.getText().toString();
         MaxCredit=maxCredit.getText().toString();
         BussAddress=buss_address.getText().toString();
+
+        SharedPreferences.Editor editor=sharedPref.edit();
+        editor.putString("shopName",shopName);
+        editor.putString("shopType",shopType);
+        editor.putString("MaxCredit",MaxCredit);
+        editor.putString("BussAddress",BussAddress);
+        if(shopImageURI!=null)
+            editor.putString("Uri",shopImageURI.toString());
+        editor.apply();
     }
 
     @Override
@@ -216,7 +238,6 @@ public class ShopInfoActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(ShopInfoActivity.this, PaymentModeActivity.class);
                 startActivity(intent);
-                finish();
             }
             else
                 Toast.makeText(ShopInfoActivity.this,"Error",Toast.LENGTH_LONG).show();
