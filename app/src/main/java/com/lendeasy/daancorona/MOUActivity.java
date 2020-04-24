@@ -33,7 +33,12 @@ public class MOUActivity extends AppCompatActivity {
 
         if(sharedPref.getString("Lang","").equals("hin")){
             btnMou.setText(getResources().getString(R.string.agree));
-            MOU.setText(getResources().getString(R.string.mou));
+            MOU.setText(getResources().getString(R.string.HinMou1)+" "+sharedPref.getString("shopName","")+" "+
+                    getResources().getString(R.string.HinMou2)+" "+formattedDate+" "+
+                    getResources().getString(R.string.HinMou3)+" "+formattedDate+"\n"
+                    +"हस्ताक्षर :\n"+sharedPref.getString("Name","")+"\n"
+                    +sharedPref.getString("shopName","")+"\n\n"+
+                    "DaanCorona");
         }
         else{
             MOU.setText(getResources().getString(R.string.mouDetails1)+" "+sharedPref.getString("shopName","")+" "+

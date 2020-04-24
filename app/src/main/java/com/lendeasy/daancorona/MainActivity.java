@@ -183,8 +183,6 @@ public class MainActivity extends AppCompatActivity {
                 maxcredit.setText(s[2]);
                 if (sharedPref.getString("Lang", "").equals("hin")) {
                     name.setText(name.getText().toString());
-                    maxcredit.setText(TranslateTo.getTranslation(maxcredit.getText().toString(), MainActivity.this));
-                    netamt.setText(TranslateTo.getTranslation(netamt.getText().toString(), MainActivity.this));
                 }
             }
             if (mSwipeRefreshLayout.isRefreshing()) {
