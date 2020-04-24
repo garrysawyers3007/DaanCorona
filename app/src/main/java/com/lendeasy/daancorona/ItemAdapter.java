@@ -52,20 +52,19 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         SharedPreferences sharedPref=context.getSharedPreferences("User",MODE_PRIVATE);
         String token=sharedPref.getString("Token","");
         holder.name.setText(list.get(position).getName());
-        holder.amount.setText(list.get(position).getAmount());
+        holder.amount.setText( "₹"+list.get(position).getAmount());
 
-        if(sharedPref.getString("Lang","").equals("hin")){
-            holder.name.setText(TranslateTo.getTranslation(list.get(position).getName(),context));
-            holder.amount.setText(TranslateTo.getTranslation(list.get(position).getAmount(),context));
-            holder.thanks.setText(TranslateTo.getTranslation(holder.thanks.getText().toString(),context));
-        }
+//        if(sharedPref.getString("Lang","").equals("hin")){
+//            holder.name.setText(TranslateTo.getTranslation(list.get(position).getName(),context));
+//            holder.amount.setText(" ₹"+TranslateTo.getTranslation(list.get(position).getAmount(),context));
+//        }
 
 
         holder.thanks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //new Populate().execute(list.get(position).getUid(),token);
-                Toast.makeText(context,"Sent!!!",Toast.LENGTH_LONG).show();
+                //Toast.makeText(context,"Sent!!!",Toast.LENGTH_LONG).show();
 
             }
         });

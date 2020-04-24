@@ -56,6 +56,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'es.voghdev.pdfviewpager:library:1.1.2'
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
     testImplementation 'junit:junit:4.13'
     implementation 'com.google.firebase:firebase-analytics:17.2.3'

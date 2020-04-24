@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -27,17 +29,66 @@ public class BankDetailsActvity extends AppCompatActivity {
     Button btnproceedBnk;
     EditText acc,ifsc;
     String acc_no,ifsc_no;
+    LoadingDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bank_details_actvity);
+        dialog=new LoadingDialog(this);
 
         SharedPreferences sharedPref=getSharedPreferences("User",MODE_PRIVATE);
+        String token=sharedPref.getString("Token","");
+
+
+        final OkHttpClient httpClient = new OkHttpClient();
+
+        Request request1 = new Request.Builder()
+                .url("https://daancorona.tech/api/recipient_profile/")
+                .addHeader("Authorization", "JWT " + token)
+                .build();
+        dialog.startloadingDialog();
+
+        httpClient.newCall(request1).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                dialog.dismissDialog();
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+
+                BankDetailsActvity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            dialog.dismissDialog();
+                            JSONObject jsonObject=new JSONObject(response.body().string());
+                            acc.setText(jsonObject.getString("account_no"));
+                            ifsc.setText(jsonObject.getString("ifsc_code"));
+
+                        } catch (JSONException | IOException e) {
+
+                            BankDetailsActvity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    dialog.dismissDialog();
+                                }
+                            });
+
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+
+            }
+        });
 
         acc=findViewById(R.id.acc_no);
         ifsc=findViewById(R.id.ifsc);
 
         btnproceedBnk = findViewById(R.id.proceed_bank_details);
+
 
         if(sharedPref.getString("Lang","").equals("hin")){
             acc.setHint(getResources().getString(R.string.enteracc));
@@ -47,7 +98,7 @@ public class BankDetailsActvity extends AppCompatActivity {
         btnproceedBnk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                dialog.startloadingDialog();
                 SharedPreferences sharedPref=getSharedPreferences("User",MODE_PRIVATE);
                 String token=sharedPref.getString("Token","");
 
@@ -77,6 +128,7 @@ public class BankDetailsActvity extends AppCompatActivity {
                             BankDetailsActvity.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    dialog.dismissDialog();
                                     Toast.makeText(BankDetailsActvity.this,"Error!",Toast.LENGTH_SHORT).show();
                                 }
                             });
@@ -88,6 +140,7 @@ public class BankDetailsActvity extends AppCompatActivity {
                             BankDetailsActvity.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    dialog.dismissDialog();
                                     Toast.makeText(BankDetailsActvity.this,"Success!",Toast.LENGTH_SHORT).show();
                                 }
                             });

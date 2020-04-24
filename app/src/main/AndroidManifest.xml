@@ -20,22 +20,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Contact"></activity>
+        <activity android:name=".PDFActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".InstructionsSlider"
-            android:noHistory="true" />
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Transactions"
-            android:noHistory="true" />
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".LanguageSelectActivity"
-            android:noHistory="true" />
-        <activity android:name=".WelcomePageActivity" />
-
-        <activity android:name=".UPIDetailsActivity">
-
-        </activity>
-        <activity android:name=".BankDetailsActvity" />
-        <activity android:name=".MOUActivity" />
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WelcomePageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UPIDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BankDetailsActvity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MOUActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".LogoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,12 +54,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PaymentModeActivity" />
-        <activity android:name=".PersonalInfoActivity" />
-        <activity android:name=".ShopInfoActivity" />
-        <activity android:name=".EditProfile">
-
-        </activity>
+        <activity
+            android:name=".PaymentModeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PersonalInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ShopInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".EditProfile"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -65,9 +82,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

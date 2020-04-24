@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,13 +36,12 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity {
 
     private Button btnDownload;
-    String TnC_URL = "https://docs.google.com/document/u/0/export?format=pdf&id=1iZAIG22IW48KSJjEUEsulrv8JPCkFt0UAsCw5vI151Y&token=AC4w5VhKtYN9MZjeZ8jN43QLxy-nNS69ZQ%3A1587457520168&includes_info_params=true";
     RecyclerView recyclerView;
     ItemAdapter itemAdapter;
     String nametxt, net, maxcred;
     TextView name, maxcredit, netamt, maxcredittxt, netamttxt, donation,nodonation;
     String token;
-    ImageView edit;
+    ImageView edit,call;
     Button transaction;
     SharedPreferences sharedPref;
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -51,15 +51,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btnDownload = (Button) findViewById(R.id.btn_download);
-        //btnDownload = (Button) findViewById(R.id.btnDownload);
         btnDownload.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                Uri uri = Uri.parse(TnC_URL); // missing 'http://' will cause crashed
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-                Toast.makeText(MainActivity.this, "Downloading DaanCorona TnC...", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(MainActivity.this,PDFActivity.class));
+                Toast.makeText(MainActivity.this, "Opening DaanCorona TnC...", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -76,9 +73,10 @@ public class MainActivity extends AppCompatActivity {
         maxcredit = findViewById(R.id.target);
         netamt = findViewById(R.id.balance);
         edit = findViewById(R.id.edit);
+        call=findViewById(R.id.call);
 
         if (sharedPref.getString("Lang", "").equals("hin")) {
-            maxcredittxt.setText(getResources().getString(R.string.maxcredit));
+            maxcredittxt.setText("अधिकतम क्रेडिट");
             netamttxt.setText(getResources().getString(R.string.netamt));
             donation.setText(getResources().getString(R.string.donations));
             transaction.setText(getResources().getString(R.string.transactions));
@@ -104,6 +102,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, EditProfile.class));
+            }
+        });
+        call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,Contact.class));
             }
         });
 
@@ -228,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        list.add(new Item(jsonObject.getString("name"), jsonObject.getString("amount")));
+                        list.add(new Item(jsonObject.getString("name"), jsonObject.getString("amount"), jsonObject.getString("donor_id")));
                     }
 
                     if(jsonArray.length()==0){
@@ -253,6 +257,12 @@ public class MainActivity extends AppCompatActivity {
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
     }
 }
 

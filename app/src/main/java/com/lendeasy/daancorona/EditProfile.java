@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.GlideException;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -53,6 +54,7 @@ public class EditProfile extends AppCompatActivity {
     private static final int MY_GALLERY_REQUEST_CODE =102 ;
     private static final int STORAGE_PERMISSION_CODE = 103;
     private EditText shop_name,first_name,last_name,shop_type,address,maxcredit,buss_address;
+    private TextInputLayout shop_name1,first_name1,last_name1,shop_type1,address1,maxcredit1,buss_address1;
     private Button proceed, location;
     private CircleImageView userImageView, shopImage;
     private static final int USER_IMAGE = 100;
@@ -144,6 +146,15 @@ public class EditProfile extends AppCompatActivity {
         maxcredit=findViewById(R.id.maxcredit);
         buss_address=findViewById(R.id.businessaddress);
 
+        first_name1 = findViewById(R.id.firstname1);
+        last_name1 = findViewById(R.id.lastname1);
+        shop_name1 = findViewById(R.id.shopName1);
+        shop_type1 = findViewById(R.id.shopType1);
+        address1 = findViewById(R.id.address1);
+        maxcredit1=findViewById(R.id.maxcredit1);
+        buss_address1=findViewById(R.id.businessaddress1);
+
+
         userImageView.setImageResource(R.drawable.ic_launcher_background);
         shopImage.setImageResource(R.drawable.ic_launcher_background);
         dialog=new LoadingDialog(this);
@@ -161,6 +172,7 @@ public class EditProfile extends AppCompatActivity {
         maxcredit.setText(maxCredit);
         buss_address.setText(bussAddress);
 
+
 //        if(sharedPref.getString("Lang","").equals(("hin"))){
 //            shop_name.setText(TranslateTo.getTranslation(shop_name.getText().toString(),EditProfile.this));
 //            first_name.setText(TranslateTo.getTranslation(first_name.getText().toString(),EditProfile.this));
@@ -170,6 +182,15 @@ public class EditProfile extends AppCompatActivity {
 //            maxcredit.setText(TranslateTo.getTranslation(maxcredit.getText().toString(),EditProfile.this));
 //            buss_address.setText(TranslateTo.getTranslation(buss_address.getText().toString(),EditProfile.this));
 //        }
+        if(sharedPref.getString("Lang","").equals(("hin"))){
+            first_name1.setHint(getResources().getString(R.string.firstname));
+            last_name1.setHint(getResources().getString(R.string.lastname));
+            shop_name1.setHint(getResources().getString(R.string.bussname));
+            shop_type1.setHint(getResources().getString(R.string.busstype));
+            address1.setHint(getResources().getString(R.string.address));
+            maxcredit1.setHint(getResources().getString(R.string.maxcredit));
+            buss_address1.setHint(getResources().getString(R.string.bussaddr));
+        }
 
         Log.d("Img",profile_img);
 

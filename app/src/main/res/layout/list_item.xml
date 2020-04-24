@@ -37,6 +37,7 @@
     android:layout_centerHorizontal="true"
     android:text="Send Thanks"
     android:id="@+id/thanks"
+    android:visibility="gone"
     android:layout_marginTop="8dp"
     android:textColor="@color/colorPrimary"
     android:background="@drawable/button"/>

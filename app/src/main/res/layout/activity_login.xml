@@ -52,6 +52,8 @@
                 android:background="@drawable/edit_text1"
                 android:hint="Enter 10 digit phone no."
                 android:textColor="#fff"
+
+                android:textColorHint="#fff"
                 android:padding="10dp"
                 android:inputType="phone"
                 android:layout_marginTop="20dp"
@@ -97,6 +99,7 @@
                 android:background="@drawable/edit_text1"
                 android:hint="Enter OTP"
                 android:textColor="#fff"
+                android:textColorHint="#fff"
                 android:padding="10dp"
                 android:inputType="number"
                 android:layout_marginTop="20dp"

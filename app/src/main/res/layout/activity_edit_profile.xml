@@ -32,7 +32,7 @@
                 android:tooltipText="your image"
                 android:layout_marginLeft="20dp"
                 android:elevation="10dp"
-                android:src="@drawable/ic_launcher_background"
+                android:src="@drawable/upload_your_img"
                 android:layout_gravity="center_horizontal"/>
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -44,92 +44,143 @@
                 app:civ_border_width="2dp"
                 android:tooltipText="shop image"
                 android:elevation="10dp"
-                android:src="@drawable/ic_launcher_background"
+                android:src="@drawable/shop"
                 android:layout_gravity="center_horizontal"/>
 
         </LinearLayout>
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:id="@+id/firstname1"
+            android:textColorHint="#fff">
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/firstname"
             android:inputType="text"
-            android:padding="12dp"
+            android:padding="8dp"
             android:textColor="#fff"
+            android:background="@drawable/edit_text1"
             android:textColorHint="#fff"
-            android:background="@drawable/edit_text"
             android:layout_marginTop="30dp"
             android:hint="First Name" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:id="@+id/lastname1"
+            android:textColorHint="#fff">
+
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/lastname"
             android:inputType="text"
-            android:padding="12dp"
+            android:padding="8dp"
             android:textColor="#fff"
             android:textColorHint="#fff"
-            android:background="@drawable/edit_text"
+            android:background="@drawable/edit_text1"
             android:layout_marginTop="15dp"
             android:hint="Last Name" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:id="@+id/address1"
+            android:textColorHint="#fff">
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:id="@+id/address"
-            android:padding="12dp"
+            android:padding="8dp"
             android:textColor="#fff"
             android:textColorHint="#fff"
-            android:background="@drawable/edit_text"
+            android:background="@drawable/edit_text1"
             android:layout_marginTop="15dp"
             android:hint="Address"
             android:maxLines="3"/>
-        <EditText
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:id="@+id/businessaddress1"
+            android:textColorHint="#fff">
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/businessaddress"
-            android:background="@drawable/edit_text"
-            android:padding="12dp"
+            android:background="@drawable/edit_text1"
+            android:padding="8dp"
             android:textColor="#fff"
             android:textColorHint="#fff"
             android:layout_marginTop="15dp"
             android:hint="Business Address" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:id="@+id/shopName1"
+            android:textColorHint="#fff">
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/shopName"
-            android:background="@drawable/edit_text"
-            android:padding="12dp"
+            android:background="@drawable/edit_text1"
+            android:padding="8dp"
             android:textColor="#fff"
             android:textColorHint="#fff"
             android:layout_marginTop="15dp"
             android:hint="Business Name" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:id="@+id/shopType1"
+            android:textColorHint="#fff">
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/shopType"
-            android:background="@drawable/edit_text"
-            android:padding="12dp"
+            android:background="@drawable/edit_text1"
+            android:padding="8dp"
             android:textColor="#fff"
             android:textColorHint="#fff"
             android:layout_marginTop="15dp"
             android:hint="Business Type" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:id="@+id/maxcredit1"
+            android:textColorHint="#fff">
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/maxcredit"
-            android:background="@drawable/edit_text"
-            android:padding="12dp"
+            android:background="@drawable/edit_text1"
+            android:padding="8dp"
             android:textColor="#fff"
             android:inputType="number"
             android:textColorHint="#fff"
             android:layout_marginTop="15dp"
             android:hint="Max Credit" />
+        </com.google.android.material.textfield.TextInputLayout>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

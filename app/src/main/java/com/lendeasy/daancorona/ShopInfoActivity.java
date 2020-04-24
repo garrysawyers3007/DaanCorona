@@ -25,12 +25,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputLayout;
+
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -46,12 +53,12 @@ public class ShopInfoActivity extends AppCompatActivity {
     private EditText shop_name,shop_type,maxCredit,buss_address;
     private TextInputLayout shop_name1,shop_type1,maxCredit1,buss_address1;
     private Button proceed, location;
-    private TextView buss_info;
+    private TextView buss_info,pImage;
     private CircleImageView shopImage;
     private static final int SHOP_IMAGE = 101;
     String shopName,shopType,latitude,longitude,MaxCredit,BussAddress;
     double lat,lng;
-    Uri shopImageURI;
+    Uri shopImageURI,dwnldimageUri;
     String token;
     LoadingDialog dialog;
     SharedPreferences sharedPref;
@@ -65,10 +72,17 @@ public class ShopInfoActivity extends AppCompatActivity {
         sharedPref = getSharedPreferences("User",MODE_PRIVATE);
         token=sharedPref.getString("Token","");
 
+        Intent intent1 = getIntent();
+        lat=intent1.getDoubleExtra("lat",-1.0);
+        lng=intent1.getDoubleExtra("lng",-1.0);
+        latitude = Double.toString(lat);
+        longitude = Double.toString(lng);
+
         initializeItems();
 
         if(sharedPref.getString("Lang","").equals("hin")){
             location.setText(getResources().getString(R.string.shop_location));
+            pImage.setText(getResources().getString(R.string.select_buss));
             proceed.setText(getResources().getString(R.string.proceed));
             buss_info.setText(getResources().getString(R.string.buss_info));
             shop_name1.setHint(getResources().getString(R.string.bussname));
@@ -95,11 +109,6 @@ public class ShopInfoActivity extends AppCompatActivity {
             }
         });
 
-        Intent intent1 = getIntent();
-        lat=intent1.getDoubleExtra("lat",-1.0);
-        lng=intent1.getDoubleExtra("lng",-1.0);
-        latitude = Double.toString(lat);
-        longitude = Double.toString(lng);
 
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,6 +146,7 @@ public class ShopInfoActivity extends AppCompatActivity {
         buss_address=findViewById(R.id.businessaddress);
         buss_address1=findViewById(R.id.businessaddress1);
         buss_info=findViewById(R.id.bussinfo);
+        pImage=findViewById(R.id.pimg);
 
         dialog=new LoadingDialog(this);
 
@@ -149,6 +159,82 @@ public class ShopInfoActivity extends AppCompatActivity {
             shopImageURI = Uri.parse(sharedPref.getString("Uri", ""));
             shopImage.setImageURI(shopImageURI);
         }
+
+        dialog.startloadingDialog();
+        OkHttpClient httpClient = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url("https://daancorona.tech/api/recipient_profile/")
+                .addHeader("Authorization","JWT "+token)
+                .build();
+
+        httpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                dialog.dismissDialog();
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+
+                    ShopInfoActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                            dialog.dismissDialog();
+                            JSONObject jsonObject=new JSONObject(response.body().string());
+                            Log.d("dcjsdc",""+jsonObject);
+                            shop_name.setText(jsonObject.getString("business_name"));
+                            shop_type.setText(jsonObject.getString("business_type"));
+                            buss_address.setText(jsonObject.getString("business_address"));
+                            maxCredit.setText(String.valueOf(jsonObject.getDouble("max_credit")));
+
+                                shopImageURI=Uri.parse("https://daancorona.tech"+(String) jsonObject.get("business_photo"));
+
+                            if(jsonObject.getString("business_photo").equals("/media/default.jpg"))
+                                shopImageURI=null;
+                            dwnldimageUri=shopImageURI;
+
+                                if(!sharedPref.getString("shopName","").equals(""))
+                                    shop_name.setText(sharedPref.getString("shopName",""));
+                                if(!sharedPref.getString("shopType","").equals(""))
+                                    shop_type.setText(sharedPref.getString("shopType",""));
+                                if(!sharedPref.getString("MaxCredit","").equals(""))
+                                    maxCredit.setText(sharedPref.getString("MaxCredit",""));
+                                if(!sharedPref.getString("BussAddress","").equals(""))
+                                    buss_address.setText(sharedPref.getString("BussAddress",""));
+
+
+                                lat=jsonObject.getDouble("lat");
+                                lng=jsonObject.getDouble("long");
+                                latitude = Double.toString(lat);
+                                longitude = Double.toString(lng);
+                                if(shopImageURI!=null)
+                                    Glide.with(ShopInfoActivity.this).load(shopImageURI).into(shopImage);
+
+                        } catch (JSONException | IOException e) {
+
+                                ShopInfoActivity.this.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if(!sharedPref.getString("Uri","").equals("")) {
+                                            shopImageURI = Uri.parse(sharedPref.getString("Uri", ""));
+                                            shopImage.setImageURI(shopImageURI);
+                                        }
+                                        else
+                                            shopImage.setImageDrawable(getResources().getDrawable(R.drawable.shop));
+                                        dialog.dismissDialog();
+                                    }
+                                });
+
+                            e.printStackTrace();
+                        }
+                        }
+                    });
+
+
+            }
+        });
     }
 
     private void declaration() {
@@ -184,24 +270,39 @@ public class ShopInfoActivity extends AppCompatActivity {
 
             final OkHttpClient httpClient = new OkHttpClient();
 
-            final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/jpeg");
-            //File path = Environment.getExternalStoragePublicDirectory(
-            //      Environment.DIRECTORY_PICTURES);
+            RequestBody formBody;
 
-            String shopPath=getPath(shopImageURI);
-            Log.d("TAG",""+shopPath);
+            if(dwnldimageUri!=shopImageURI) {
 
-            File shop = new File(shopPath);
+                final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/jpeg");
+                //File path = Environment.getExternalStoragePublicDirectory(
+                //      Environment.DIRECTORY_PICTURES);
 
-            RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                    .addFormDataPart("business_name",strings[0])
-                    .addFormDataPart("business_type",strings[1])
-                    .addFormDataPart("lat",strings[2])
-                    .addFormDataPart("long",strings[3])
-                    .addFormDataPart("max_credit",strings[4])
-                    .addFormDataPart("business_address",strings[5])
-                    .addFormDataPart("business_photo",shop.getName(),RequestBody.create(MEDIA_TYPE_PNG,shop))
-                    .build();
+                String shopPath = getPath(shopImageURI);
+                Log.d("TAG", "" + shopPath);
+
+                File shop = new File(shopPath);
+
+                formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                        .addFormDataPart("business_name", strings[0])
+                        .addFormDataPart("business_type", strings[1])
+                        .addFormDataPart("lat", strings[2])
+                        .addFormDataPart("long", strings[3])
+                        .addFormDataPart("max_credit", strings[4])
+                        .addFormDataPart("business_address", strings[5])
+                        .addFormDataPart("business_photo", shop.getName(), RequestBody.create(MEDIA_TYPE_PNG, shop))
+                        .build();
+            }
+            else {
+                formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                        .addFormDataPart("business_name", strings[0])
+                        .addFormDataPart("business_type", strings[1])
+                        .addFormDataPart("lat", strings[2])
+                        .addFormDataPart("long", strings[3])
+                        .addFormDataPart("max_credit", strings[4])
+                        .addFormDataPart("business_address", strings[5])
+                        .build();
+            }
 
             Request request = new Request.Builder()
                     .url("https://daancorona.tech/api/recipient_profile/")
@@ -287,7 +388,7 @@ public class ShopInfoActivity extends AppCompatActivity {
                 permissions,
                 grantResults);
 
-        if (requestCode ==  STORAGE_PERMISSION_CODE) {
+        if (requestCode ==  MY_GALLERY_REQUEST_CODE) {
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this,

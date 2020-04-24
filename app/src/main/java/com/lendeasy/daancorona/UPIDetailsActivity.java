@@ -5,16 +5,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -108,6 +112,50 @@ public class UPIDetailsActivity extends AppCompatActivity {
                         }
                     });
                 }
+
+            }
+        });
+
+        dialog.startloadingDialog();
+
+        final OkHttpClient httpClient = new OkHttpClient();
+        String token=sharedPref.getString("Token","");
+
+        Request request = new Request.Builder()
+                .url("https://daancorona.tech/api/recipient_profile/")
+                .addHeader("Authorization", "JWT " + token)
+                .build();
+        httpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                dialog.dismissDialog();
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+
+                UPIDetailsActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            dialog.dismissDialog();
+                            JSONObject jsonObject=new JSONObject(response.body().string());
+                            upivpa.setText(jsonObject.getString("upi"));
+
+                        } catch (JSONException | IOException e) {
+
+                            UPIDetailsActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    dialog.dismissDialog();
+                                }
+                            });
+
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
 
             }
         });

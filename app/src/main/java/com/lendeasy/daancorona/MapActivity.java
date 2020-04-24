@@ -188,8 +188,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
-                        Intent intent = new Intent(MapActivity.this, MainActivity.class);
+                        Intent intent = new Intent(MapActivity.this, ShopInfoActivity.class);
                         startActivity(intent);
+                        finish();
                     }
                 });
         AlertDialog alert = alertDialogBuilder.create();

@@ -38,6 +38,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="0.09"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/call"
+                    android:src="@drawable/call"/>
 
                 <TextView
                     android:id="@+id/name"
@@ -47,6 +54,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
+                    android:maxLines="2"
                     android:gravity="center_horizontal"
                     android:text="Name"
                     android:textColor="#000"

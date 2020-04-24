@@ -27,12 +27,19 @@ import android.widget.Gallery;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputLayout;
+
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -52,7 +59,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
     private CircleImageView userImageView;
     private static final int USER_IMAGE = 100;
     String firstName,lastName,shopAddress;
-    Uri userImageURI;
+    Uri userImageURI,dwnldimageUri;
     String token;
     LoadingDialog dialog;
     SharedPreferences sharedPref;
@@ -116,8 +123,54 @@ public class PersonalInfoActivity extends AppCompatActivity {
             first_name1.setHint(getResources().getString(R.string.firstname));
             last_name1.setHint(getResources().getString(R.string.lastname));
             address1.setHint(getResources().getString(R.string.address));
-            checkBox.setText(getResources().getString(R.string.owner));
         }
+
+        OkHttpClient httpClient = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url("https://daancorona.tech/api/recipient_profile/")
+                .addHeader("Authorization","JWT "+token)
+                .build();
+
+        dialog.startloadingDialog();
+        httpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                dialog.dismissDialog();
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+
+                    PersonalInfoActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                            dialog.dismissDialog();
+                            JSONObject jsonObject=new JSONObject(response.body().string());
+                            first_name.setText(jsonObject.getString("first_name"));
+                            last_name.setText(jsonObject.getString("last_name"));
+                            address.setText(jsonObject.getString("address"));
+                            userImageURI=Uri.parse("https://daancorona.tech"+(String) jsonObject.get("recipient_photo"));
+                            dwnldimageUri=userImageURI;
+                            Glide.with(PersonalInfoActivity.this).load(userImageURI).into(userImageView);
+                            } catch (JSONException | IOException e) {
+
+                            PersonalInfoActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    dialog.dismissDialog();
+                                }
+                            });
+                            e.printStackTrace();
+                        }
+                        }
+                    });
+
+
+
+            }
+        });
     }
 
     private void declaration() {
@@ -141,25 +194,36 @@ public class PersonalInfoActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
 
+            RequestBody formBody;
             final OkHttpClient httpClient = new OkHttpClient();
 
-            final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/jpeg");
+            if(dwnldimageUri!=userImageURI) {
+                final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/jpeg");
 
-            Log.d("TAG",""+userImageURI);
+                Log.d("TAG", "" + userImageURI);
 
-            String userPath=getPath(userImageURI);
-            Log.d("TAG",""+userPath);
+                String userPath = getPath(userImageURI);
+                Log.d("TAG", "" + userPath);
 
-            File user = new File(userPath);
+                File user = new File(userPath);
 
-            Log.d("TAG",""+user.getName());
+                Log.d("TAG", "" + user.getName());
 
-            RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                    .addFormDataPart("first_name",strings[0])
-                    .addFormDataPart("last_name",strings[1])
-                    .addFormDataPart("address",strings[2])
-                    .addFormDataPart("recipient_photo",user.getName(),RequestBody.create(MEDIA_TYPE_PNG,user))
-                    .build();
+                formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                        .addFormDataPart("first_name", strings[0])
+                        .addFormDataPart("last_name", strings[1])
+                        .addFormDataPart("address", strings[2])
+                        .addFormDataPart("recipient_photo", user.getName(), RequestBody.create(MEDIA_TYPE_PNG, user))
+                        .build();
+            }
+
+            else{
+                formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                        .addFormDataPart("first_name", strings[0])
+                        .addFormDataPart("last_name", strings[1])
+                        .addFormDataPart("address", strings[2])
+                        .build();
+            }
 
             Request request = new Request.Builder()
                     .url("https://daancorona.tech/api/recipient_profile/")
@@ -193,6 +257,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
                 SharedPreferences sharedPref=getSharedPreferences("User",MODE_PRIVATE);
                 SharedPreferences.Editor editor=sharedPref.edit();
                 editor.putBoolean("Page1",true);
+                editor.putString("Name",first_name.getText().toString()+" "+last_name.getText().toString());
                 editor.apply();
 
                 Intent intent = new Intent(PersonalInfoActivity.this, ShopInfoActivity.class);

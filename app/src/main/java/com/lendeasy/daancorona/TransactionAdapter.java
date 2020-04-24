@@ -31,10 +31,10 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     @Override
     public void onBindViewHolder(@NonNull TransactionAdapter.ViewHolder holder, int position) {
         if(list.get(position).getType()==0){
-            holder.text.setText("You received Rs."+list.get(position).getAmount()+" from "+list.get(position).getName());
+            holder.text.setText("You received ₹"+list.get(position).getAmount()+" from "+list.get(position).getName());
         }
         else {
-            holder.text.setText("Sold goods worth Rs."+list.get(position).getAmount()+" to "+list.get(position).getName());
+            holder.text.setText("Sold goods worth ₹"+list.get(position).getAmount()+" to "+list.get(position).getName());
         }
 
     }
