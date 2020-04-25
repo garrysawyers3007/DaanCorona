@@ -20,9 +20,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Contact"></activity>
-        <activity android:name=".PDFActivity"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".InfoNew"></activity>
+        <activity android:name=".Contact" />
+        <activity
+            android:name=".PDFActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".InstructionsSlider"
             android:noHistory="true"
@@ -47,13 +49,7 @@
         <activity
             android:name=".MOUActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".LogoActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".LogoActivity"></activity>
         <activity
             android:name=".PaymentModeActivity"
             android:screenOrientation="portrait" />
@@ -82,7 +78,13 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

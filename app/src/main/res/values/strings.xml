@@ -1,4 +1,6 @@
 <resources>
+    <string name="Open">open drawer</string>
+    <string name="Close">close drawer</string>
     <string name="app_name">DaanCorona</string>
     <string name="MAP_API_KEY" translatable="false">AIzaSyCiyc_4v8hbbwX86H6Cy9020JNY6dzQJGE</string>
     <string name="hindi">हिन्दी</string>
@@ -38,11 +40,11 @@ C. Deliverables from the business to DaanCorona:\n
 Date:
     </string>
 
-<string name="HinMou1">
+    <string name="HinMou1">
     यह समझौता ज्ञापन ("एमओयू" के रूप में संदर्भित) के बीच सहयोग के लिए शर्तें स्थापित करता है:
 "DaanCorona": इसमें मोबाइल एप्लिकेशन, ऑनलाइन वेब-एप्लिकेशन और दी जा रही सेवा का सार ("ऐप" या "प्लेटफ़ॉर्म" या "सेवा") कहा जाता है, और \n •
 </string>
-<string name="HinMou2">
+    <string name="HinMou2">
     इसमें व्यवसाय और व्यवसाय के हितधारक शामिल हैं - मालिक, कर्मचारी और जैसे ("व्यवसाय" के रूप में संदर्भित)
 
 DaanCorona प्लेटफ़ॉर्म पर साइन-अप करने के उद्देश्य से और निम्न पर अधोहस्ताक्षरी द्वारा सहमति दी जा रही है।

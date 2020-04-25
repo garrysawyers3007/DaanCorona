@@ -9,18 +9,27 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,22 +44,69 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Toolbar toolbar;
     private Button btnDownload;
     RecyclerView recyclerView;
     ItemAdapter itemAdapter;
     String nametxt, net, maxcred;
     TextView name, maxcredit, netamt, maxcredittxt, netamttxt, donation,nodonation;
     String token;
-    ImageView edit,call;
     Button transaction;
     SharedPreferences sharedPref;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+
+    private DrawerLayout dl;
+    private NavigationView nv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        toolbar = findViewById(R.id.toolbar);
+        dl = (DrawerLayout)findViewById(R.id.dl);
+        setSupportActionBar(toolbar);
         btnDownload = (Button) findViewById(R.id.btn_download);
+
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
+
+        nv = (NavigationView)findViewById(R.id.nv);
+        nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                switch(id)
+                {
+                    case R.id.edit_profile:
+                        item.setChecked(true);
+                        startActivity(new Intent(MainActivity.this,EditProfile.class));
+                        dl.closeDrawers();
+                        break;
+                    case R.id.contact_us:
+                        item.setChecked(true);
+                        startActivity(new Intent(MainActivity.this,Contact.class));
+                        dl.closeDrawers();
+                        break;
+                    case R.id.info:
+                        item.setChecked(true);
+                        startActivity(new Intent(MainActivity.this,InfoNew.class));
+                        dl.closeDrawers();
+                        break;
+                    case R.id.terms:
+                        item.setChecked(true);
+                        startActivity(new Intent(MainActivity.this,PDFActivity.class));
+                        dl.closeDrawers();
+                        break;
+                    default:
+                        return true;
+                }
+                return true;
+
+            }
+        });
+
         btnDownload.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -72,8 +128,6 @@ public class MainActivity extends AppCompatActivity {
 
         maxcredit = findViewById(R.id.target);
         netamt = findViewById(R.id.balance);
-        edit = findViewById(R.id.edit);
-        call=findViewById(R.id.call);
 
         if (sharedPref.getString("Lang", "").equals("hin")) {
             maxcredittxt.setText("अधिकतम क्रेडिट");
@@ -98,22 +152,21 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, Transactions.class));
             }
         });
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, EditProfile.class));
-            }
-        });
-        call.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,Contact.class));
-            }
-        });
 
         new SetProfile().execute();
         new SetRecyclerView().execute();
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case android.R.id.home:
+                dl.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 
