@@ -45,7 +45,7 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    private Button btnDownload;
+
     RecyclerView recyclerView;
     ItemAdapter itemAdapter;
     String nametxt, net, maxcred;
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         dl = (DrawerLayout)findViewById(R.id.dl);
         setSupportActionBar(toolbar);
-        btnDownload = (Button) findViewById(R.id.btn_download);
+
 
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -107,14 +107,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnDownload.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,PDFActivity.class));
-                Toast.makeText(MainActivity.this, "Opening DaanCorona TnC...", Toast.LENGTH_LONG).show();
-            }
-        });
 
         sharedPref = getSharedPreferences("User", MODE_PRIVATE);
         token = sharedPref.getString("Token", "");

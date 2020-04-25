@@ -217,6 +217,7 @@ public class LoginActivity extends AppCompatActivity {
             } catch (IOException | JSONException e) {
                 access=null;
                 e.printStackTrace();
+                return null;
             }
 
             return new String[]{access, refresh};
@@ -228,7 +229,7 @@ public class LoginActivity extends AppCompatActivity {
             super.onPostExecute(s);
             dialog.dismissDialog();
 
-            if(s==null || s.equals("")) {
+            if(s==null ) {
                 Toast.makeText(LoginActivity.this, "Error!!!", Toast.LENGTH_SHORT).show();
                 return;
             }

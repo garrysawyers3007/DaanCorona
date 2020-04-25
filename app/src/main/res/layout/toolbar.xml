@@ -5,4 +5,4 @@
         android:layout_height="?attr/actionBarSize"
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
         android:id="@+id/toolbar"
-        android:background="@drawable/bgn"/>
+        android:background="#4b4c78"/>

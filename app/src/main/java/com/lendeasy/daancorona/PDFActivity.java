@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import es.voghdev.pdfviewpager.library.RemotePDFViewPager;
 import es.voghdev.pdfviewpager.library.adapter.PDFPagerAdapter;
@@ -19,6 +20,7 @@ public class PDFActivity extends AppCompatActivity implements DownloadFile.Liste
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_p_d_f);
+        Toast.makeText(this,"Swipe left to browse",Toast.LENGTH_LONG).show();
 
         String url="https://daancorona.tech/media/tnc.pdf";
 

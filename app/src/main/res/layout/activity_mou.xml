@@ -48,7 +48,7 @@
             android:id="@+id/btn_mou_accepted"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/black_bg"
+            android:background="@drawable/item_bg"
             android:elevation="10dp"
             android:text="Yes, I Agree"
             android:textAllCaps="false"

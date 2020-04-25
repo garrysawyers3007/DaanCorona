@@ -54,10 +54,10 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Register Here"
+            android:text="Register/Login"
             android:textAllCaps="false"
             android:id="@+id/register"
-            android:background="@drawable/black_bg"
+            android:background="@drawable/item_bg"
             android:elevation="10dp"
             android:textSize="20sp"
             android:textColor="#000"
