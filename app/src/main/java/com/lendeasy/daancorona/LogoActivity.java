@@ -31,12 +31,12 @@ public class LogoActivity extends AppCompatActivity {
     Button btnStart;
     String access,refresh;
     LoadingDialog dialog;
-    @RequiresApi(api = Build.VERSION_CODES.O)
-
-
-    public void onClick(View view) {
-        view.requestPointerCapture();
-    }
+//    @RequiresApi(api = Build.VERSION_CODES.O)
+//
+//
+//    public void onClick(View view) {
+//        view.requestPointerCapture();
+//    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

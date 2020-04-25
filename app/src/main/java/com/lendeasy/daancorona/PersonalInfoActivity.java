@@ -36,6 +36,8 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.Call;
@@ -239,7 +241,11 @@ public class PersonalInfoActivity extends AppCompatActivity {
                 Log.d("Tag",response.body()+"");
                 return "Done";
 
-            } catch (IOException e ) {
+            }catch (SocketTimeoutException | SocketException e){
+                e.printStackTrace();
+                return "timeout";
+            }
+            catch (IOException e ) {
                 e.printStackTrace();
             } catch (NullPointerException e){
                 e.printStackTrace();
@@ -252,6 +258,11 @@ public class PersonalInfoActivity extends AppCompatActivity {
             super.onPostExecute(s);
             dialog.dismissDialog();
             if(s!=null) {
+
+                if(s.equals("timeout")) {
+                    Toast.makeText(PersonalInfoActivity.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Toast.makeText(PersonalInfoActivity.this,s,Toast.LENGTH_SHORT).show();
 
                 SharedPreferences sharedPref=getSharedPreferences("User",MODE_PRIVATE);

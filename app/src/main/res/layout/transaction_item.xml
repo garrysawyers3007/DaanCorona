@@ -2,8 +2,9 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg"
+    android:background="@drawable/item_bg"
     android:layout_margin="8dp"
+    android:alpha="0.8"
     android:padding="8dp">
 
 
@@ -12,7 +13,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/trnsctxt"
         android:layout_centerHorizontal="true"
-        android:textColor="#fff"
+        android:textColor="#000"
         android:maxLines="2"
         android:textSize="24sp"
         android:text="-"/>

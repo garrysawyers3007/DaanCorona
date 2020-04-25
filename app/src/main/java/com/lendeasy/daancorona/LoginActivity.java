@@ -73,6 +73,8 @@ public class LoginActivity extends AppCompatActivity {
             btnVerifyOtp.setText(getResources().getString(R.string.verifyotp));
             editTxtPhone1.setHint(getResources().getString(R.string.enterphn));
             editTxtOtp1.setHint(getResources().getString(R.string.enterotp));
+            resend.setText("पुनः भेजें");
+
         }
 
         resend.setOnClickListener(new View.OnClickListener() {
@@ -294,7 +296,12 @@ public class LoginActivity extends AppCompatActivity {
             }
             @Override
             public void onTick(long leftTimeInMilliseconds) {
-                timer.setText("You can resend otp in "+leftTimeInMilliseconds/1000+"s");
+
+                SharedPreferences sharedPref=getSharedPreferences("User",MODE_PRIVATE);
+                if(sharedPref.getString("Lang","").equals("hin"))
+                    timer.setText("आप " +leftTimeInMilliseconds/1000+ " सेकंड में otp फिर से भेज सकते हैं");
+                else
+                    timer.setText("You can resend otp in "+leftTimeInMilliseconds/1000+"s");
             }
 
         }.start();

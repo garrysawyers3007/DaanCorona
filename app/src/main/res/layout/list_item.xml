@@ -3,15 +3,25 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/black_bg"
+    android:background="@drawable/item_bg"
     android:layout_margin="8dp"
     android:padding="8dp"
+    android:alpha="0.7"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/voucher"
+        android:id="@+id/voucher"
+        android:layout_centerVertical="true"
+        />
 
     <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:id="@+id/name"
+        android:maxLines="2"
         android:layout_centerHorizontal="true"
         android:textColor="#000"
         android:textSize="24sp"

@@ -72,6 +72,7 @@ public class BankDetailsActvity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     dialog.dismissDialog();
+                                    Toast.makeText(BankDetailsActvity.this, "Check your Internet Connection", Toast.LENGTH_SHORT).show();
                                 }
                             });
 

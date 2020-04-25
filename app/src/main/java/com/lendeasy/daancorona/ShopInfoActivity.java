@@ -34,6 +34,8 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.Call;
@@ -318,7 +320,11 @@ public class ShopInfoActivity extends AppCompatActivity {
                 Log.d("Tag",response.body()+"");
                 return "Done";
 
-            } catch (IOException e ) {
+            }catch (SocketTimeoutException | SocketException e){
+                e.printStackTrace();
+                return "timeout";
+            }
+            catch (IOException e ) {
                 e.printStackTrace();
             } catch (NullPointerException e){
                 e.printStackTrace();
@@ -331,6 +337,11 @@ public class ShopInfoActivity extends AppCompatActivity {
             super.onPostExecute(s);
             dialog.dismissDialog();
             if(s!=null) {
+
+                if(s.equals("timeout")) {
+                    Toast.makeText(ShopInfoActivity.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Toast.makeText(ShopInfoActivity.this,s,Toast.LENGTH_LONG).show();
                 SharedPreferences sharedPref=getSharedPreferences("User",MODE_PRIVATE);
                 SharedPreferences.Editor editor=sharedPref.edit();

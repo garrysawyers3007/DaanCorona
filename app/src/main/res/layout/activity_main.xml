@@ -5,7 +5,7 @@
     android:id="@+id/swiperefresh_items"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bgn"
+    android:background="#4b4c78"
     tools:context=".MainActivity">
 
     <RelativeLayout
@@ -29,7 +29,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="30dp"
             android:layout_marginRight="15dp"
-            android:background="@drawable/black_bg"
+            android:background="@drawable/bg"
             android:elevation="5dp"
             android:orientation="vertical"
             android:paddingTop="10dp"
@@ -57,7 +57,7 @@
                     android:maxLines="2"
                     android:gravity="center_horizontal"
                     android:text="Name"
-                    android:textColor="#000"
+                    android:textColor="#fff"
                     android:textSize="24sp" />
 
                 <ImageView
@@ -89,7 +89,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_gravity="center_horizontal"
                         android:text="Max Credit"
-                        android:textColor="#000"
+                        android:textColor="#fff"
                         android:textSize="20sp" />
 
                     <TextView
@@ -99,7 +99,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="3dp"
                         android:text="0"
-                        android:textColor="#000"
+                        android:textColor="#fff"
                         android:textSize="20sp" />
                 </LinearLayout>
 
@@ -116,7 +116,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:text="Net Amount"
-                        android:textColor="#000"
+                        android:textColor="#fff"
                         android:textSize="20sp" />
 
                     <TextView
@@ -127,7 +127,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="3dp"
                         android:text="0"
-                        android:textColor="#000"
+                        android:textColor="#fff"
                         android:textSize="20sp" />
                 </LinearLayout>
 
@@ -142,26 +142,25 @@
             android:layout_below="@+id/holder"
             android:layout_centerHorizontal="true"
             android:text="Donations"
-            android:textColor="#000"
+            android:textColor="#fff"
             android:textSize="30sp" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/transc"
             android:layout_below="@+id/text"
-
+            android:elevation="5dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/black_bg"
+            android:background="@drawable/bg"
             android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:elevation="5dp"
             android:padding="4dp" />
             <TextView
                 android:layout_width="match_parent"
@@ -182,12 +181,12 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/black_bg"
+            android:background="@drawable/button"
             android:elevation="10dp"
             android:padding="8dp"
             android:text="Transactions"
             android:textAllCaps="false"
-            android:textColor="#000"
+            android:textColor="#fff"
             android:textSize="20sp" />
     </RelativeLayout>
 
