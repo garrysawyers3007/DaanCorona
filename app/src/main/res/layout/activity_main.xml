@@ -17,7 +17,7 @@
         android:orientation="vertical">
 
         <include
-            layout="@layout/toolbar"/>
+            layout="@layout/toolbar" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swiperefresh_items"
@@ -36,8 +36,9 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="30dp"
                     android:layout_marginRight="15dp"
-                    android:background="@drawable/bg"
+                    android:background="@drawable/item_bg"
                     android:elevation="5dp"
+                    android:alpha="0.8"
                     android:orientation="vertical"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp">
@@ -55,9 +56,10 @@
                             android:layout_marginLeft="5dp"
                             android:layout_weight="1"
                             android:maxLines="2"
+                            android:textStyle="bold"
                             android:gravity="center_horizontal"
                             android:text="Name"
-                            android:textColor="#fff"
+                            android:textColor="#000"
                             android:textSize="24sp" />
 
 
@@ -82,7 +84,8 @@
                                 android:layout_alignParentLeft="true"
                                 android:layout_gravity="center_horizontal"
                                 android:text="Max Credit"
-                                android:textColor="#fff"
+                                android:textStyle="bold"
+                                android:textColor="#000"
                                 android:textSize="20sp" />
 
                             <TextView
@@ -92,7 +95,7 @@
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="3dp"
                                 android:text="0"
-                                android:textColor="#fff"
+                                android:textColor="#000"
                                 android:textSize="20sp" />
                         </LinearLayout>
 
@@ -109,7 +112,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:text="Net Amount"
-                                android:textColor="#fff"
+                                android:textStyle="bold"
+                                android:textColor="#000"
                                 android:textSize="20sp" />
 
                             <TextView
@@ -120,7 +124,7 @@
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="3dp"
                                 android:text="0"
-                                android:textColor="#fff"
+                                android:textColor="#000"
                                 android:textSize="20sp" />
                         </LinearLayout>
 
