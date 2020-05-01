@@ -38,6 +38,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
+import java.util.concurrent.TimeUnit;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.Call;
@@ -127,7 +128,7 @@ public class PersonalInfoActivity extends AppCompatActivity {
             address1.setHint(getResources().getString(R.string.address));
         }
 
-        OkHttpClient httpClient = new OkHttpClient();
+        OkHttpClient httpClient = new OkHttpClient().newBuilder().readTimeout(1,TimeUnit.MINUTES).build();
 
         Request request = new Request.Builder()
                 .url("https://daancorona.tech/api/recipient_profile/")
@@ -197,7 +198,8 @@ public class PersonalInfoActivity extends AppCompatActivity {
         protected String doInBackground(String... strings) {
 
             RequestBody formBody;
-            final OkHttpClient httpClient = new OkHttpClient();
+            final OkHttpClient httpClient = new OkHttpClient()
+                    .newBuilder().writeTimeout(1, TimeUnit.MINUTES).build();
 
             if(dwnldimageUri!=userImageURI) {
                 final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/jpeg");

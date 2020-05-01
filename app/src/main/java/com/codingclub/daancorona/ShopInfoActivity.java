@@ -36,6 +36,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
+import java.util.concurrent.TimeUnit;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.Call;
@@ -58,8 +59,8 @@ public class ShopInfoActivity extends AppCompatActivity {
     private TextView buss_info,pImage;
     private CircleImageView shopImage;
     private static final int SHOP_IMAGE = 101;
-    String shopName,shopType,latitude,longitude,MaxCredit,BussAddress;
-    double lat,lng;
+    String shopName,shopType,latitude="",longitude="",MaxCredit,BussAddress;
+    double lat=-1.0,lng=-1.0,dwnldlat=-1.0,dwnldlng=-1.0;
     Uri shopImageURI,dwnldimageUri;
     String token;
     LoadingDialog dialog;
@@ -74,13 +75,8 @@ public class ShopInfoActivity extends AppCompatActivity {
         sharedPref = getSharedPreferences("User",MODE_PRIVATE);
         token=sharedPref.getString("Token","");
 
-        Intent intent1 = getIntent();
-        lat=intent1.getDoubleExtra("lat",-1.0);
-        lng=intent1.getDoubleExtra("lng",-1.0);
-        latitude = Double.toString(lat);
-        longitude = Double.toString(lng);
-
         initializeItems();
+
 
         if(sharedPref.getString("Lang","").equals("hin")){
             location.setText(getResources().getString(R.string.shop_location));
@@ -116,15 +112,15 @@ public class ShopInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 declaration();
-                if(shopName.isEmpty() || shopType.isEmpty() || lat==-1.0 || lng==-1.0 ||
-                        latitude.isEmpty() || longitude.isEmpty() || MaxCredit.isEmpty()
+                if(shopName.isEmpty() || shopType.isEmpty() ||
+                        /*latitude.isEmpty() || longitude.isEmpty() ||*/ MaxCredit.isEmpty()
                         || BussAddress.isEmpty() || shopImageURI==null)
                     Toast.makeText(ShopInfoActivity.this,"Enter all details",Toast.LENGTH_SHORT).show();
                 else{
                     dialog.startloadingDialog();
                     new ShopInfoActivity.sendDataTask().execute(shopName,shopType,latitude,
                             longitude,MaxCredit,BussAddress);
-//
+
 //                    Intent i = new Intent(ShopInfoActivity.this, PaymentModeActivity.class);
 //                    startActivity(i);
 
@@ -163,7 +159,7 @@ public class ShopInfoActivity extends AppCompatActivity {
         }
 
         dialog.startloadingDialog();
-        OkHttpClient httpClient = new OkHttpClient();
+        OkHttpClient httpClient = new OkHttpClient().newBuilder().readTimeout(1, TimeUnit.MINUTES).build();
 
         Request request = new Request.Builder()
                 .url("https://daancorona.tech/api/recipient_profile/")
@@ -173,6 +169,7 @@ public class ShopInfoActivity extends AppCompatActivity {
         httpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
                 dialog.dismissDialog();
             }
 
@@ -206,13 +203,27 @@ public class ShopInfoActivity extends AppCompatActivity {
                                 if(!sharedPref.getString("BussAddress","").equals(""))
                                     buss_address.setText(sharedPref.getString("BussAddress",""));
 
-
-                                lat=jsonObject.getDouble("lat");
-                                lng=jsonObject.getDouble("long");
-                                latitude = Double.toString(lat);
-                                longitude = Double.toString(lng);
+                                dwnldlat=jsonObject.getDouble("lat");
+                                dwnldlng=jsonObject.getDouble("long");
+                                latitude = Double.toString(dwnldlat);
+                                longitude = Double.toString(dwnldlng);
                                 if(shopImageURI!=null)
                                     Glide.with(ShopInfoActivity.this).load(shopImageURI).into(shopImage);
+
+
+                                Intent intent1 = getIntent();
+                                lat=intent1.getDoubleExtra("lat",-1.0);
+                                lng=intent1.getDoubleExtra("lng",-1.0);
+
+                                if(lat==-1.0){
+                                    latitude = Double.toString(dwnldlat);
+                                    longitude = Double.toString(dwnldlng);
+                                }
+                                else if(dwnldlat!=lat ){
+                                    latitude = Double.toString(lat);
+                                    longitude = Double.toString(lng);
+                                }
+                                Log.d("Tag",latitude+longitude);
 
                         } catch (JSONException | IOException e) {
 
@@ -225,6 +236,16 @@ public class ShopInfoActivity extends AppCompatActivity {
                                         }
                                         else
                                             shopImage.setImageDrawable(getResources().getDrawable(R.drawable.shop));
+                                        Intent intent1 = getIntent();
+                                        lat=intent1.getDoubleExtra("lat",-1.0);
+                                        lng=intent1.getDoubleExtra("lng",-1.0);
+                                        latitude = Double.toString(lat);
+                                        longitude = Double.toString(lng);
+                                        if(lat==-1.0){
+                                            latitude="";
+                                            longitude="";
+                                        }
+                                        Log.d("Tag",latitude+longitude);
                                         dialog.dismissDialog();
                                     }
                                 });
@@ -270,7 +291,7 @@ public class ShopInfoActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
 
-            final OkHttpClient httpClient = new OkHttpClient();
+            final OkHttpClient httpClient = new OkHttpClient().newBuilder().writeTimeout(1,TimeUnit.MINUTES).build();
 
             RequestBody formBody;
 

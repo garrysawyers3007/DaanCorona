@@ -48,13 +48,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     // sab badiya hai
     private static final int LOCATION_PERMISSION_REQUEST_CODE =1234;
     private static final float DEFAULT_ZOOM = 17.5f;
-    private Boolean mLocationPermissionsGranted = false;
+    private Boolean mLocationPermissionsGranted = false,edit;
     private static final String TAG = "MapFragment";
+    Intent intent1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+        intent1=getIntent();
+        edit=intent1.getBooleanExtra("edit",false);
 
         ok = findViewById(R.id.ok);
         getLocationPermission();
@@ -160,7 +163,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 ok.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(MapActivity.this, ShopInfoActivity.class);
+                        Intent intent;
+                        if(edit)
+                            intent = new Intent(MapActivity.this, EditProfile.class);
+                        else
+                            intent = new Intent(MapActivity.this, ShopInfoActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         intent.putExtra("lat",latLng.latitude);
                         intent.putExtra("lng",latLng.longitude);

@@ -27,21 +27,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.GlideException;
 import com.google.android.material.textfield.TextInputLayout;
 
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
+import java.util.concurrent.TimeUnit;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -52,15 +45,16 @@ import okhttp3.Response;
 public class EditProfile extends AppCompatActivity {
 
     private static final int MY_GALLERY_REQUEST_CODE =102 ;
-    private static final int STORAGE_PERMISSION_CODE = 103;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE =1234;
+    private static final int MY_GALLERY_REQUEST_CODE1 = 1235;
     private EditText shop_name,first_name,last_name,shop_type,address,maxcredit,buss_address;
     private TextInputLayout shop_name1,first_name1,last_name1,shop_type1,address1,maxcredit1,buss_address1;
     private Button proceed, location;
     private CircleImageView userImageView, shopImage;
     private static final int USER_IMAGE = 100;
     private static final int SHOP_IMAGE = 101;
-    String shopName,firstName,lastName,shopType,latitude,longitude,shopAddress,MaxCredit,BussAddress,profile_img,shop_img;
-    double lat,lng;
+    String shopName,firstName,lastName,shopType,latitude="",longitude="",shopAddress,MaxCredit,BussAddress,profile_img,shop_img;
+    double lat=-1.0,lng=-1.0,dwnldlat=-1.0,dwnldlng=-1.0;
     Uri userImageURI, shopImageURI,dwnloaduser,dwnldshop;
     String token,shopUrl,userUrl;
     LoadingDialog dialog;
@@ -82,11 +76,7 @@ public class EditProfile extends AppCompatActivity {
         userImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                checkPermission(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}[0], MY_GALLERY_REQUEST_CODE);
-                Intent gallery = new Intent(Intent.ACTION_PICK);
-                gallery.setType("image/*");
-                startActivityForResult(gallery, USER_IMAGE);
+                checkPermission(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}[0], MY_GALLERY_REQUEST_CODE1);
             }
         });
 
@@ -94,27 +84,18 @@ public class EditProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 checkPermission(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}[0], MY_GALLERY_REQUEST_CODE);
-                Intent gallery = new Intent(Intent.ACTION_PICK);
-                gallery.setType("image/*");
-                startActivityForResult(gallery, SHOP_IMAGE);
             }
         });
 
         location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EditProfile.this, MapActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
+                getLocationPermission(LOCATION_PERMISSION_REQUEST_CODE);
             }
         });
 
-        Intent intent1 = getIntent();
-        lat=intent1.getDoubleExtra("lat",0.0);
-        lng=intent1.getDoubleExtra("lng",0.0);
-        latitude = Double.toString(lat);
-        longitude = Double.toString(lng);
+
+
 
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,7 +103,7 @@ public class EditProfile extends AppCompatActivity {
                 declaration();
 
                 if(firstName.isEmpty() || lastName.isEmpty() || shopName.isEmpty() || shopType.isEmpty() ||
-                        latitude.isEmpty() || longitude.isEmpty() || shopAddress.isEmpty() || MaxCredit.isEmpty()
+                        /*latitude.isEmpty() || longitude.isEmpty() ||*/ shopAddress.isEmpty() || MaxCredit.isEmpty()
                         || BussAddress.isEmpty() || userImageURI==null || shopImageURI==null)
                     Toast.makeText(EditProfile.this,"Enter all details",Toast.LENGTH_SHORT).show();
                 else {
@@ -191,6 +172,20 @@ public class EditProfile extends AppCompatActivity {
             maxcredit1.setHint(getResources().getString(R.string.maxcredit));
             buss_address1.setHint(getResources().getString(R.string.bussaddr));
         }
+            Intent intent1 = getIntent();
+            lat = intent1.getDoubleExtra("lat", -1.0);
+            lng = intent1.getDoubleExtra("lng", -1.0);
+            Log.d("lat",lat+"");
+            if(lat!=-1.0) {
+                latitude = Double.toString(lat);
+                longitude = Double.toString(lng);
+            }
+            else{
+
+                latitude = Double.toString(dwnldlat);
+                longitude = Double.toString(dwnldlng);
+            }
+
 
         Log.d("Img",profile_img);
 
@@ -229,7 +224,7 @@ public class EditProfile extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
 
-            final OkHttpClient httpClient = new OkHttpClient();
+            final OkHttpClient httpClient = new OkHttpClient().newBuilder().writeTimeout(1, TimeUnit.MINUTES).build();
 
             final MediaType MEDIA_TYPE_JPEG = MediaType.parse("image/jpeg");
             File user,shop;
@@ -318,6 +313,7 @@ public class EditProfile extends AppCompatActivity {
                     .post(formBody)
                     .build();
 
+            Log.d("Tag",strings[4]);
 
             try (Response response = httpClient.newCall(request).execute()) {
 
@@ -357,7 +353,7 @@ public class EditProfile extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... voids) {
 
-            OkHttpClient httpClient = new OkHttpClient();
+            OkHttpClient httpClient = new OkHttpClient().newBuilder().readTimeout(1,TimeUnit.MINUTES).build();
 
             Request request = new Request.Builder()
                     .url("https://daancorona.tech/api/recipient_profile/")
@@ -392,6 +388,8 @@ public class EditProfile extends AppCompatActivity {
 
                 dwnldshop=shopImageURI;
                 dwnloaduser=userImageURI;
+                dwnldlat=Double.parseDouble(latitude);
+                dwnldlng=Double.parseDouble(longitude);
 //
 //                SaveImageFromUrl.saveImage("http://daancorona.pythonanywhere.com"+profile_img , profile_img.substring(profile_img.lastIndexOf('/')));
 //                SaveImageFromUrl.saveImage("http://daancorona.pythonanywhere.com"+shop_img, shop_img.substring(shop_img.lastIndexOf('/')));
@@ -436,6 +434,8 @@ public class EditProfile extends AppCompatActivity {
         return cursor.getString(column_index);
     }
 
+
+
     public void checkPermission(String permission, int requestCode)
     {
         // Checking if permission is not granted
@@ -449,6 +449,19 @@ public class EditProfile extends AppCompatActivity {
                             new String[] { permission },
                             requestCode);
         }
+        else{
+            if(requestCode== MY_GALLERY_REQUEST_CODE){
+
+                Intent gallery = new Intent(Intent.ACTION_PICK);
+                gallery.setType("image/*");
+                startActivityForResult(gallery, SHOP_IMAGE);
+            }
+            if(requestCode==MY_GALLERY_REQUEST_CODE1){
+                Intent gallery = new Intent(Intent.ACTION_PICK);
+                gallery.setType("image/*");
+                startActivityForResult(gallery, USER_IMAGE);
+            }
+        }
 
     }
 
@@ -461,20 +474,60 @@ public class EditProfile extends AppCompatActivity {
                 permissions,
                 grantResults);
 
-
-        if (requestCode ==  STORAGE_PERMISSION_CODE) {
+        if (requestCode ==  MY_GALLERY_REQUEST_CODE) {
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this,
                         "Storage Permission Granted",
                         Toast.LENGTH_SHORT)
                         .show();
+
+                Intent gallery = new Intent(Intent.ACTION_PICK);
+                gallery.setType("image/*");
+                startActivityForResult(gallery, SHOP_IMAGE);
+
             }
             else {
                 Toast.makeText(this,
                         "Storage Permission Denied",
                         Toast.LENGTH_SHORT)
                         .show();
+            }
+        }
+        else{
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this,
+                        "Location Permission Granted",
+                        Toast.LENGTH_SHORT)
+                        .show();
+                Intent intent = new Intent(EditProfile.this, MapActivity.class);
+                intent.putExtra("edit",true);
+                startActivity(intent);
+                finish();
+            }
+            else {
+                Toast.makeText(this,
+                        "Location Permission Denied",
+                        Toast.LENGTH_SHORT)
+                        .show();
+            }
+        }
+    }
+
+    private void getLocationPermission(int requestCode){
+        Log.d("isnull","Null");
+
+        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION};
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,permissions, LOCATION_PERMISSION_REQUEST_CODE);
+        }else{
+            if(requestCode== LOCATION_PERMISSION_REQUEST_CODE){
+                Intent intent = new Intent(EditProfile.this, MapActivity.class);
+                intent.putExtra("edit",true);
+                startActivity(intent);
+                finish();
             }
         }
     }
