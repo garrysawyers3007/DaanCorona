@@ -15,11 +15,12 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/is10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="40dp"
                 android:paddingRight="40dp"
-                android:text="Received Payments"
+                android:text="Dashboard"
                 android:textColor="@android:color/white"
                 android:textSize="30sp" />
 
@@ -38,11 +39,12 @@
 
 
             <TextView
+                android:id="@+id/is11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="40dp"
                 android:paddingRight="40dp"
-                android:text="Get to know about every person who have donated"
+                android:text="Keep a track of all your vouchers and transactions"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"

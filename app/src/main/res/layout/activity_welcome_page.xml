@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="Register and start accepting payments, Now !!"
+                android:text="Register and start accepting payments !!"
                 android:textSize="20sp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"

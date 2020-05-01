@@ -15,12 +15,12 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/is7"
+                android:id="@+id/is5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="40dp"
                 android:paddingRight="40dp"
-                android:text="Payment Modes"
+                android:text="@string/is5"
                 android:textColor="@android:color/white"
                 android:textSize="30sp" />
 
@@ -33,42 +33,29 @@
                     android:layout_width="0dp"
                     android:layout_height="350dp"
                     android:layout_weight="0.1"
-                    android:src="@drawable/bank1"/>
+                    android:src="@drawable/personal" />
 
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="350dp"
                     android:layout_weight="0.1"
-                    android:src="@drawable/upi"/>
+                    android:src="@drawable/business" />
 
 
             </LinearLayout>
 
 
             <TextView
-                android:id="@+id/is8"
+                android:id="@+id/is6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:paddingLeft="40dp"
                 android:paddingRight="40dp"
-                android:text="The amount donated act as a voucher for the donor for him to redeem the amount in the future."
+                android:text="@string/is6"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
-                android:textSize="20sp"
-                android:gravity="center_horizontal" />
-
-            <TextView
-                android:id="@+id/is9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="40dp"
-                android:paddingRight="40dp"
-                android:layout_marginTop="30dp"
-                android:text="Decide how you want to receive payments - UPI or Bank Account."
-                android:textAlignment="center"
-                android:textColor="@android:color/white"
-                android:textSize="20sp"
-                android:gravity="center_horizontal" />
+                android:textSize="20sp" />
 
         </LinearLayout>
     </RelativeLayout>

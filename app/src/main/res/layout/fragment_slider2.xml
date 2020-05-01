@@ -17,6 +17,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/is3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Verification"
@@ -48,23 +49,12 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/is4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="40dp"
                 android:paddingRight="40dp"
                 android:text="Provides mobile verification using OTP"
-                android:textAlignment="center"
-                android:textColor="@android:color/white"
-                android:textSize="20sp"
-                android:gravity="center_horizontal" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="40dp"
-                android:paddingRight="40dp"
-                android:layout_marginTop="20dp"
-                android:text="Provide your contact and get verified with OTP"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"

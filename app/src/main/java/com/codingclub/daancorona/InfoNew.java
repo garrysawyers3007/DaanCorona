@@ -6,6 +6,7 @@ package com.codingclub.daancorona;
 
         import android.content.Context;
         import android.content.Intent;
+        import android.content.SharedPreferences;
         import android.graphics.Color;
         import android.os.Build;
         import android.os.Bundle;
@@ -28,6 +29,8 @@ public class InfoNew extends AppCompatActivity {
     private TextView[] dots;
     private int[] layouts;
     private Button btnNext;
+    SharedPreferences sharedPref;
+    String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +53,26 @@ public class InfoNew extends AppCompatActivity {
 
         // layouts of all welcome sliders
         // add few more layouts if you want
-        layouts = new int[]{
-                R.layout.fragment_slider1,
-                R.layout.fragment_slider2,
-                R.layout.fragment_slider3,
-                R.layout.fragment_slider4,
-                R.layout.fragment_slider5};
+
+        sharedPref=getSharedPreferences("User",MODE_PRIVATE);
+        token=sharedPref.getString("Token","");
+
+        if(sharedPref.getString("Lang","").equals("hin")){
+            layouts = new int[]{
+                    R.layout.fragment_sliderhn1,
+                    R.layout.fragment_sliderhn2,
+                    R.layout.fragment_sliderhn3,
+                    R.layout.fragment_sliderhn4,
+                    R.layout.fragment_sliderhn5};
+        }
+        else{
+            layouts = new int[]{
+                    R.layout.fragment_slider1,
+                    R.layout.fragment_slider2,
+                    R.layout.fragment_slider3,
+                    R.layout.fragment_slider4,
+                    R.layout.fragment_slider5};
+        }
 
         // adding bottom dots
         addBottomDots(0);

@@ -15,6 +15,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/is5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="40dp"
@@ -45,23 +46,12 @@
 
 
             <TextView
+                android:id="@+id/is6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="40dp"
                 android:paddingRight="40dp"
-                android:text="Register yourself as a verified business by providing details about yourself and your business."
-                android:textAlignment="center"
-                android:textColor="@android:color/white"
-                android:textSize="20sp"
-                android:gravity="center_horizontal" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="40dp"
-                android:paddingRight="40dp"
-                android:layout_marginTop="30dp"
-                android:text="Provides Bank as well as UPI for accepting payments."
+                android:text="Provide personal and business details, and get verified."
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
